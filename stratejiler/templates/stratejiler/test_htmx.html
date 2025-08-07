@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTMX Test</title>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+
+<select id="indikator_select">
+  <option value="">Seçiniz</option>
+  <option value="1">RSI</option>
+  <option value="2">MACD</option>
+<option value="19">bol</option>
+</select>
+
+<input type="hidden" id="indikator_trigger">
+
+<div id="parametre_input_alani"
+     hx-get="stratejiler/parametre_partial/0/"
+     hx-target="#parametre_input_alani"
+     hx-swap="innerHTML">
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const select = document.getElementById("indikator_select");
+    const parametreDiv = document.getElementById("parametre_input_alani");
+
+    if (select && parametreDiv) {
+        select.addEventListener("change", function () {
+            const selectedId = this.value;
+
+            if (selectedId) {
+                // ✅ Mutlak (absolute) path kullan — başına / koy!
+                const yeniUrl = `/stratejiler/indikator_parametre_partial/${selectedId}/`;
+
+                // 🔄 hx-get değerini güncelle
+                parametreDiv.setAttribute("hx-get", yeniUrl);
+
+                // ✅ HTMX ile doğrudan tetikle
+                htmx.ajax('GET', yeniUrl, {
+                    target: "#parametre_input_alani",
+                    swap: "innerHTML"
+                });
+
+                // 👉 Kontrol amaçlı log
+                console.log("Yeni yüklenen URL:", yeniUrl);
+            }
+        });
+    }
+});
+</script>
+
+
+</body>
+</html>

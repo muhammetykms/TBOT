@@ -1,0 +1,46 @@
+<div class="form-row">
+    <!-- Aksiyon: Mevcut Emirleri İptal Et -->
+    <div class="form-group col-md-3">
+        <label for="parite">İşlem Paritesi</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Emir Tipi -->
+    <div class="form-group col-md-2">
+        <label for="order_type">Emir Tipi</label>
+        <select name="order_type" class="form-control">
+            <option value="">Tümü</option>
+            <option value="LIMIT">Limit</option>
+            <option value="STOP">Stop</option>
+            <option value="STOP_MARKET">Stop Market</option>
+            <option value="TAKE_PROFIT">Take Profit</option>
+            <option value="TAKE_PROFIT_MARKET">Take Profit Market</option>
+            <option value="FOK">Fill or Kill</option>
+        </select>
+    </div>
+
+    <!-- İşlem Yönü -->
+    <div class="form-group col-md-2">
+        <label for="taraf">İşlem Yönü</label>
+        <select name="taraf" class="form-control">
+            <option value="">Tümü</option>
+            <option value="BUY">Alış</option>
+            <option value="SELL">Satış</option>
+        </select>
+    </div>
+
+    <input type="hidden" name="aksiyon_tipi" value="cancel_orders_futures">
+
+    <!-- Sıra -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+</div>

@@ -1,0 +1,9 @@
+Django>=5.0.4
+django-simple-history>=3.1.1
+pandas>=2.0.0
+pandas-ta>=0.3.14b0
+ccxt>=4.0.0
+psycopg2-binary
+TA-Lib
+matplotlib
+ta

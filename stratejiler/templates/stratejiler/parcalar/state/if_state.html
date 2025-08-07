@@ -1,0 +1,101 @@
+<div class="state-blok state-tanim py-2 px-3 ml-3 mt-3 mb-2 border border-success rounded bg-light position-relative"
+    data-blok-id="{{ blok_id }}"
+    data-parent-id="{{ parent_id }}"
+    data-surec="{{ surec }}"
+    data-strateji-id="{{ strateji_id }}"
+    data-blok-tipi="state">
+    {% load static %}
+    <!-- Çerçevenin üst ortasında floating label -->
+    <span class="badge badge-success state-label"
+        style="
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 15px;
+            padding: 7px 16px;
+            font-weight: bold;">
+        State Tanımı<br>Blok ID:&nbsp;{{ blok_id }}<br>Parent ID:&nbsp;{{ parent_id }}
+    </span>
+
+    <!-- X Butonu -->
+    <button type="button"
+        class="btn btn-sm btn-danger"
+        style="
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            z-index: 5;"
+        onclick="removeState(this,'{{ parent_id }}')">
+        ×
+    </button>
+
+    <h6 class="text-success">State Tanımı</h6>
+
+    <div class="form-group">
+        <div class="row align-items-center">
+            <!-- State tanımı input alanı -->
+            <input type="text" id="state_adi_{{ blok_id }}" name="state_adi_{{ blok_id }}"
+                class="form-control form-control-sm state_adi"
+                placeholder="STATE adı"
+                onblur="updateStateHolder(this, '{{ parent_id }}', '{{ blok_id }}')">
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label for="expires_in_{{ blok_id }}">Geçerlilik Süresi (mum sayısı)</label>
+        <input type="number" class="form-control sadece_rakam"  oninput="allowOnlyPositiveIntegers(this)" id="mum_sayisi_{{ blok_id }}" name="mum_sayisi_{{ blok_id }}" min="1" value="5">
+    </div>
+
+    <div class="form-group">
+        <label for="close_condition_{{ blok_id }}"></label>
+        
+        <button type="button" class="btn btn-info if_state_kapanma_sarti_btn"
+        data-blok-id="{{ blok_id }}"
+        hx-get="/stratejiler/if_state_kapanma_sarti/"
+        hx-target="#kapanma_sarti_container_{{ blok_id }}"
+        hx-vals='{
+            "blok_id": "{{ blok_id }}",
+            "surec": "{{ surec }}",
+            "strateji_id":"{{strateji_id}}"
+        }'
+        hx-swap="beforeend"
+        hx-trigger="click"
+        hx-on="htmx:afterRequest: this.classList.add('d-none')">
+
+        <img src="{% static 'dist/img/opsiyonel.png' %}" alt="T" height="15" width="15" class="ml-1 mr-1">Kapanma Şartı<br>
+        &emsp;(örn: RSI > 50)
+        </button>
+
+        
+        <div class="row">
+            <div class="kapanma_sarti" id="kapanma_sarti_container_{{ blok_id }}">
+                {% if isaret_kapanma_sarti %}
+                    <span class="badge badge-info">
+             asdasd
+                    </span>
+                {% else %}
+                    <span class="badge badge-secondary">Kapanma şartı tanımlanmadı</span>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="tekrar_edebilir_{{ blok_id }}">Tekrar Etme İzni</label>
+        <select name="tekrar_edebilir_{{ blok_id }}" id="tekrar_edebilir_{{ blok_id }}" class="form-control">
+            <option value="true" selected>Evet</option>
+            <option value="false">Hayır</option>
+        </select>
+    </div>
+
+
+</div>

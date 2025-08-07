@@ -1,0 +1,68 @@
+ Amaç:
+
+    "Mevcut long pozisyonum var, belirli koşul gerçekleşince aynı paritede short aç",
+    ya da tam tersi: short açıkken long aç.
+    Bu, hedge mod aktif olan Binance Futures hesaplarında mümkündür.
+
+
+<div class="form-row">
+    <!-- Parite Seçimi (Sadece Futures) -->
+    <div class="form-group col-md-3">
+        <label for="coin">İşlem Paritesi</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Pozisyon Yönü (Ters Pozisyon Tipi) -->
+    <div class="form-group col-md-2">
+        <label for="pozisyon_yonu">Ters Pozisyon</label>
+        <select name="pozisyon_yonu" class="form-control">
+            <option value="long">Long Aç</option>
+            <option value="short">Short Aç</option>
+        </select>
+    </div>
+
+    <!-- Miktar -->
+    <div class="form-group col-md-2">
+        <label for="miktar">Miktar</label>
+        <input type="number" name="miktar" step="0.0001" class="form-control" placeholder="Örn: 100">
+    </div>
+
+    <!-- Miktar Tipi -->
+    <div class="form-group col-md-1">
+        <label for="miktar_tipi">Tip</label>
+        <select name="miktar_tipi" class="form-control">
+            <option value="yuzde">%</option>
+            <option value="sabit">Sabit</option>
+        </select>
+    </div>
+
+    <!-- Emir Tipi -->
+    <div class="form-group col-md-2">
+        <label for="emir_tipi">Emir Tipi</label>
+        <select name="emir_tipi" class="form-control">
+            <option value="market">Market</option>
+            <option value="limit">Limit</option>
+            <option value="fok">Fill or Kill</option>
+        </select>
+    </div>
+
+    <!-- Limit Fiyat (isteğe bağlı) -->
+    <div class="form-group col-md-2">
+        <label for="limit_fiyat">Limit Fiyat</label>
+        <input type="number" name="limit_fiyat" step="0.0001" class="form-control" placeholder="Opsiyonel">
+    </div>
+
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="hedge_open">
+</div>

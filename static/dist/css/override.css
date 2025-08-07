@@ -1,0 +1,22 @@
+/* static/css/override.css */
+.content-wrapper {
+    margin-left: 0 !important;
+  }
+  
+/* override.css içinde veya sayfa içi style tag içine ekle */
+body.sidebar-mini .content-wrapper {
+    margin-left: 0 !important;
+}
+body.sidebar-mini .main-header {
+    margin-left: 0 !important;
+}
+
+body.sidebar-mini .main-footer {
+    margin-left: 0 !important;
+}
+/* AdminLTE sidebar silinince içerik sola otursun diye */
+body.sidebar-mini .main-header,
+body.sidebar-mini .main-footer,
+body.sidebar-mini .content-wrapper {
+    margin-left: 0 !important;
+}

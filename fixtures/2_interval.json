@@ -1,0 +1,74 @@
+[
+    {
+        "model": "mumlar.interval",
+        "pk": 1,
+        "fields": {
+            "interval": "1m",
+            "onay": true
+        }
+    },
+    {
+        "model": "mumlar.interval",
+        "pk": 2,
+        "fields": {
+            "interval": "5m",
+            "onay": true
+        }
+    },
+    {
+        "model": "mumlar.interval",
+        "pk": 3,
+        "fields": {
+            "interval": "15m",
+            "onay": true
+        }
+    },
+    {
+        "model": "mumlar.interval",
+        "pk": 4,
+        "fields": {
+            "interval": "30m",
+            "onay": true
+        }
+    },
+    {
+        "model": "mumlar.interval",
+        "pk": 5,
+        "fields": {
+            "interval": "1h",
+            "onay": true
+        }
+    },
+    {
+        "model": "mumlar.interval",
+        "pk": 6,
+        "fields": {
+            "interval": "2h",
+            "onay": true
+        }
+    },
+    {
+        "model": "mumlar.interval",
+        "pk": 7,
+        "fields": {
+            "interval": "4h",
+            "onay": true
+        }
+    },
+    {
+        "model": "mumlar.interval",
+        "pk": 8,
+        "fields": {
+            "interval": "1d",
+            "onay": true
+        }
+    },
+    {
+        "model": "mumlar.interval",
+        "pk": 9,
+        "fields": {
+            "interval": "1w",
+            "onay": true
+        }
+    }
+]

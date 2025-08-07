@@ -1,0 +1,39 @@
+/* Select2 dropdown için koyu arka plan ve açık renk yazı */
+.select2-container .select2-selection--multiple {
+    background-color: #343a40; /* Koyu arka plan */
+    color: #ffffff; /* Beyaz yazı */
+    border: 1px solid #6c757d; /* Daha açık bir çerçeve rengi */
+  }
+  
+  /* Dropdown menüdeki öğeler */
+  .select2-container .select2-dropdown {
+    background-color: #343a40; /* Koyu arka plan */
+    color: #ffffff; /* Beyaz yazı */
+  }
+  
+  .select2-container .select2-results__option {
+    background-color: #343a40; /* Koyu arka plan */
+    color: #ffffff; /* Beyaz yazı */
+  }
+  
+  .select2-container .select2-results__option--highlighted {
+    background-color: #495057; /* Hover efekti için daha açık bir ton */
+    color: #ffffff; /* Beyaz yazı */
+  }
+  
+  /* Placeholder metni */
+  .select2-container .select2-selection__placeholder {
+    color: #ced4da; /* Placeholder için daha açık bir yazı rengi */
+  }
+  
+  /* Seçilen öğeler */
+  .select2-container .select2-selection__choice {
+    background-color: #9b59b6 !important;  /* mor ton */
+    border: 1px solid #8e44ad !important;
+    color: #ffffff !important;
+  }
+  /* Hover sırasında da uygun görünmesi için */
+.select2-purple .select2-selection__choice:hover {
+  background-color: #8e44ad !important;
+  border-color: #7d3c98 !important;
+}

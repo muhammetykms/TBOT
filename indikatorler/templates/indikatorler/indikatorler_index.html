@@ -1,0 +1,202 @@
+{% extends "tepe.html" %}
+
+{% block title %}
+T-ERP İndikatörler
+{% endblock %}
+
+{% load static %}
+
+
+
+{% block sayfabasligi %}
+
+{% endblock %}
+
+{% block sagustmap %}
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">İndikatörler</a></li>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    <h1><b>İNDİKATÖRLER!</b></h1>
+
+<div class="card card-success">
+  <div class="card-header">
+    <h3 class="card-title"><b>İndikatörler</b></h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <table id="example1" class="table table-bordered table-striped">
+      {% csrf_token %}
+      <thead>
+        <tr>
+          <th scope="col"style="text-align: center;"><b>Adı</b></th>
+          <th scope="col"style="text-align: center;"><b>Aciklama</b></th>
+          <th scope="col"style="text-align: center;"><b>İndikatör Grubu</b></th>
+          <th scope="col" style="text-align: center;"><b>Aktif Mi?</b></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    {% if not indikatorler %}
+        <tr>
+            <td colspan="1">Henüz ürün eklenmemiş.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% else %}
+      {% for ind in indikatorler %}
+      <tr>          
+          <td>{{ ind.adi }}</td>
+          <td>{{ ind.aciklama }}</td>
+          <td>{{ ind.indikator_grubu }}</td>
+          <td>
+            <div class="form-group">
+                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                    <input 
+                        type="checkbox" 
+                        class="onay-checkbox custom-control-input update-status"
+                        id="customSwitch{{ ind.id }}"
+                        data-id="{{ ind.id }}" 
+                        {% if ind.aktif_mi %}checked{% endif %}
+                    >
+                    <label 
+                        class="custom-control-label" 
+                        for="customSwitch{{ ind.id }}">
+                    </label>
+                </div>
+            </div>
+          </td>
+          <td>
+            <a href="{% url 'indikatorler:indikator_guncelle' ind.id %}" class="btn btn-primary">Ayrıntılar</a>
+          </td>
+      </tr>
+      {% endfor %}
+    {% endif %}
+
+
+
+
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+  <!-- TradingView Embed Widget -->
+  <!-- <div class="tradingview-widget-container">
+    <div id="tradingview_12345"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+
+      new TradingView.widget({
+        "container_id": "tradingview_12345",
+        "width": "100%",
+        "height": "600px",
+        "symbol": "BINANCE:XRPUSDT",
+        "interval": "D",
+        "timezone": "Europe/Istanbul",
+        "theme": "dark",
+        "style": "1",
+        "locale": "tr",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "withdateranges": true,
+        "hide_side_toolbar": false,
+        "allow_symbol_change": true,
+        "details": true,
+        "studies": [
+
+        ],
+      });
+
+    </script>
+  </div> -->
+
+
+
+
+{% endblock %}
+
+
+{% block footer %}
+<p>My custom footer for this page.</p>
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+
+
+
+
+
+
+<script>
+$(document).ready(function () {
+    $(function () {
+        console.log("JavaScript yüklendi ve çalışıyor!");
+
+        $(document).on("change", ".update-status", function () {
+            console.log("Checkbox tıklandı!"); // Tıklama olayını izleme
+            var checkbox = $(this);
+            var indikator_id = checkbox.data("id");
+            var newStatus = checkbox.prop("checked");
+
+            console.log("ID:", indikator_id, "Yeni Durum:", newStatus);
+
+            $.ajax({
+                url: "{% url 'indikatorler:indikatorler_index' %}",
+                type: "POST",
+                data: {
+                    id: indikator_id,
+                    onay: newStatus,
+                    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                },
+                success: function (response) {
+                    console.log("Başarıyla güncellendi:", response);
+                },
+                error: function () {
+                    console.error("Sunucu hatası!");
+                }
+            });
+        });
+    });
+
+});
+
+</script>
+
+
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "pageLength": 50,
+      "order": [
+      [1, "asc"]],
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+</script>
+{% endblock %}

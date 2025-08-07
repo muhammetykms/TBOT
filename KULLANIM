@@ -1,0 +1,3 @@
+clear_migrations.py çalıştırılınca bütün migrationslar sıfırlanır. sonra temizden alabilirsin. 
+load_fixtures.py çalıştırılınca bütün fixtürler SIRAYLA yüklenir.
+

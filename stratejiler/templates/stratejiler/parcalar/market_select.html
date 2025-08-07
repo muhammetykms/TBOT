@@ -1,0 +1,15 @@
+<!-- stratejiler/parcalar/market_select.html -->
+<div id="market-secimi">
+  <label>Market Tipi Seç:</label>
+  <select 
+      name="market_type"
+      hx-get="{% url 'stratejiler:coin_kumesi_select' %}" 
+      hx-target="#coin-kumesi-container"
+      hx-swap="innerHTML"
+      hx-trigger="change">
+    <option value="">Bir market seçin</option>
+    {% for market in marketler %}
+      <option value="{{ market.id }}">{{ market.get_market_type_display }}</option>
+    {% endfor %}
+  </select>
+</div>

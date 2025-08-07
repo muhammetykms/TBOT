@@ -1,0 +1,482 @@
+[
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 1,
+            "cikti_adi":"RSI",
+            "cikti_kodu": "rsi_{window}",
+            "aciklama": "RSI period değerini döndürür.",
+            "indikator_adi":"RSI"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 1,
+            "cikti_adi":"Based RSI",
+            "cikti_kodu": "based_rsi_{window}",
+            "aciklama": "Pencere uzunluğundaki Ortalama RSI değerini döndürür.",
+            "indikator_adi":"RSI"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 2,
+            "cikti_adi":"CMO",
+            "cikti_kodu": "cmo_{window}",
+            "aciklama": "Belirtilen periyotluk Chande Momentum Oscillator (CMO) değerini döndürür.",
+            "indikator_adi": "CMO"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 3,
+            "cikti_adi":"Stoch K",
+            "cikti_kodu": "stoch_k_{k_period}_{d_period}",
+            "aciklama": "14 periyotluk Stokastik %K değerini döndürür.",
+            "indikator_adi": "Stokastik"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 3,
+            "cikti_adi":"Stoch D",
+            "cikti_kodu": "stoch_d_{k_period}_{d_period}",
+            "aciklama": "3 periyotluk Stokastik %D (Moving Average of %K) değerini döndürür.",
+            "indikator_adi": "Stokastik"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 4,
+            "cikti_adi":"Will R",
+            "cikti_kodu": "will_r_{period}",
+            "aciklama": "Periyotluk Williams %R göstergesinin değerini döndürür.",
+            "indikator_adi": "Williams_r"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 5,
+            "cikti_adi":"OA",
+            "cikti_kodu": "oa_{fastperiod}_{slowperiod}_{signalperiodl}",
+            "aciklama": "Awesoe Osilatör değeri.",
+            "indikator_adi": "Awesome Oscillator With Signal"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 5,
+            "cikti_adi":"OA Signal",
+            "cikti_kodu": "ao_signal_{fastperiod}_{slowperiod}_{signalperiod}",
+            "aciklama": "Awesome Sinyal Değeri",
+            "indikator_adi": "Awesome Oscillator With Signal"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 6,
+            "cikti_adi":"TSI",
+            "cikti_kodu": "tsi_{long_period}_{short_period}_{signal_period}",
+            "aciklama": "TSI değeri.",
+            "indikator_adi": "TSI"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 6,
+            "cikti_adi":"TSI Sinyal",
+            "cikti_kodu": "tsi_sinyal_{long_period}_{short_period}_{signal_period}",
+            "aciklama": "TSI sinyal değeri.",
+            "indikator_adi": "TSI"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 7,
+            "cikti_adi":"PPO Slow",
+            "cikti_kodu": "ppo_slow_{window_slow}",
+            "aciklama": "PPO slow değeri.",
+            "indikator_adi": "PPO"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 7,
+            "cikti_adi":"PPO Fast",
+            "cikti_kodu": "ppo_fast_{window_fast}",
+            "aciklama": "PPO fast değeri.",
+            "indikator_adi": "PPO"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 7,
+            "cikti_adi":"TSI Sinyal",
+            "cikti_kodu": "tsi_sinyal_{window_sinyal}",
+            "aciklama": "PPO sinyal değeri.",
+            "indikator_adi": "PPO"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 8,
+            "cikti_adi":"ROC Period",
+            "cikti_kodu": "roc_{period}",
+            "aciklama": "Roc period değerini döner.",
+            "indikator_adi": "ROC"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 9,
+            "cikti_adi":"Momentum Kısa",
+            "cikti_kodu": "momentum_kisa_{short_period}",
+            "aciklama": "Momentum kısa değerini döner.",
+            "indikator_adi": "Momentum"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 9,
+            "cikti_adi":"Momentum Uzun",
+            "cikti_kodu": "momentum_uzun_{long_period}",
+            "aciklama": "Momentum uzun değerini döner.",
+            "indikator_adi": "Momentum"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 9,
+            "cikti_adi":"Momentum Ortalama",
+            "cikti_kodu": "momentum_ortalama_{avg_period}",
+            "aciklama": "Momentum ortalama değerini döner.",
+            "indikator_adi": "Momentum"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 10,
+            "cikti_adi":"Demarker",
+            "cikti_kodu": "demarker_{window}",
+            "aciklama": "De Markar değerini döner.",
+            "indikator_adi": "De Marker."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 11,
+            "cikti_adi":"OBV",
+            "cikti_kodu": "obv",
+            "aciklama": "Girdi Almaz, 'obv' değerini döner.",
+            "indikator_adi": "On Balance Volume."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 12,
+            "cikti_adi":"VWAP",
+            "cikti_kodu": "vwap",
+            "aciklama": "Hacim Ağırlıklı Ortalama Fiyat'ı döner",
+            "indikator_adi": "Wolume Weighted Average Price."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 13,
+            "cikti_adi":"CMF",
+            "cikti_kodu": "cmf_{window}",
+            "aciklama": "Period'a göre Chaiken money flow değerini döner",
+            "indikator_adi": "Chaikin Money Flow."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 14,
+            "cikti_adi":"EMA",
+            "cikti_kodu": "ema_{window}",
+            "aciklama": "Period'a göre ema değerini döner.",
+            "indikator_adi": "EMA"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 15,
+            "cikti_adi":"ADX",
+            "cikti_kodu": "adx_{window}",
+            "aciklama": "Period'a göre göre ADX değerini döner.",
+            "indikator_adi": "ADX & DI"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 15,
+            "cikti_adi":"+Di",
+            "cikti_kodu": "pdi_{window}",
+            "aciklama": "Period'a göre göre DI(+) değerini verir",
+            "indikator_adi": "ADX & DI"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 15,
+            "cikti_adi":"-Di",
+            "cikti_kodu": "ndi_{window}",
+            "aciklama": "Period'a göre göre DI(-) değerini verir",
+            "indikator_adi": "ADX & DI"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 16,
+            "cikti_adi":"Sar Long",
+            "cikti_kodu": "sar_long_{adim}_{max_adim}",
+            "aciklama": "Sar Long değerini step ve max step'e göre döner.",
+            "indikator_adi": "SAR"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 16,
+            "cikti_adi":"Sar Short",
+            "cikti_kodu": "sar_short_{adim}_{max_adim}",
+            "aciklama": "Sar Short değerini step ve max step'e göre döner.",
+            "indikator_adi": "SAR"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 17,
+            "cikti_adi":"MACD",
+            "cikti_kodu": "macd_{window_slow}_{window_fast}_{window_sign}",
+            "aciklama": "MACD değerini döndürür",
+            "indikator_adi": "MACD"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 17,
+            "cikti_adi":"MACD Sinyal",
+            "cikti_kodu": "macd_signal_{window_slow}_{window_fast}_{window_sign}",
+            "aciklama": "MACD Sinyal değerini döndürür",
+            "indikator_adi": "MACD"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 18,
+            "cikti_adi":"Vidya",
+            "cikti_kodu": "vidya_{window}_{alpha}",
+            "aciklama": "Vidya değerini döndürür.",
+            "indikator_adi": "VIDYA"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 19,
+            "cikti_adi":"Sandart Üst",
+            "cikti_kodu": "bol_std_ust_{period}_{window_dev}",
+            "aciklama": "Bollinger Standart Üst Band Değeri.",
+            "indikator_adi": "BOLLINGER"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 19,
+            "cikti_adi":"Gerçek Üst",
+            "cikti_kodu": "bol_gercek_ust_{period}_{window_dev}",
+            "aciklama": "Bollinger Standart Üst Band Değeri.",
+            "indikator_adi": "BOLLINGER"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 19,
+            "cikti_adi":"Orta",
+            "cikti_kodu": "bol_std_orta_{period}_{window_dev}",
+            "aciklama": "Bollinger Orta Band Değeri.",
+            "indikator_adi": "BOLLINGER"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 19,
+            "cikti_adi":"Standart Alt",
+            "cikti_kodu": "bol_std_alt_{period}_{window_dev}",
+            "aciklama": "Bollinger Standart Alt Band Değeri.",
+            "indikator_adi": "BOLLINGER"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 19,
+            "cikti_adi":"Gerçek Alt",
+            "cikti_kodu": "bol_gercek_alt_{period}_{window_dev}",
+            "aciklama": "Bollinger Gerçek Alt Band Değeri.",
+            "indikator_adi": "BOLLINGER"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 19,
+            "cikti_adi":"Üst Sinyal",
+            "cikti_kodu": "bol_std_ust_sinyal_{period}_{window_dev}",
+            "aciklama": "Bollinger Üst Band Sinyal Değeri.",
+            "indikator_adi": "BOLLINGER"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 19,
+            "cikti_adi":"Alt Sinyal",
+            "cikti_kodu": "bol_std_alt_sinyal_{period}_{window_dev}",
+            "aciklama": "Bollinger Alt Band Sinyal Değeri.",
+            "indikator_adi": "BOLLINGER"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 20,
+            "cikti_adi":"ATR RMA",
+            "cikti_kodu": "atr_rma_{length}",
+            "aciklama": "Atr Rma değerini döndürür.",
+            "indikator_adi": "ATR RMA"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 21,
+            "cikti_adi":"Ulcer Index",
+            "cikti_kodu": "ulcer_index_{period}",
+            "aciklama": "Ulcer index değerini döndürür.",
+            "indikator_adi": "ULCER INDEX"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 22,
+            "cikti_adi":"ÜST",
+            "cikti_kodu": "donchian_ust_{period}",
+            "aciklama": "Donchian ust değerini döndürür.",
+            "indikator_adi": "DONCHIAN CHANNEL"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 22,
+            "cikti_adi":"Orta",
+            "cikti_kodu": "donchian_orta_{period}",
+            "aciklama": "Donchian orta değerini döndürür.",
+            "indikator_adi": "DONCHIAN CHANNEL"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 22,
+            "cikti_adi":"Alt",
+            "cikti_kodu": "donchian_alt_{period}",
+            "aciklama": "Donchian alt değerini döndürür.",
+            "indikator_adi": "DONCHIAN CHANNEL"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 23,
+            "cikti_adi":"Choppiness Index",
+            "cikti_kodu": "choppiness_index_{period}",
+            "aciklama": "Choppiness index değerini döndürür.",
+            "indikator_adi": "CHOPPINESS INDEX"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 24,
+            "cikti_adi":"Anlik Fiyat",
+            "cikti_kodu": "anlik_fiyat",
+            "aciklama": "O anki Güncel Fiyat Değerini Döndürür.",
+            "indikator_adi": "Anlık Fiyat"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 25,
+            "cikti_adi":"Ort. Alış Değeri",
+            "cikti_kodu": "ort_alis_{carpan}",
+            "aciklama": "Tanımlanan sabit değer.",
+            "indikator_adi": "Oratalama Alış Fiyatı"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 26,
+            "cikti_adi":"Son Alış Değeri",
+            "cikti_kodu": "son_alis_{carpan}",
+            "aciklama": "Son Alış Değeri.",
+            "indikator_adi": "Son Alış Fiyatı"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 27,
+            "cikti_adi":"Önceki Mum Kapanışı",
+            "cikti_kodu": "onceki_mum_kapanis_{carpan}",
+            "aciklama": "Seçilen Önceki Mumun Kapanış Değeri.",
+            "indikator_adi": "Önceki Mum Kapanışı"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorciktilari",
+        "fields": {
+            "indikator": 28,
+            "cikti_adi":"Sabit Değer",
+            "cikti_kodu": "sabit_deger",
+            "aciklama": "Herhangi bir Sabit Değer.",
+            "indikator_adi": "Sabit Değer"
+        }
+    }
+]

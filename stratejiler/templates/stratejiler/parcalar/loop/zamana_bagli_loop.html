@@ -1,0 +1,173 @@
+{% comment %}
+<div
+  class="loop-kademeli-alim"
+  data-blok-id="{{ blok_id }}"
+  data-parent-id="{{ parent_id }}"
+  data-surec="{{ surec }}"
+>
+  <h5>Kademeli Alım Tanımı</h5>
+
+  <div class="kademeli-alim-adimlari">
+    <!-- İlk adım sabit: İlk alış -->
+    <div class="form-row mb-3">
+      <div class="form-group col-md-2">
+        <label>Adım</label>
+        <input
+          type="text"
+          class="form-control"
+          value="1. Alım (Başlangıç)"
+          disabled
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label>Miktar</label>
+        <input
+          type="number"
+          step="0.01"
+          name="alim_1_miktar"
+          class="form-control"
+          value="100"
+        />
+      </div>
+    </div>
+
+    <!-- Yeni adımlar buraya eklenecek -->
+    <div id="alim-kademeleri-container_{{ blok_id }}"></div>
+
+    <!-- Kademe Ekle Butonu -->
+    <button
+      type="button"
+      class="btn btn-outline-success btn-sm"
+      onclick="kademeAlimEkle('{{ blok_id }}')"
+    >
+      + Kademe Ekle
+    </button>
+  </div>
+</div>
+
+<script>
+  window.kademe_sayaci = window.kademe_sayaci || {};
+
+  function kademeAlimEkle(blokId) {
+    if (!window.kademe_sayaci[blokId]) window.kademe_sayaci[blokId] = 2;
+
+    const container = document.getElementById(
+      `alim-kademeleri-container_${blokId}`
+    );
+    const kademeNo = window.kademe_sayaci[blokId];
+
+    const kademeHTML = `
+        <div class="form-row mb-3" data-kademe-no="${kademeNo}">
+            <div class="form-group col-md-2">
+                <label>${kademeNo}. Kademe</label>
+                <input type="hidden" name="kademe_no_${kademeNo}" value="${kademeNo}">
+            </div>
+            <div class="form-group col-md-2">
+                <label>% Düşüş</label>
+                <input type="number" step="0.01" name="kademe_${kademeNo}_yuzde" class="form-control" placeholder="örn: 12">
+            </div>
+            <div class="form-group col-md-2">
+                <label>+ ATR</label>
+                <input type="number" step="0.1" name="kademe_${kademeNo}_atr" class="form-control" placeholder="örn: 1.5">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Miktar</label>
+                <input type="number" step="0.01" name="kademe_${kademeNo}_miktar" class="form-control" placeholder="örn: 200">
+            </div>
+            <div class="form-group col-md-1 d-flex align-items-end">
+                <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.form-row').remove()">×</button>
+            </div>
+        </div>
+        `;
+
+    container.insertAdjacentHTML("beforeend", kademeHTML);
+    window.kademe_sayaci[blokId]++;
+  }
+</script>
+{% endcomment %}
+<div
+  class="loop-adim border p-3 mb-3"
+  data-adim-no="{{ adim_no }}"
+  data-blok-id="{{ blok_id }}"
+  data-parent-id="{{ parent_id }}"
+>
+  <h6 class="mb-2">🔹 Kademe {{ adim_no }} — Zamana Bağlı</h6>
+
+  <div class="d-flex justify-content-end mb-2">
+    <a
+      href="#"
+      class="btn btn-outline-info"
+      hx-get="/stratejiler/if-blogu-ekle/"
+      hx-vals='{"blok_id":"{{ blok_id }}","strateji_id":"{{ strateji_id }}","surec":"{{surec}}","caller":"ve_if"}'
+      hx-target="#iceri-adim-{{ blok_id }}-{{ adim_no }}"
+      hx-swap="beforeend"
+      >➕ İf Ekle</a
+    >
+
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-success ms-2"
+      hx-post="/stratejiler/aksiyon_ekle/"
+      hx-vals='{
+              "caller": "loop_adim",
+              "blok_id": "{{ blok_id }}_adim{{ adim_no }}",
+              "parent_id": "{{ blok_id }}",
+              "surec": "{{ surec }}",
+              "strateji_id": "{{ strateji_id }}"
+            }'
+      hx-target="#iceri-adim-{{ blok_id }}-{{ adim_no }}"
+      hx-swap="beforeend"
+    >
+      ➕ Aksiyon Ekle
+    </button>
+  </div>
+
+  <form id="form-{{ blok_id }}-{{ adim_no }}" class="row g-2 mb-2">
+    <input type="hidden" name="loop_tipi" value="zamana_bagli_loop" />
+    <input type="hidden" name="blok_id" value="{{ blok_id }}" />
+    <input type="hidden" name="adim_no" value="{{ adim_no }}" />
+
+    <div class="col-md-4">
+      <label class="form-label mb-1">Periyot (sn)</label>
+      <input
+        class="form-control form-control-sm"
+        type="number"
+        step="1"
+        min="1"
+        name="periyot_saniye"
+        value="60"
+      />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label mb-1">Başlangıç Saati</label>
+      <input
+        class="form-control form-control-sm"
+        type="time"
+        name="baslangic_saati"
+      />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label mb-1">Bitiş Saati</label>
+      <input
+        class="form-control form-control-sm"
+        type="time"
+        name="bitis_saati"
+      />
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-end mb-2">
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-primary"
+      hx-post="/stratejiler/data-save/"
+      hx-include="#form-{{ blok_id }}-{{ adim_no }}"
+      hx-target="#iceri-adim-{{ blok_id }}-{{ adim_no }}"
+      hx-swap="beforeend"
+    >
+      💾 Kaydet
+    </button>
+  </div>
+
+  <div id="iceri-adim-{{ blok_id }}-{{ adim_no }}"></div>
+</div>

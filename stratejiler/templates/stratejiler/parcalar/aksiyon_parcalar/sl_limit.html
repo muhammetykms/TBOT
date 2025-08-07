@@ -1,0 +1,76 @@
+<div class="form-row">
+    <!-- Parite Seçimi -->
+    <div class="form-group col-md-3">
+        <label for="coin">İşlem Paritesi</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Pozisyon Yönü -->
+    <div class="form-group col-md-2">
+        <label for="pozisyon_yonu">Pozisyon Yönü</label>
+        <select name="pozisyon_yonu" class="form-control">
+            <option value="long">Long</option>
+            <option value="short">Short</option>
+        </select>
+    </div>
+
+    <!-- Miktar -->
+    <div class="form-group col-md-2">
+        <label for="miktar">Miktar</label>
+        <input type="number" name="miktar" step="0.0001" class="form-control" placeholder="Örn: 100">
+    </div>
+
+    <!-- Miktar Tipi -->
+    <div class="form-group col-md-1">
+        <label for="miktar_tipi">Tip</label>
+        <select name="miktar_tipi" class="form-control">
+            <option value="yuzde">%</option>
+            <option value="sabit">Sabit</option>
+        </select>
+    </div>
+
+    <!-- Tetik Fiyatı -->
+    <div class="form-group col-md-2">
+        <label for="tetik_fiyati">Tetik Fiyatı</label>
+        <input type="number" name="tetik_fiyati" step="0.0001" class="form-control" placeholder="Fiyat buraya gelince tetikler">
+    </div>
+
+    <!-- Limit Fiyat -->
+    <div class="form-group col-md-2">
+        <label for="limit_fiyat">Limit Fiyat</label>
+        <input type="number" name="limit_fiyat" step="0.0001" class="form-control" placeholder="Bu fiyattan satış yapılır">
+    </div>
+
+    <!-- Reduce Only -->
+    <div class="form-group col-md-1">
+        <label for="reduce_only">Reduce Only</label>
+        <select name="reduce_only" class="form-control">
+            <option value="True">Evet</option>
+            <option value="False">Hayır</option>
+        </select>
+    </div>
+
+<div class="row">
+    📌 Amaç:
+<br>
+    "Fiyat belirli bir seviyeye düşerse pozisyonu şu limit fiyattan kapat."
+    Yani tetikleyici bir fiyat var ve bu seviyeye ulaşıldığında limit emir gönderilir.
+</div>
+
+    <!-- Emir Tipi -->
+    <input type="hidden" name="emir_tipi" value="stop_limit">
+
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="sl_limit">
+</div>

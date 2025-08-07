@@ -1,0 +1,3 @@
+arbitraj için gerekli olan denklem verisinde 1 üzeriyse arbitraj yapılabilir  vb şeyleri
+çapraz paritelerde örneğin btc/sol/usdt gibi 
+bunlarda 1 dakikalık verileri çekip döngü ile denklemde yerine koyarak deneyebilriz.

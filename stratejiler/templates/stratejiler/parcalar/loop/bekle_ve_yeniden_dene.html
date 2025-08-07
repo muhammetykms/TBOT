@@ -1,0 +1,86 @@
+<div
+  class="loop-adim border p-3 mb-3"
+  data-adim-no="{{ adim_no }}"
+  data-blok-id="{{ blok_id }}"
+  data-parent-id="{{ parent_id }}"
+>
+  <h6 class="mb-2">🔹 Kademe {{ adim_no }} — Bekle ve Yeniden Dene</h6>
+
+  <div class="d-flex justify-content-end mb-2">
+    <a
+      href="#"
+      class="btn btn-outline-info"
+      hx-get="/stratejiler/if-blogu-ekle/"
+      hx-vals='{"blok_id":"{{ blok_id }}","strateji_id":"{{ strateji_id }}","surec":"{{surec}}","caller":"ve_if"}'
+      hx-target="#iceri-adim-{{ blok_id }}-{{ adim_no }}"
+      hx-swap="beforeend"
+      >➕ İf Ekle</a
+    >
+
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-success ms-2"
+      hx-post="/stratejiler/aksiyon_ekle/"
+      hx-vals='{
+              "caller": "loop_adim",
+              "blok_id": "{{ blok_id }}_adim{{ adim_no }}",
+              "parent_id": "{{ blok_id }}",
+              "surec": "{{ surec }}",
+              "strateji_id": "{{ strateji_id }}"
+            }'
+      hx-target="#iceri-adim-{{ blok_id }}-{{ adim_no }}"
+      hx-swap="beforeend"
+    >
+      ➕ Aksiyon Ekle
+    </button>
+  </div>
+
+  <form id="form-{{ blok_id }}-{{ adim_no }}" class="row g-2 mb-2">
+    <input type="hidden" name="loop_tipi" value="bekle_ve_yeniden_dene" />
+    <input type="hidden" name="blok_id" value="{{ blok_id }}" />
+    <input type="hidden" name="adim_no" value="{{ adim_no }}" />
+
+    <div class="col-md-4">
+      <label class="form-label mb-1">Bekleme (sn)</label>
+      <input
+        class="form-control form-control-sm"
+        type="number"
+        step="1"
+        min="0"
+        name="bekleme_saniye"
+      />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label mb-1">Maks. Deneme</label>
+      <input
+        class="form-control form-control-sm"
+        type="number"
+        step="1"
+        min="1"
+        name="max_deneme"
+      />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label mb-1">Hata Olursa Devam</label>
+      <select class="form-select form-select-sm" name="ignore_error">
+        <option value="1">Evet</option>
+        <option value="0">Hayır</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-end mb-2">
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-primary"
+      hx-post="/stratejiler/data-save/"
+      hx-include="#form-{{ blok_id }}-{{ adim_no }}"
+      hx-target="#iceri-adim-{{ blok_id }}-{{ adim_no }}"
+      hx-swap="beforeend"
+    >
+      💾 Kaydet
+    </button>
+  </div>
+
+  <div id="iceri-adim-{{ blok_id }}-{{ adim_no }}"></div>
+</div>

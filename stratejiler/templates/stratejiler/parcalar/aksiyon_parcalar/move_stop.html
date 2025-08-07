@@ -1,0 +1,60 @@
+<div class="form-row">
+    <!-- Parite Seçimi (Sadece Futures) -->
+    <div class="form-group col-md-3">
+        <label for="coin">İşlem Paritesi</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Pozisyon Yönü -->
+    <div class="form-group col-md-2">
+        <label for="pozisyon_yonu">Pozisyon Yönü</label>
+        <select name="pozisyon_yonu" class="form-control">
+            <option value="long">Long</option>
+            <option value="short">Short</option>
+        </select>
+    </div>
+
+    <!-- Yeni Stop Seviyesi (fiyat) -->
+    <div class="form-group col-md-2">
+        <label for="limit_fiyat">Yeni Stop Fiyatı</label>
+        <input type="number" name="limit_fiyat" step="0.0001" class="form-control" placeholder="Örn: 27450.00">
+    </div>
+
+    <!-- İz Süren (Opsiyonel) -->
+    <div class="form-group col-md-2">
+        <label for="iz_suren">İz Süren Mesafe (%)</label>
+        <input type="number" name="iz_suren" step="0.1" class="form-control" placeholder="Örn: 1.5">
+    </div>
+
+    <!-- Reduce Only -->
+    <div class="form-group col-md-1">
+        <label for="reduce_only">Reduce Only</label>
+        <select name="reduce_only" class="form-control">
+            <option value="True">Evet</option>
+            <option value="False">Hayır</option>
+        </select>
+    </div>
+
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="move_stop">
+
+    <div class="row">
+        Sil: <br>
+         Amaç:<br>
+
+    “Fiyat belli bir noktaya geldiğinde, stop-loss seviyemi daha avantajlı bir noktaya çek.”
+    Bu aksiyon, kâr koruma amacıyla genelde manuel takip yerine otomatik strateji kapsamında yapılır.
+    Sadece futures işlemlerinde kullanılabilir.
+    </div>
+</div>

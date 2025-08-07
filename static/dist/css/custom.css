@@ -1,0 +1,52 @@
+/* Tüm tabloyu içeren div'i kaydırılabilir hale getir */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Yatay kaydırmayı aktif et */
+}
+
+/* Tabloyu sabit genişlikte tutarak ekrana sığmasını sağla */
+table {
+    width: 100%;
+    table-layout: fixed; /* Sütun genişliklerini eşitle */
+    border-collapse: collapse;
+}
+
+/* Sütun genişliklerini düzenle */
+th, td {
+    overflow: hidden;
+    white-space: nowrap; /* Satır kaymasını önle */
+    text-overflow: ellipsis; /* Uzun metinleri üç nokta ile göster */
+    padding: 5px;
+    font-size: 14px; /* Daha küçük font boyutu */
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Başlıklar */
+th {
+    background-color: #444;
+    color: white;
+    font-weight: bold;
+}
+
+/* Tablo içeriği */
+td {
+    background-color: #222;
+    color: white;
+}
+
+/* Küçük ekranlarda responsive hale getirme */
+@media (max-width: 1200px) {
+    th, td {
+        font-size: 12px; /* Küçük ekranlarda fontu küçült */
+        padding: 3px; /* Hücre içi boşluğu azalt */
+    }
+}
+
+/* Ekrana tam sığdırmak için sütunları optimize et */
+th:nth-child(1), td:nth-child(1) { width: 40px; min-width: 40px; }
+th:nth-child(2), td:nth-child(2) { width: 120px; min-width: 100px; }
+th:nth-child(3), td:nth-child(3),
+th:nth-child(4), td:nth-child(4),
+th:nth-child(5), td:nth-child(5) { width: 80px; min-width: 70px; }
+

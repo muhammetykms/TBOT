@@ -1,0 +1,85 @@
+<div    class="inside-buy mb-4 position-relative"
+        data-blok-id="{{blok_id}}"
+        data-parent-id="{{parent_id}}"
+        data-surec="{{surec}}"
+        style="border: 2px solid #28a745; border-radius: 10px; padding: 20px; background-color: #6b6b6b;">
+
+        <!-- Çerçevenin üst ortasında floating label -->
+    <span class="badge badge-success ve-label"
+    style="
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        font-size: 15px;
+        padding: 7px 16px;
+        font-weight: bold;">
+        Inside-Buy <br>Blok ID: {{blok_id}} <br> Parent ID: {{parent_id}}
+    </span>
+    <button type="button" 
+        class="btn btn-sm btn-danger"
+        style="position: absolute; 
+        top: -14px; 
+        right: -14px; 
+        border-radius: 50%; 
+        width: 30px; 
+        height: 30px; 
+        font-size: 18px; 
+        z-index: 5;"
+    onclick="
+    const parent = this.closest('.inside-buy');
+    const parentId = parent.getAttribute('data-parent-id');
+
+    // Tüm sayfada bu blok_id'ye sahip inside_buy_btn'i bul
+    const insideBuyBtn = document.querySelector('.inside_buy_btn[data-blok-id=\'' + parentId + '\']');
+
+    // Butonu tekrar görünür yap
+    if (insideBuyBtn) insideBuyBtn.classList.remove('d-none');
+
+    // Inside-Buy bloğunu kaldır
+    parent.remove();
+">
+        ×
+    </button>
+    <h4 class="text-success">🟢 
+        <b>Inside-Buy Süreci &emsp; Blok ID:&nbsp; {{blok_id}}&nbsp;Parent_id:&nbsp;{{parent_id}} </b>
+    </h4>
+
+    <div    id="inside_buy_container_{{blok_id}}" 
+            data-block-id="{{blok_id}}"
+            class="if-blok-children align-items-center">
+    </div>
+
+    <button class="btn btn-success if_ve_btn"
+        data-blok-id="{{blok_id}}"
+        hx-get="/stratejiler/ic_ve_grubu_ekle/"
+        hx-target="#inside_buy_container_{{blok_id}}"
+        hx-swap="beforeend"
+        hx-vals='{
+            "blok_id": "{{blok_id}}", 
+            "strateji_id": "{{ strateji_id }}",
+            "surec":"inside_buy",
+            "poz":"2"
+        }'
+        hx-on="htmx:afterRequest: this.classList.add('d-none')">
+        + VE Çerçevesi &nbsp;Blok ID:&nbsp;{{blok_id}}
+    </button>
+    <button 
+        class="btn btn-warning if_veya_btn"
+        data-blok-id="{{blok_id}}"
+        hx-get="/stratejiler/veya_grubu_ekle/"
+        hx-target="#inside_buy_container_{{blok_id}}"
+        hx-swap="beforeend"
+        hx-vals='{
+            "blok_id": "{{blok_id}}", 
+            "strateji_id": "{{ strateji_id }}",
+            "surec":"inside_buy"
+        }'
+        hx-on="htmx:afterRequest: this.classList.add('d-none')">
+        + VEYA Çerçevesi Ekle &nbsp; Blok ID:&nbsp;{{blok_id}}
+    </button>
+</div>
+
+
+

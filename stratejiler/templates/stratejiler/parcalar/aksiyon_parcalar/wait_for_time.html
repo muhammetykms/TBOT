@@ -1,0 +1,54 @@
+<div class="form-row">
+    <!-- Parite Seçimi -->
+    <div class="form-group col-md-2">
+        <label for="coin">İlgili Parite</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Bekleme Tipi -->
+    <div class="form-group col-md-3">
+        <label for="bekleme_tipi">Bekleme Tipi</label>
+        <select name="bekleme_tipi" class="form-control">
+            <option value="saniye">Belirli Saniye</option>
+            <option value="dakika">Belirli Dakika</option>
+            <option value="saat">Belirli Saat</option>
+            <option value="tarih">Belirli Tarih/Saat</option>
+        </select>
+    </div>
+
+    <!-- Bekleme Süresi / Tarih -->
+    <div class="form-group col-md-3">
+        <label for="zaman_degeri">Süre veya Tarih</label>
+        <input type="text" name="zaman_degeri" class="form-control" placeholder="Örn: 60 / 2025-05-06 15:30:00">
+    </div>
+
+    <!-- Zaman Formatı Yardımı -->
+    <div class="form-group col-md-2">
+        <label class="d-block">&nbsp;</label>
+        <small class="text-muted">
+            Format: <br>
+            saniye: `60`<br>
+            tarih: `YYYY-MM-DD HH:MM:SS`
+        </small>
+    </div>
+
+    <div class="row">
+📌 Amaç:
+    <br>
+    “Belirli bir saat/dakika/saniyeye kadar bekle, sonra işlemi sürdür.”<br>
+    Örneğin: “Saat 15:30 olmadan işlem yapma” veya “30 saniye bekle, sonra al.”
+    </div>
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="wait_for_time">
+</div>

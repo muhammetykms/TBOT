@@ -1,0 +1,6 @@
+.small-image {
+    max-width: 40px;
+    max-height: 40px;
+    display: block;
+    margin: 0 auto;
+}

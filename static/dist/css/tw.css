@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3Commas/OKX benzeri koyu tema yardımcıları */
+@layer components {
+  .tw-card {
+    @apply tw-bg-bg-raised/60 tw-backdrop-blur tw-border tw-border-border tw-rounded-xl2 tw-shadow-card;
+  }
+  .tw-panel {
+    @apply tw-bg-bg-soft/70 tw-backdrop-blur tw-border tw-border-border tw-rounded-xl2;
+  }
+  .tw-btn {
+    @apply tw-inline-flex tw-items-center tw-gap-1.5 tw-rounded-md tw-px-3 tw-py-1.5 tw-text-sm tw-font-medium tw-border tw-border-transparent hover:tw-opacity-90 tw-transition;
+  }
+  .tw-btn-primary {
+    @apply tw-bg-ac tw-text-black tw-ring-1 tw-ring-ac-ring;
+  }
+  .tw-btn-ghost {
+    @apply tw-bg-transparent tw-text-ink-mute tw-border tw-border-border hover:tw-bg-bg-raised;
+  }
+  .tw-btn-danger {
+    @apply tw-bg-danger tw-text-white;
+  }
+  .tw-badge {
+    @apply tw-inline-flex tw-items-center tw-rounded-full tw-px-2 tw-py-0.5 tw-text-[11px] tw-border tw-border-border tw-bg-bg-raised tw-text-ink-mute;
+  }
+  .tw-input-sm {
+    @apply tw-form-input tw-bg-bg-raised tw-border-border tw-text-ink placeholder:tw-text-ink-faint tw-text-sm tw-rounded-md;
+  }
+  .tw-select-sm {
+    @apply tw-form-select tw-bg-bg-raised tw-border-border tw-text-ink tw-text-sm tw-rounded-md;
+  }
+  .tw-label-sm {
+    @apply tw-text-[12px] tw-text-ink-mute tw-mb-1;
+  }
+  .tw-table-wrap {
+    @apply tw-overflow-x-auto;
+  }
+  .tw-table-dark {
+    @apply tw-w-full tw-text-sm tw-text-ink;
+  }
+  .tw-thead-dark th {
+    @apply tw-text-ink-mute tw-font-medium tw-bg-bg-soft tw-sticky tw-top-0 tw-z-10;
+  }
+  .tw-row-soft {
+    @apply tw-border-b tw-border-border/60 hover:tw-bg-bg-raised;
+  }
+}

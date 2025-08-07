@@ -1,0 +1,132 @@
+<div class="state-kapanma-blok if_state_kapanma_sarti position-relative mt-4" 
+        data-blok-id="{{ blok_id }}" 
+        data-parent-id="{{ parent_id }}"
+        data-strateji-id="{{ strateji_id }}"
+        data-surec="{{ surec }}"
+        data-blok-tipi="state_kapanma"
+        style="min-width: 650px; height: auto; border: 1px solid #ccc; border-radius: 8px; padding: 10px; background-color: rgba(0, 4, 255,0.1);">
+    
+    <!-- Çerçevenin üst ortasında floating label -->
+    <span class="badge badge-primary ve-label mb-3"
+        style="
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 15px;
+            padding: 7px 16px;
+            font-weight: bold;">
+        "State Kapama Şartı" Bloğu  &emsp; Blok ID:&nbsp;{{blok_id}} &emsp; Parent ID:&nbsp;{{parent_id}}
+    </span>
+
+    <!-- Çarpı butonu -->
+    <!-- X Butonu -->
+    <button type="button"
+        class="btn btn-sm btn-danger"
+        style="
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            z-index: 5;"
+        onclick="removeStateKapanis(this,'{{ parent_id }}')">
+        ×
+    </button>
+
+    <div class="row d-flex align-items-center flex-nowrap mt-3">
+        <!-- sol indikatör -->
+        <div class="form-group col-md-3">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <!-- <label for="indikator">İndikatör Seç</label> -->
+                    <select 
+                    class="indikator-select select2"
+                    multiple="multiple" 
+                    hx-post="/stratejiler/indikator_parametre_partial/"
+                    data-dropdown-css-class="select2-purple"
+                    data-placeholder="İndikatör Seçin"
+                    style="width: 100%;"
+                    name="indikator_sol_{{ blok_id }}"
+                    data-blok-id="{{ blok_id }}"
+                    hx-headers='{"X-CSRFToken": getCookie("csrftoken")}'
+                    hx-vals='js:{
+                        "indikator_id": event.target.value,
+                        "blok_id": "{{ blok_id }}",
+                        "parent_id": "{{ parent_id }}",
+                        "konum": "sol"
+                    }'
+                    hx-target="#kapanis_parametre_input_alani_sol_{{ blok_id }}"
+                    hx-trigger="change"
+                    hx-swap="innerHTML">
+                    
+                    <option value="">İndikatör Seç</option>
+                    {% for x in indikator_listesi %}
+                        <option value="{{ x.indikator.id }}">{{ x.indikator.adi }}</option>
+                    {% endfor %}
+                </select>
+                    <!-- Altına yerleşecek parametre alanı -->
+                    <div class="parametre-alani sol-parametreler mt-2"
+                        id="kapanis_parametre_input_alani_sol_{{ blok_id }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- karar seçimleri  -->
+        <div id="karsilastirma-operatoru-alani_{{ blok_id }}"
+            class="karsilastirma-operatoru-alani form-group"
+            hx-post="{% url 'stratejiler:karsilastirma_operatorleri' %}" 
+            hx-vals='{
+                "blok_id": "{{ blok_id }}",
+                "parent_id": "{{ parent_id }}"
+            }'
+            hx-trigger="load"
+            hx-swap="innerHTML">
+            <div class="text-muted">Yükleniyor...</div>
+        </div>
+
+        <!-- sag indikator -->
+        <div class="form-group col-md-3">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <!-- <label for="indikator">İndikatör Seç</label> -->
+                    <select 
+                    class="indikator-select select2"
+                    multiple="multiple" 
+                    hx-post="/stratejiler/indikator_parametre_partial/"
+                    data-dropdown-css-class="select2-purple"
+                    data-placeholder="İndikatör Seçin"
+
+                    style="width: 100%;"
+                    name="indikator_sol_{{ blok_id }}"
+                    data-blok-id="{{ blok_id }}"
+                    hx-headers='{"X-CSRFToken": getCookie("csrftoken")}'
+                    hx-vals='js:{
+                        "indikator_id": event.target.value,
+                        "blok_id": "{{ blok_id }}",
+                        "parent_id": "{{ parent_id }}",
+                        "konum": "sag"
+                    }'
+                    hx-target="#kapanis_parametre_input_alani_sag_{{ blok_id }}"
+                    hx-trigger="change"
+                    hx-swap="innerHTML">
+                    
+                    <option value="">İndikatör Seç</option>
+                    {% for x in indikator_listesi %}
+                        <option value="{{ x.indikator.id }}">{{ x.indikator.adi }}</option>
+                    {% endfor %}
+                </select>
+                    <!-- Altına yerleşecek parametre alanı -->
+                    <div class="parametre-alani sag-parametreler mt-2"
+                        id="kapanis_parametre_input_alani_sag_{{ blok_id }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

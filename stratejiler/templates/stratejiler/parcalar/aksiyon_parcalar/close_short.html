@@ -1,0 +1,52 @@
+<div class="form-row">
+    <!-- Parite Seçimi -->
+    <div class="form-group col-md-3">
+        <label for="coin">İşlem Paritesi</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Miktar -->
+    <div class="form-group col-md-2">
+        <label for="miktar">Miktar</label>
+        <input type="number" name="miktar" step="0.0001" class="form-control" placeholder="Örn: 100">
+    </div>
+
+    <!-- Miktar Tipi -->
+    <div class="form-group col-md-1">
+        <label for="miktar_tipi">Tip</label>
+        <select name="miktar_tipi" class="form-control">
+            <option value="yuzde">%</option>
+            <option value="sabit">Sabit</option>
+        </select>
+    </div>
+
+    <!-- Emir Tipi -->
+    <div class="form-group col-md-2">
+        <label for="emir_tipi">Emir Tipi</label>
+        <select name="emir_tipi" class="form-control">
+            <option value="market">Market</option>
+            <option value="limit">Limit</option>
+            <option value="fok">Fill or Kill</option>
+        </select>
+    </div>
+
+    <!-- Limit Fiyat -->
+    <div class="form-group col-md-2">
+        <label for="limit_fiyat">Limit Fiyat</label>
+        <input type="number" name="limit_fiyat" step="0.0001" class="form-control" placeholder="Opsiyonel">
+    </div>
+
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="close_short">
+</div>

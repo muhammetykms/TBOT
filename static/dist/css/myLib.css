@@ -1,0 +1,71 @@
+.inside_buy_container {
+    display: flex; /* Flexbox'ı etkinleştirir */
+    justify-content: center; /* yatayda ortala */
+    align-items: center;     /* dikeyde ortala */
+    height: 200px;
+    border: 1px solid black;
+    flex-direction: column;
+    flex-direction: row;
+    overflow-x: auto;
+}
+  
+.itema {
+  width: 50px;
+  height: 50px;
+  background-color: orange;
+  margin: 10px;
+}
+  
+.card {
+  width: auto;                /* Sabit değil, içeriğe göre */
+  display: inline-block;      /* Blok değil, içerik kadar */
+  overflow-x: auto;           /* Taşarsa scroll çıkar */
+  min-width: 100%;     /* İçeriği tamamen kapsasın */
+  max-width: none;            /* Hiçbir üst limit olmasın */
+}
+
+
+
+/* Tüm purple temalar için etiketleri mor yap */
+.select2-purple .select2-selection__choice {
+  background-color: #6f42c1 !important;
+  border-color: #6f42c1 !important;
+  color: #fff !important;
+}
+
+
+/* Seçili alan (kapsayıcı): Yatayda wrap, dikeyde alan kadar */
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  white-space: normal;
+  padding: 4px 6px;
+  align-items: center;
+}
+
+/* Her bir seçili item */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  max-width: 180px; /* Uzun item’lar bu genişliği geçmesin */
+  word-break: break-word; /* kelime uzun ise bölünsün */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  padding: 4px 8px;
+  font-size: 14px;
+  background-color: #7b4ca0;
+  color: white;
+  border-radius: 4px;
+}
+.select2-container .select2-dropdown {
+  width: auto !important;
+  min-width: 100%;
+}
+
+.select2-results__option {
+  white-space: nowrap;
+}
+
+.sadece_rakam{
+  ime-mode: disabled;
+}

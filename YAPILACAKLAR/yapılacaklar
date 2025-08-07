@@ -1,0 +1,13 @@
+arbitraj algoritması.
+dominancelar katılacak
+orderbooks'lar katılacak.
+
+
+
+Geçmiş yılların 1 dakikalık verilerini çekerek veritabanına yaz.
+böylece geçmiş yılların 1 dakikalık verileri üzerinden back'test kontrolü yapabilirsin. 
+
+
+trend destek, yerel minimum- maksimum fonksiyonlarını ekle
+
+

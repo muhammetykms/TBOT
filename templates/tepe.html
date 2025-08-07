@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load static %}
+
+{# Üst çubuğa özel stiller #}
+{% block head %}
+  {{ block.super }}
+  <style>
+    /* OKX/3Commas vari koyu-modern navbar pills */
+    .topbar-links { gap: .25rem; }
+    .top-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .35rem .6rem; border-radius: .75rem;
+      line-height: 1; font-weight: 600; font-size: .925rem;
+      color: var(--color-ink, #e6e8eb);
+      border: 1px solid transparent;
+      transition: background-color .18s ease, border-color .18s ease, opacity .18s ease;
+      opacity: .92;
+    }
+    .top-link:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.08); opacity: 1; }
+    .top-link.active { background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.35); color: #e6ffe9; }
+    .top-link img { width: 22px; height: 22px; object-fit: contain; }
+    /* Bars butonunu da aynı stile yaklaştıralım */
+    .topbar-trigger {
+      padding: .35rem .6rem; border-radius: .6rem;
+      border: 1px solid transparent; color: #cbd5e1;
+    }
+    .topbar-trigger:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.08); }
+    @media (max-width: 992px) {
+      .top-link span { display: none; }     /* küçük ekranda sadece ikon */
+      .top-link { padding: .45rem; }
+    }
+        /* Sidebar büyük ekranda tamamen gizli */
+    .main-sidebar {
+      display: none !important;
+    }
+
+    /* Küçük ekranda pushmenu ile göster */
+    @media (max-width: 992px) {
+      .main-sidebar {
+        display: block !important;
+      }
+    }
+        /* Büyük ekranda sidebar gizli */
+    @media (min-width: 992px) {
+      .main-sidebar {
+        display: none !important;
+      }
+    }
+
+    /* Küçük ekranda toggle ile açıldığında görünür */
+    @media (max-width: 991.98px) {
+      .sidebar-open .main-sidebar {
+        display: block !important;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block ustsatir %}
+{# Marka / Logo #}
+<li class="nav-item">
+  <a href="{% url 'home' %}" class="nav-link brand-wrap">
+    <img src="{% static 'dist/img/tepe/fsbot-logo.png' %}" alt="FSBOT" class="brand-logo">
+    <span class="font-weight-bold" style="letter-spacing:.02em;">FSBOT</span>
+  </a>
+</li>
+
+{# Küçük ekranda hamburger (sidebar/pushmenu) #}
+<li class="nav-item mr-1 d-lg-none">
+  <a class="nav-link" data-widget="pushmenu" href="#" role="button" title="Menüyü Aç/Kapat">
+    <i class="fas fa-bars"></i>
+  </a>
+</li>
+
+
+  {# Menü linkleri (lg ve üstünde görünür) #}
+  <li class="nav-item d-none d-lg-inline-flex">
+    <a href="{% url 'coinler:coinler_index' %}"
+       class="nav-link top-link tw-inline-flex tw-items-center tw-gap-2">
+      <img src="{% static 'dist/img/tepe/coins.png' %}" class="tw-w-5 tw-h-5" alt="">
+      <span>Coinler</span>
+    </a>
+  </li>
+
+  <li class="nav-item d-none d-lg-inline-flex">
+    <a href="{% url 'piyasa:ozet_panel' %}"
+       class="nav-link top-link tw-inline-flex tw-items-center tw-gap-2">
+      <img src="{% static 'dist/img/tepe/coins.png' %}" class="tw-w-5 tw-h-5" alt="">
+      <span>Piyasa</span>
+    </a>
+  </li>
+
+  <li class="nav-item d-none d-lg-inline-flex">
+    <a href="{% url 'islemac:islemac_index' %}"
+       class="nav-link top-link tw-inline-flex tw-items-center tw-gap-2">
+      <img src="{% static 'dist/img/satin_alma_icin/buy.png' %}" class="tw-w-5 tw-h-5" alt="">
+      <span>İşlem Aç</span>
+    </a>
+  </li>
+
+  <li class="nav-item d-none d-lg-inline-flex">
+    <a href="{% url 'mumlar:mumlar_index' %}"
+       class="nav-link top-link tw-inline-flex tw-items-center tw-gap-2">
+      <img src="{% static 'dist/img/tepe/candles.png' %}" class="tw-w-5 tw-h-5" alt="">
+      <span>Mumlar &amp; Backtest</span>
+    </a>
+  </li>
+
+  <li class="nav-item d-none d-lg-inline-flex">
+    <a href="{% url 'indikatorler:indikatorler_index' %}"
+       class="nav-link top-link tw-inline-flex tw-items-center tw-gap-2">
+      <img src="{% static 'dist/img/tepe/indicators.png' %}" class="tw-w-5 tw-h-5" alt="">
+      <span>İndikatörler</span>
+    </a>
+  </li>
+
+  <li class="nav-item d-none d-lg-inline-flex">
+    <a href="{% url 'stratejiler:stratejiler_index' %}"
+       class="nav-link top-link tw-inline-flex tw-items-center tw-gap-2">
+      <img src="{% static 'dist/img/tepe/strateji.png' %}" class="tw-w-5 tw-h-5" alt="">
+      <span>Stratejiler</span>
+    </a>
+  </li>
+
+  <li class="nav-item d-none d-lg-inline-flex">
+    <a href="#" class="nav-link top-link tw-inline-flex tw-items-center tw-gap-2">
+      <img src="{% static 'dist/img/tepe/funds.png' %}" class="tw-w-5 tw-h-5" alt="">
+      <span>Varlıklar</span>
+    </a>
+  </li>
+
+  <script>
+    // Aktif menü vurgusu
+    document.addEventListener('DOMContentLoaded', function () {
+      const path = location.pathname;
+      const map = [
+        {sel: 'a[href*="/coinler"]',      re: /\/coinler/},
+        {sel: 'a[href*="/piyasa"]',       re: /\/piyasa/},
+        {sel: 'a[href*="/islemac"]',      re: /\/islemac/},
+        {sel: 'a[href*="/mumlar"]',       re: /\/mumlar/},
+        {sel: 'a[href*="/indikatorler"]', re: /\/indikatorler/},
+        {sel: 'a[href*="/stratejiler"]',  re: /\/stratejiler/},
+        {sel: 'a[href*="#"]',             re: /\/varliklar/}
+      ];
+      const item = map.find(m => m.re.test(path));
+      if (item) {
+        const el = document.querySelector('.navbar-nav ' + item.sel);
+        if (el) el.classList.add('tw-bg-emerald-500/15','tw-border','tw-border-emerald-400/40','tw-rounded-xl');
+      }
+    });
+  </script>
+
+  <style>
+    /* Link hover’larını biraz modernleştirelim (AdminLTE ile çakışmaz) */
+    .top-link:hover { background-color: rgba(255,255,255,.06) !important; border-radius: .75rem; }
+  </style>
+{% endblock %}

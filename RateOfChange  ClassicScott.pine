@@ -1,0 +1,548 @@
+// @version=5
+
+// Assembled by @ClassicScott
+
+// The Rate of Change, or RoC, is a momentum indicator that measures the percentage change in price between the current period and the price
+// n periods ago. It oscillates above and below a zero line, basically showing bullish or bearish momentum. This is only one part of the indicator.
+
+// The two additions to this have been changed somewhat since the initial release, both of which incorporate the true range in the calculation.
+// The first is essentially the OBV without including volume, then multiplying by the true range. The previous release did not include the true
+// range into the calculation, making it a difficult to use indicator (it was mostly experimental). The second is essentially the same, but
+// excludes the signum, a mathematical function that is incorporated in the OBV as well.
+
+// How did this work previously, and how does adding true range improve upon this and create a very nice bias indicator?
+// Also, what the heck is a 'signum'?
+
+// The previous iteration was an accumulation of the change in price from one bar to the next, then taking the signum of that number.
+
+// Signum is a mathematical function that looks at a specific number and adds 1 if the number is > 0, subtracts 1 if it is < 0, and essentially
+// does nothing if the number is = 0. In even simpler terms, the indicator moves up 1 if a candle closes up, down 1 if it closes down, and on
+// the off chance that there is no change in price, does nothing. This means that no matter how big the candle is the indicator would always only
+// make one equal movement up or down. This can give strange readings because a chart could produce five small-bodied candles in a row and then
+// one large candle that closes below all of them, but the indicator will show five equal moves up, and one down (as I said, signum only looks
+// to see if the number is positive or negative, not how big that number is). However, multiplying this 1 or -1 by the true range gives one a
+// properly useful indicator in which the true range of each candle is accounted for in addition to if it closed up or down. If you don't know
+// what the true range is, it is the maximum of one of three numbers: the high minus the low, the high minus the previous close, or the previous
+// close minus the current low. It will always be calculated as the high minus the low unless there is a gap up or down.
+
+// The other addition to this little group used to be what essentially was a line chart of price (cumulative change, but without the signum).
+// This seemed to me somewhat useless, but again, by calculating with the true range we achieve a more useful indicator. This produces something
+// a little bit different from what I call the Cumulative True Change. Well, I call them both that, but one calculates with signum, the other
+// without. They are both excellent momentum and trend-based indicators that suffer somewhat in sideways, choppy markets (though I think the one
+// without the signum is better here).
+
+// Signal Lines, Bollinger Bands, Donchian Channels, bar coloring and alerts are my usual additions.
+
+// Hopefully this may be of some use to some of you.
+
+
+indicator(title='+ Rate of Change', shorttitle='+ ROC', format=format.inherit, timeframe='')
+import ClassicScott/MyMovingAveragesLibrary/3 as mymas
+import ClassicScott/MyVolatilityBands/3 as volbands
+
+src = input.source(title='Source', defval=close, group='Rate of Change')
+lkbk = input.int(title='Lookback', defval=55, group='Rate of Change')
+i_type = input.string(title='Rate of Change Type', defval='RoC', options=['RoC', 'Cumulative True Change (with signum)', 'Cumulative True Change (no signum)'], group='Rate of Change')
+
+
+//math.sign (signum) of number is zero if number is zero, 1.0 if number is greater than zero, -1.0 if number is less than zero
+
+
+////RATE OF CHANGE
+roc = 100 * ((src - src[lkbk]) / src[lkbk])
+
+////CUMULATIVE TRUE CHANGE (LIKE OBV BUT MULTIPLIED BY THE TRUE RANGE AND EXCLUDING VOLUME)
+ctc_sig = ta.cum(math.sign(ta.change(src)) * ta.tr)
+
+////CUMULATIVE TRUE CHANGE WITHOUT SIGNUM
+ctc = ta.cum(ta.change(src) * ta.tr)
+
+////
+roc_type = i_type == 'RoC' ? roc : i_type == 'Cumulative True Change (with signum)' ? ctc_sig : i_type == 'Cumulative True Change (no signum)' ? ctc : na
+
+
+////HORIZONTAL LINE IF OSCILLATOR, OTHERWISE NO HORIZONTAL LINE
+hline(price=i_type == 'RoC' ? 0 : na, title='Centerline', linestyle=hline.style_dotted, color=color.silver)
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+/////PRIMARY SIGNAL LINE
+show_sig = input.bool(title='', defval=true, group='Primary Signal Line')
+sig_type = input.string(title='Type', defval='Exponential - EMA', options=['Arnaud Legoux - ALMA', 'Exponential - EMA', 'Double Exponential - DEMA', 'Triple Exponential - EMA', 'Fractal Adaptive - FRAMA', 'Kaufman Adaptive - KAMA', 'Hull - HMA', 'Jurik - JMA', 'Laguerre Filter', 'Least Squares - LSMA', 'McGinley Dynamic', 'Modular Filter', 'Rex Dog - RDMA', 'Simple - SMA', 'Smoothed - SMMA or RMA', 'Tillson T3', 'Triangular - TMA', 'Volatility-Adjusted - VAMA', 'Volume-Weighted - VWMA', 'Weighted - WMA', 'Zero-Lag - ZLMA'], group='Primary Signal Line')
+sig_lkbk = input.int(title='Lookback', defval=21, group='Primary Signal Line')
+
+//ALMA - ARNAUD LEGOUX
+alsig_offset = input.float(title='ALMA Offset', step=0.05, defval=0.85, inline='alma', group='Primary Signal Line')
+alsig_sigma = input.float(title='ALMA Sigma', step=0.5, defval=6, inline='alma', group='Primary Signal Line')
+
+//FRAMA - FRACTAL ADAPTIVE
+fc = input.int(title='FRAMA Fast Period', defval=34, minval=1, inline='frama', group='Primary Signal Line')
+sc = input.int(title='FRAMA Slow Period', defval=89, minval=1, inline='frama', group='Primary Signal Line')
+
+//KAMA - KAUFMAN ADAPTIVE
+kfl = input.float(title='KAMA Fast End', defval=0.7, minval=0.01, step=0.01, inline='kama', group='Primary Signal Line')
+ksl = input.float(title='KAMA Slow End', defval=0.065, minval=0.01, step=0.0025, inline='kama', group='Primary Signal Line')
+
+//JMA - JURIK
+jurik_phase = input.int(title='Jurik Phase', defval=1, minval=-100, maxval=100, inline='jma', group='Primary Signal Line')
+jurik_power = input.float(title='Jurik Power', defval=1, minval=0.1, maxval=10, step=0.1, inline='jma', group='Primary Signal Line')
+
+//LAGUERRE FILTER
+laguerre_alpha = input.float(title='Laguerre Filter Alpha', minval=0, maxval=1, step=0.025, defval=0.7, inline='laguerre', group='Primary Signal Line')
+
+//LSMA - LEAST SQUARES
+lssig_offset = input.int(title='Least Squares Offset', defval=9, inline='lsma', group='Primary Signal Line')
+
+//MODULAR FILTER
+mf_beta = input.float(title='Modular Filter Beta', defval=0.5, maxval=1, step=0.05, inline='mf', group='Primary Signal Line')
+mf_feedback = input.bool(title='Modular Filter Feedback', defval=true, inline='mf', group='Primary Signal Line')
+mf_z = input.float(title='Modular Filter Feedback Weighting', defval=0.2, step=0.1, minval=0, maxval=1, inline='mf', group='Primary Signal Line')
+
+//VAMA - VOLATILITY-ADJUSTED
+vol_lkbk = input.int(title='Volatility Adjusted Lookback Period', defval=21, minval=1, group='Primary Signal Line')
+
+////LIST OF MOVING AVERAGES
+ma(type, src, lkbk) =>
+    result = 0.0
+    if type == 'Arnaud Legoux - ALMA'
+        result := mymas.alma(src, lkbk, alsig_offset, alsig_sigma)
+        
+    if type == 'Exponential - EMA'
+        result := mymas.ema(src, lkbk)
+        
+    if type == 'Double Exponential - DEMA'
+        result := mymas.dema(src, lkbk)
+        
+    if type == 'Triple Exponential - TEMA'
+        result := mymas.tema(src, lkbk)
+        
+    if type == 'Fractal Adaptive - FRAMA'
+        result := mymas.frama(src, lkbk, fc, sc)
+    
+    if type == 'Kaufman Adaptive - KAMA'
+        result := mymas.kama(src, lkbk, kfl, ksl)
+
+    if type == 'Hull - HMA'
+        result := mymas.hma(src, lkbk)
+        
+    if type == 'Jurik - JMA'
+        result := mymas.jma(src, lkbk, jurik_phase, jurik_power)
+
+    if type == 'Laguerre Filter'
+        result := mymas.laguerre(src, laguerre_alpha) 
+        
+    if type == 'Least Squares - LSMA'
+        result := mymas.lsma(src, lkbk, lssig_offset)
+    
+    if type == "McGinley Dynamic"
+        result := mymas.mcginley(src, lkbk)
+        
+    if type == 'Modular Filter'
+        result := mymas.mf(src, lkbk, mf_feedback, mf_beta, mf_z)
+        
+    if type == 'Rex Dog - RDMA'
+        result := mymas.rdma(src)
+        
+    if type == 'Simple - SMA'
+        result := mymas.sma(src, lkbk)
+
+    if type == 'Smoothed - SMMA or RMA'
+        result := mymas.smma(src, lkbk)
+        
+    if type == 'Tillson T3'  // credits to Harry Potter for the calculations
+        result := mymas.t3(src, lkbk)
+        
+    if type == 'Triangular - TMA'
+        result := mymas.tma(src, lkbk)
+        
+    if type == 'Volatility-Adjusted - VAMA'
+        result := mymas.vama(src, lkbk, vol_lkbk)
+
+    if type == 'Volume-Weighted - VWMA'
+        result := mymas.vwma(src, lkbk)
+
+    if type == 'Weighted - WMA'
+        result := mymas.wma(src, lkbk)
+        
+    if type == 'Zero-Lag - ZLMA'
+        result := mymas.zlma(src, lkbk)
+        
+    result
+
+signal = ma(sig_type, roc_type, sig_lkbk)
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+///SECONDARY SIGNAL LINE
+show_sig2 = input.bool(title='', defval=true, group='Secondary Signal Line')
+sig2_type = input.string(title='Type', defval='Tillson T3', options=['Arnaud Legoux - ALMA', 'Exponential - EMA', 'Double Exponential - DEMA', 'Triple Exponential - EMA', 'Fractal Adaptive - FRAMA', 'Kaufman Adaptive - KAMA', 'Hull - HMA', 'Jurik - JMA', 'Laguerre Filter', 'Least Squares - LSMA', 'McGinley Dynamic', 'Modular Filter', 'Rex Dog - RDMA', 'Simple - SMA', 'Smoothed - SMMA or RMA', 'Tillson T3', 'Triangular - TMA', 'Volatility-Adjusted - VAMA', 'Volume-Weighted - VWMA', 'Weighted - WMA', 'Zero-Lag - ZLMA'], group='Secondary Signal Line')
+sig2_lkbk = input.int(title='Lookback', defval=21, group='Secondary Signal Line')
+
+//ALMA - ARNAUD LEGOUX
+alsig_offset2 = input.float(title='ALMA Offset', step=0.05, defval=0.85, inline='alma', group='Secondary Signal Line')
+alsig_sigma2 = input.float(title='ALMA Sigma', step=0.5, defval=6, inline='alma', group='Secondary Signal Line')
+
+//FRAMA - FRACTAL ADAPTIVE
+fc2 = input.int(title='FRAMA Fast Period', defval=34, minval=1, inline='frama', group='Secondary Signal Line')
+sc2 = input.int(title='FRAMA Slow Period', defval=89, minval=1, inline='frama', group='Secondary Signal Line')
+
+//KAMA - KAUFMAN ADAPTIVE
+kfl2 = input.float(title='KAMA Fast End', defval=0.7, minval=0.01, step=0.01, inline='kama', group='Secondary Signal Line')
+ksl2 = input.float(title='KAMA Slow End', defval=0.065, minval=0.01, step=0.0025, inline='kama', group='Secondary Signal Line')
+
+//JMA - JURIK
+jurik_phase2 = input.int(title='Jurik Phase', defval=1, minval=-100, maxval=100, inline='jma', group='Secondary Signal Line')
+jurik_power2 = input.float(title='Jurik Power', defval=1, minval=0.1, maxval=10, step=0.1, inline='jma', group='Secondary Signal Line')
+
+//LAGUERRE FILTER
+laguerre_alpha2 = input.float(title='Laguerre Filter Alpha', minval=0, maxval=1, step=0.025, defval=0.7, inline='laguerre', group='Secondary Signal Line')
+
+//LSMA - LEAST SQUARES
+lssig_offset2 = input.int(title='Least Squares Offset', defval=9, inline='lsma', group='Secondary Signal Line')
+
+//MODULAR FILTER
+mf_beta2 = input.float(title='Modular Filter Beta', defval=0.5, maxval=1, step=0.05, inline='mf', group='Secondary Signal Line')
+mf_feedback2 = input.bool(title='Modular Filter Feedback', defval=true, inline='mf', group='Secondary Signal Line')
+mf_z2 = input.float(title='Modular Filter Feedback Weighting', defval=0.2, step=0.1, minval=0, maxval=1, inline='mf', group='Secondary Signal Line')
+
+//VAMA - VOLATILITY-ADJUSTED
+vol_lkbk2 = input.int(title='Volatility Adjusted Lookback Period', defval=21, minval=1, group='Secondary Signal Line')
+
+////LIST OF MOVING AVERAGES
+ma2(type, src, lkbk) =>
+    result = 0.0
+    if type == 'Arnaud Legoux - ALMA'
+        result := mymas.alma(src, lkbk, alsig_offset2, alsig_sigma2)
+        
+    if type == 'Exponential - EMA'
+        result := mymas.ema(src, lkbk)
+        
+    if type == 'Double Exponential - DEMA'
+        result := mymas.dema(src, lkbk)
+        
+    if type == 'Triple Exponential - TEMA'
+        result := mymas.tema(src, lkbk)
+        
+    if type == 'Fractal Adaptive - FRAMA'
+        result := mymas.frama(src, lkbk, fc2, sc2)
+    
+    if type == 'Kaufman Adaptive - KAMA'
+        result := mymas.kama(src, lkbk, kfl2, ksl2)
+
+    if type == 'Hull - HMA'
+        result := mymas.hma(src, lkbk)
+        
+    if type == 'Jurik - JMA'
+        result := mymas.jma(src, lkbk, jurik_phase2, jurik_power2)
+
+    if type == 'Laguerre Filter'
+        result := mymas.laguerre(src, laguerre_alpha2) 
+        
+    if type == 'Least Squares - LSMA'
+        result := mymas.lsma(src, lkbk, lssig_offset2)
+    
+    if type == "McGinley Dynamic"
+        result := mymas.mcginley(src, lkbk)
+        
+    if type == 'Modular Filter'
+        result := mymas.mf(src, lkbk, mf_feedback2, mf_beta2, mf_z2)
+        
+    if type == 'Rex Dog - RDMA'
+        result := mymas.rdma(src)
+        
+    if type == 'Simple - SMA'
+        result := mymas.sma(src, lkbk)
+
+    if type == 'Smoothed - SMMA or RMA'
+        result := mymas.smma(src, lkbk)
+        
+    if type == 'Tillson T3'  // credits to Harry Potter for the calculations
+        result := mymas.t3(src, lkbk)
+        
+    if type == 'Triangular - TMA'
+        result := mymas.tma(src, lkbk)
+        
+    if type == 'Volatility-Adjusted - VAMA'
+        result := mymas.vama(src, lkbk, vol_lkbk2)
+
+    if type == 'Volume-Weighted - VWMA'
+        result := mymas.vwma(src, lkbk)
+
+    if type == 'Weighted - WMA'
+        result := mymas.wma(src, lkbk)
+        
+    if type == 'Zero-Lag - ZLMA'
+        result := mymas.zlma(src, lkbk)
+        
+    result
+
+signal2 = ma2(sig2_type, roc_type, sig2_lkbk)
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////FILL BETWEEN SIGNAL LINES - INPUTS AND VARIABLES
+fill_sigs = input.bool(defval=true, title='', group='Signal Line Fill')
+pos_fill_color = input.color(color.new(#00bcd4, 90), title='Bullish', inline='maf', group='Signal Line Fill')
+neg_fill_color = input.color(color.new(#e91e63, 90), title='Bearish', inline='maf', group='Signal Line Fill')
+sig_fill = fill_sigs and signal > signal2 ? pos_fill_color : fill_sigs and signal < signal2 ? neg_fill_color : na
+
+
+////SIGNAL LINE CROSS - INPUTS AND VARIABLES
+c_sig_x_up = input.color(color.new(#ff9800, 10), title='Bullish', inline='sig', group='RoC Signal Line Crosses')
+c_sig_x_down = input.color(color.new(#2962ff, 10), title='Bearish', inline='sig', group='RoC Signal Line Crosses')
+sig_x_up = ta.crossover(roc_type, signal)
+sig_x_down = ta.crossunder(roc_type, signal)
+
+
+////BAR COLOR - INPUTS AND VARIABLES
+bar_color = input.bool(defval=true, title='', group='Bar Colors')
+i_bc_selection = input.string(defval='Donchian Channels', options=['Centerline', 'Signal Line', 'Cumulative Signal Line', 'Donchian Channels', 'Donchian Channels Basis', 'Bollinger Bands'], title='Reference for Bar Colors', group='Bar Colors')
+
+bc_up = input.color(color.new(#ff9800, 0), title='Bullish', inline='bc_', group='Bar Colors')
+bc_neut = input.color(color.new(#787b86, 0), title='Neutral', inline='bc_', group='Bar Colors')
+bc_down = input.color(color.new(#2962ff, 0), title='Bearish', inline='bc_', group='Bar Colors')
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////DONCHIAN CHANNELS BANDS - INPUTS AND VARIABLES
+dc = input.bool(defval=false, title='', group='Donchian Channels')
+dc_lkbk = input.int(defval=50, title='Lookback', group='Donchian Channels')
+dc_band_width = input.float(defval=10, step=0.5, title='Band Thickness', group='Donchian Channels', tooltip='Defines the thickness of the band. Larger number is thinner.')
+dc_pos_fill = input.color(color.new(#787b86, 75), title='Upper Band', inline='dcc', group='Donchian Channels')
+dc_neg_fill = input.color(color.new(#787b86, 75), title='Lower Band', inline='dcc', group='Donchian Channels')
+
+i_basis = input.bool(defval=false, title='Display Basis', group='Donchian Channels')
+c_basis = input.color(defval=color.new(#787b86, 25), title='Basis Color', inline='basis color', group='Donchian Channels')
+
+[basis, upper, lower, inner_upper, inner_lower] = volbands.donchianchannels(roc_type, dc_lkbk, dc_band_width)
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////BOLLINGER BANDS - INPUTS AND VARIABLES
+bbands = input.bool(defval=false, title='', group='Bollinger Bands')
+bb_lkbk = input.int(20, title='Bands Lookback', inline='bb1', group='Bollinger Bands')
+mult = input.float(2.0, minval=0.001, maxval=50, step=0.1, title='Std Dev', inline='bb1', group='Bollinger Bands')
+bb_band_width = input.float(defval=8, step=0.5, title='Band Thickness', group='Bollinger Bands', tooltip='Defines the thickness of the band. The default value of 8 equates to a 1.5 standard deviations if the default 2 standard deviations is used for the Bands calculation.')
+bb_pos_fill = input.color(color.new(#787b86, 75), title='Upper Band', inline='bbc', group='Bollinger Bands')
+bb_neg_fill = input.color(color.new(#787b86, 75), title='Lower Band', inline='bbc', group='Bollinger Bands')
+
+[bb_basis, bb_upper, bb_lower, bb_inner_upper, bb_inner_lower] = volbands.bollingerbands(roc_type, bb_lkbk, mult, signal, bb_band_width)
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+mid = i_type == 'RoC' ? 0 : na
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////RATE OF CHANGE - COLOR INPUTS AND VARIABLES
+i_roc_color_selection = input.string(defval='Donchian Channels', options=['Centerline', 'Signal Line', 'Cumulative Signal Line', 'Donchian Channels', 'Donchian Channels Basis', 'Bollinger Bands'], title='Reference for RoC Colors', group='Rate of Change')
+
+roc_pos = input.color(#ff9800, title='Bullish', inline='roc_c', group='Rate of Change')
+roc_neut = input.color(#787b86, title='Neutral', inline='roc_c', group='Rate of Change')
+roc_neg = input.color(#2962ff, title='Bearish', inline='roc_c', group='Rate of Change')
+
+roc_1 = roc_type > mid ? roc_pos : roc_neg
+
+roc_2 = roc_type > signal and roc_type > signal2 and roc_type > mid ? roc_pos : roc_type < signal and roc_type < signal2 and roc_type < mid ? roc_neg : roc_neut
+
+roc_3 = color.from_gradient(roc_type, lower, upper, roc_neg, roc_pos)
+
+roc_4 = color.from_gradient(roc_type, bb_lower, bb_upper, roc_neg, roc_pos)
+
+roc_5 = roc_type > signal and roc_type > signal2 ? roc_pos : roc_type < signal and roc_type < signal2 ? roc_neg : roc_neut
+
+roc_6 = roc_type > basis ? roc_pos : roc_type < basis ? roc_neg : roc_neut
+
+roc_color_selection = i_roc_color_selection == 'Centerline' ? roc_1 : i_roc_color_selection == 'Signal Line' ? roc_2 : i_roc_color_selection == 'Donchian Channels' ? roc_3 : i_roc_color_selection == 'Bollinger Bands' ? roc_4 : i_roc_color_selection == 'Cumulative Signal Line' ? roc_5 : i_roc_color_selection == 'Donchian Channels Basis' ? roc_6 : na
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////SIGNAL LINE - COLOR INPUTS AND VARIABLES
+bull_sig_color = input.color(color.new(#00bcd4, 50), title='Bullish', inline='mac', group='Primary Signal Line')
+bear_sig_color = input.color(color.new(#e91e63, 50), title='Bearish', inline='mac', group='Primary Signal Line')
+
+bull_sig2_color = input.color(color.new(#00bcd4, 50), title='Bullish', inline='ma2c', group='Secondary Signal Line')
+bear_sig2_color = input.color(color.new(#e91e63, 50), title='Bearish', inline='ma2c', group='Secondary Signal Line')
+
+sig_color = signal > signal2 ? bull_sig_color : bear_sig_color
+sig2_color = signal2 > signal2[1] ? bull_sig2_color : bear_sig2_color
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////BAR COLOR VARIABLES
+bc_1 = roc_type > mid ? bc_up : bc_down
+
+bc_2 = roc_type > signal and roc_type > signal2 and roc_type > mid ? bc_up : roc_type < signal and roc_type < signal2 and roc_type < mid ? bc_down : bc_neut
+
+bc_3 = color.from_gradient(roc_type, lower, upper, bc_down, bc_up)
+
+bc_4 = color.from_gradient(roc_type, bb_lower, bb_upper, bc_down, bc_up)
+
+bc_5 = roc_type > signal and roc_type > signal2 ? bc_up : roc_type < signal and roc_type < signal2 ? bc_down : bc_neut
+
+bc_6 = roc_type > basis ? bc_up : roc_type < basis ? bc_down : bc_neut
+
+bc_selection = i_bc_selection == 'Centerline' ? bc_1 : i_bc_selection == 'Signal Line' ? bc_2 : i_bc_selection == 'Donchian Channels' ? bc_3 : i_bc_selection == 'Bollinger Bands' ? bc_4 : i_bc_selection == 'Cumulative Signal Line' ? bc_5 : i_bc_selection == 'Donchian Channels Basis' ? bc_6 : na
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////PLOTS, FILLS, BAR COLORS
+plot(roc_type, color=roc_color_selection, title='RoC')
+sig_plot = plot(show_sig ? signal : na, color=sig_color, title='Primary Signal Line', display=display.none)
+sig2_plot = plot(show_sig2 ? signal2 : na, color=sig2_color, title='Secondary Signal Line', display=display.none)
+fill(sig_plot, sig2_plot, color=sig_fill, title='Signal Line Ribbon')
+barcolor(bar_color ? bc_selection : na, title='Bar Colors')
+
+plotshape(show_sig and sig_x_up, style=shape.circle, location=location.bottom, color=c_sig_x_up, title='RoC + Signal Line Cross Up')
+plotshape(show_sig and sig_x_down, style=shape.circle, location=location.top, color=c_sig_x_down, title='RoC + Signal Line Cross Down')
+
+upper_plot = plot(dc ? upper : na, color=color.new(#ef5350, 0), title='Upper DC', display=display.none)
+inner_upper_plot = plot(dc ? inner_upper : na, color=color.new(#ef5350, 0), title='Inner Upper DC', display=display.none)
+lower_plot = plot(dc ? lower : na, color=color.new(#2196f3, 0), title='Lower DC', display=display.none)
+inner_lower_plot = plot(dc ? inner_lower : na, color=color.new(#2196f3, 0), title='Inner Lower DC', display=display.none)
+fill(upper_plot, inner_upper_plot, color=dc_neg_fill, title='Upper DC Bands Fill')
+fill(lower_plot, inner_lower_plot, color=dc_pos_fill, title='Lower DC Bands Fill')
+plot(i_basis ? basis : na, color=c_basis, title='Basis')
+
+bb_upper_plot = plot(bbands ? bb_upper : na, color=color.new(#2196f3, 0), title='Upper Bollinger Band', display=display.none)
+bb_inner_upper_plot = plot(bbands ? bb_inner_upper : na, color=color.new(#2196f3, 0), title='Inner Upper Bollinger Band', display=display.none)
+bb_lower_plot = plot(bbands ? bb_lower : na, color=color.new(#ef5350, 0), title='Lower Bollinger Band', display=display.none)
+bb_inner_lower_plot = plot(bbands ? bb_inner_lower : na, color=color.new(#ef5350, 0), title='Inner Lower Bollinger Band', display=display.none)
+fill(bb_upper_plot, bb_inner_upper_plot, color=bb_pos_fill, title='Upper Bollinger Bands Fill')
+fill(bb_lower_plot, bb_inner_lower_plot, color=bb_neg_fill, title='Lower Bollinger Bands Fill')
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////DIVERGENCES
+lkbk_right = input.int(title='Pivot Lookback Right', defval=5, group='Divergences')
+lkbk_left = input.int(title='Pivot Lookback Left', defval=5, group='Divergences')
+max_range = input.int(title='Max of Lookback Range', defval=60, group='Divergences')
+min_range = input.int(title='Min of Lookback Range', defval=5, group='Divergences')
+plot_bull = input.bool(title='Bull', defval=false, group='Divergences')
+plot_hdn_bull = input.bool(title='Hidden Bull', defval=false, group='Divergences')
+plot_bear = input.bool(title='Bear', defval=false, group='Divergences')
+plot_hdn_bear = input.bool(title='Hidden Bear', defval=false, group='Divergences')
+
+////COLOR INPUTS
+c_bull = input.color(color.new(color.blue, 0), title='Bull', inline='bull div', group='Divergences')
+c_hdn_bull = input.color(color.new(color.yellow, 0), title='Hidden Bull', inline='bull div', group='Divergences')
+c_bear = input.color(color.new(color.red, 0), title='Bear', inline='bear div', group='Divergences')
+c_hdn_bear = input.color(color.new(color.fuchsia, 0), title='Hidden Bear', inline='bear div', group='Divergences')
+c_text = input.color(color.new(color.white, 0), title='Text', inline='text', group='Divergences')
+c_na = color.new(color.white, 100)
+
+
+pl_found = na(ta.pivotlow(roc_type, lkbk_left, lkbk_right)) ? false : true
+
+ph_found = na(ta.pivothigh(roc_type, lkbk_left, lkbk_right)) ? false : true
+
+_inRange(cond) =>
+    bars = ta.barssince(cond == true)
+    min_range <= bars and bars <= max_range
+
+
+////
+// Bullish
+// Osc: Higher Low
+
+osc_hl = roc_type[lkbk_right] > ta.valuewhen(pl_found, roc_type[lkbk_right], 1) and _inRange(pl_found[1])
+
+// Price: Lower Low
+
+price_ll = low[lkbk_right] < ta.valuewhen(pl_found, low[lkbk_right], 1)
+bull_cond = plot_bull and price_ll and osc_hl and pl_found
+
+plot(pl_found ? roc_type[lkbk_right] : na, offset=-lkbk_right, title='Bull', linewidth=1, color=bull_cond ? c_bull : c_na)
+
+plotshape(bull_cond ? roc_type[lkbk_right] : na, offset=-lkbk_right, title='Bullish Label', text=' Bull ', style=shape.labelup, location=location.absolute, color=c_bull, textcolor=c_text, display=display.none)
+
+
+////
+// Hidden Bullish
+// Osc: Lower Low
+
+osc_ll = roc_type[lkbk_right] < ta.valuewhen(pl_found, roc_type[lkbk_right], 1) and _inRange(pl_found[1])
+
+// Price: Higher Low
+
+price_hl = low[lkbk_right] > ta.valuewhen(pl_found, low[lkbk_right], 1)
+
+hdn_bull_cond = plot_hdn_bull and price_hl and osc_ll and pl_found
+
+plot(pl_found ? roc_type[lkbk_right] : na, offset=-lkbk_right, title='Hidden Bull', linewidth=1, color=hdn_bull_cond ? c_hdn_bull : c_na)
+
+plotshape(hdn_bull_cond ? roc_type[lkbk_right] : na, offset=-lkbk_right, title='Hidden Bullish Label', text=' H. Bull ', style=shape.labelup, location=location.absolute, color=c_bull, textcolor=c_text, display=display.none)
+
+
+////
+// Bearish
+// Osc: Lower High
+
+osc_lh = roc_type[lkbk_right] < ta.valuewhen(ph_found, roc_type[lkbk_right], 1) and _inRange(ph_found[1])
+
+// Price: Higher High
+
+price_hh = high[lkbk_right] > ta.valuewhen(ph_found, high[lkbk_right], 1)
+
+bear_cond = plot_bear and price_hh and osc_lh and ph_found
+
+plot(ph_found ? roc_type[lkbk_right] : na, offset=-lkbk_right, title='Bear', linewidth=1, color=bear_cond ? c_bear : c_na)
+
+plotshape(bear_cond ? roc_type[lkbk_right] : na, offset=-lkbk_right, title='Bearish Label', text=' Bear ', style=shape.labeldown, location=location.absolute, color=c_bear, textcolor=c_text, display=display.none)
+
+
+////
+// Hidden Bearish
+// Osc: Higher High
+
+osc_hh = roc_type[lkbk_right] > ta.valuewhen(ph_found, roc_type[lkbk_right], 1) and _inRange(ph_found[1])
+
+// Price: Lower High
+
+price_lh = high[lkbk_right] < ta.valuewhen(ph_found, high[lkbk_right], 1)
+
+hdn_bear_cond = plot_hdn_bear and price_lh and osc_hh and ph_found
+
+plot(ph_found ? roc_type[lkbk_right] : na, offset=-lkbk_right, title='Hidden Bear', linewidth=1, color=hdn_bear_cond ? c_hdn_bear : c_na)
+
+plotshape(hdn_bear_cond ? roc_type[lkbk_right] : na, offset=-lkbk_right, title='Hidden Bearish Label', text=' H. Bear ', style=shape.labeldown, location=location.absolute, color=c_bear, textcolor=c_text, display=display.none)
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////ALERT CONDITIONS
+alertcondition(ta.cross(roc_type, inner_upper), title='ROC Type Crossing into Upper Donchian Channel', message='ROC Type has crossed into upper Donchian Channel.')
+alertcondition(ta.cross(roc_type, inner_lower), title='ROC Type Crossing into Lower Donchian Channel', message='ROC Type has crossed into lower Donchian Channel.')
+alertcondition(ta.cross(roc_type, basis), title='ROC Type Crossing DC Basis', message='ROC Type has crossed the DC Basis.')
+alertcondition(ta.cross(roc_type, bb_inner_upper), title='ROC Type Crossing Bollinger Upper Band', message='ROC Type has crossed the upper Bollinger band.')
+alertcondition(ta.cross(roc_type, bb_inner_lower), title='ROC Type Crossing Bollinger Lower Band', message='ROC Type has crossed the lower Bollinger band.')
+alertcondition(ta.cross(roc_type, signal), title='ROC Type Crossing Signal Line (fast)', message='ROC Type has crossed the fast Signal Line.')
+alertcondition(ta.cross(roc_type, signal2), title='ROC Type Crossing Moving Averag (slow)', message='ROC Type has crossed the slow Signal Line.')
+alertcondition(bull_cond, title='Bull Div', message='Rate of Change bull div')
+alertcondition(hdn_bull_cond, title='Hidden Bull Div', message='Rate of Change hidden bull div')
+alertcondition(bear_cond, title='Bear Div', message='Rate of Change bear div')
+alertcondition(hdn_bear_cond, title='Hidden Bear Div', message='Rate of Change hidden bear div')
+

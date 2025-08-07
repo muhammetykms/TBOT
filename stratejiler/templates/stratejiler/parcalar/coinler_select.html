@@ -1,0 +1,43 @@
+          <div class="col-4">
+            <div class="form-group">
+              <label style="color: #ffffff;">Ürün Grubu ya da Grupları</label>
+              <div class="select2-purple" id="urun_grubu_div">
+                <select class="select2" multiple="multiple" id="urun_grubu" name="urun_grubu" data-placeholder="Bir Durum Seçin" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                  {% for x in urun_grubu %}
+                  <option value="{{x.grup_adi}}">{{x.grup_adi}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+
+script kısmını kullanılan sayfanın en altına ekleyin
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(function () {
+    // Select2 başlatma
+    $('.select2').select2();
+
+    // Select2 için Bootstrap 4 uyumlu tema
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    });
+  });
+</script>
+
+
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+
+
+<!-- base.html içinde (veya editor sayfanın altına), şu script'i ekle: -->
+<script>
+  document.body.addEventListener('htmx:afterSwap', function(evt) {
+    // Eğer gelen parça içinde .select2 varsa, yeniden başlat
+    if (evt.target.querySelector('.select2')) {
+      $('.select2').select2({
+        theme: 'bootstrap4'
+      });
+    }
+  });
+</script>

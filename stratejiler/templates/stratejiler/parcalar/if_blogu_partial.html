@@ -1,0 +1,163 @@
+<div class="if-blok position-relative mt-4" 
+        data-blok-id="{{ blok_id }}" 
+        data-parent-id="{{ parent_id }}"
+        data-strateji-id="{{ strateji_id }}"
+        data-surec="{{ surec }}"
+        data-blok-tipi="if"
+        style="min-width: 650px; height: auto; border: 1px solid #ccc; border-radius: 8px; padding: 10px; background-color: rgb(0, 4, 255,0.1);">
+    
+    <!-- Çerçevenin üst ortasında floating label -->
+    <span class="badge badge-primary ve-label mb-3"
+        style="
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 15px;
+            padding: 7px 16px;
+            font-weight: bold;">
+        "İF" Bloğu  &emsp; Blok ID:&nbsp;{{blok_id}} &emsp; Parent ID:&nbsp;{{parent_id}}
+    </span>
+
+    <!-- Çarpı butonu -->
+    <button type="button" class="btn btn-sm btn-danger"
+        style="position: absolute; top: -10px; right: -10px; border-radius: 50%; width: 30px; height: 30px; font-size: 16px;"
+        onclick="this.closest('.if-blok').remove();">×
+    </button>
+
+    <div class="row d-flex align-items-center flex-nowrap mt-3">
+        <div class="col-md-2">
+            <div class="form-group">
+                <!-- <label style="color: #ffffff;">Parite-İnterval-Market</label> -->
+                <!-- <label for="">Blok ID:&nbsp;{{ blok_id }} &nbsp;Parent ID:&nbsp;{{ parent_id }} </label> -->
+                <div class="select2-purple" id="urun_grubu_div">
+                    <select 
+                    class="select2 parite-select" 
+                    multiple="multiple" 
+                    data-placeholder="PİM Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;"
+                    name="pim_{{ blok_id }}[]"
+                    data-blok-id="{{ blok_id }}">
+                    {% for x in parite_interval_market %}
+                    <option style="width: 100%;" value="{{x.id}}">{{x.parite}}&nbsp;&nbsp;{{x.interval}}{% if x.market == None %} {% else %}&nbsp;-&nbsp;{{x.market}} {% endif %}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- sol indikatör -->
+        <div class="form-group col-md-3">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <!-- <label for="indikator">İndikatör Seç</label> -->
+                    <select 
+                    class="indikator-select select2"
+                    multiple="multiple" 
+                    hx-post="/stratejiler/indikator_parametre_partial/"
+                    data-dropdown-css-class="select2-purple"
+                    data-placeholder="İndikatör Seçin"
+                    style="width: 100%;"
+                    name="indikator_sol_{{ blok_id }}"
+                    data-blok-id="{{ blok_id }}"
+                    hx-headers='{"X-CSRFToken": getCookie("csrftoken")}'
+                    hx-vals='js:{
+                        "indikator_id": event.target.value,
+                        "blok_id": "{{ blok_id }}",
+                        "parent_id": "{{ parent_id }}",
+                        "konum": "sol"
+                    }'
+                    hx-target="#parametre_input_alani_sol_{{ blok_id }}"
+                    hx-trigger="change"
+                    hx-swap="innerHTML">
+                    
+                    <option value="">İndikatör Seç</option>
+                    {% for x in indikator_listesi %}
+                        <option value="{{ x.indikator.id }}">{{ x.indikator.adi }}</option>
+                    {% endfor %}
+                </select>
+                    <!-- Altına yerleşecek parametre alanı -->
+                    <div class="parametre-alani sol-parametreler mt-2"
+                        id="parametre_input_alani_sol_{{ blok_id }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- karar seçimleri  -->
+        <div id="karsilastirma-operatoru-alani_{{ blok_id }}"
+            class="karsilastirma-operatoru-alani form-group"
+            hx-post="{% url 'stratejiler:karsilastirma_operatorleri' %}" 
+            hx-vals='{
+                "blok_id": "{{ blok_id }}",
+                "parent_id": "{{ parent_id }}"
+            }'
+            hx-trigger="load"
+            hx-swap="innerHTML">
+            <div class="text-muted">Yükleniyor...</div>
+        </div>
+
+        <!-- sag indikator -->
+        <div class="form-group col-md-3">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <!-- <label for="indikator">İndikatör Seç</label> -->
+                    <select 
+                    class="indikator-select select2"
+                    multiple="multiple" 
+                    hx-post="/stratejiler/indikator_parametre_partial/"
+                    data-dropdown-css-class="select2-purple"
+                    data-placeholder="İndikatör Seçin"
+
+                    style="width: 100%;"
+                    name="indikator_sag_{{ blok_id }}"
+                    data-blok-id="{{ blok_id }}"
+                    hx-headers='{"X-CSRFToken": getCookie("csrftoken")}'
+                    hx-vals='js:{
+                        "indikator_id": event.target.value,
+                        "blok_id": "{{ blok_id }}",
+                        "parent_id": "{{ parent_id }}",
+                        "konum": "sag"
+                    }'
+                    hx-target="#parametre_input_alani_sag_{{ blok_id }}"
+                    hx-trigger="change"
+                    hx-swap="innerHTML">
+                    
+                    <option value="">İndikatör Seç</option>
+                    {% for x in indikator_listesi %}
+                        <option value="{{ x.indikator.id }}">{{ x.indikator.adi }}</option>
+                    {% endfor %}
+                </select>
+                    <!-- Altına yerleşecek parametre alanı -->
+                    <div class="parametre-alani sag-parametreler mt-2"
+                        id="parametre_input_alani_sag_{{ blok_id }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if state_ekleme_acikmi %}
+        <div class="form-group">
+            <button type="button" class="btn btn-info state_add_btn"
+            data-blok-id="{{ blok_id }}"
+            hx-get="/stratejiler/state_ekle/"
+            hx-target="#if_state_container_{{ blok_id }}"
+            hx-vals='{
+                "blok_id": "{{ blok_id }}",
+                "surec": "{{ surec }}",
+                "strateji_id":"{{strateji_id}}"
+            }'
+            hx-swap="beforeend"
+            hx-trigger="click"
+            hx-on="htmx:afterRequest: this.classList.add('d-none')">
+            + State Ekle {{ blok_id }}
+            </button>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row if_state_container"  id="if_state_container_{{ blok_id }}">
+
+    </div>
+</div>
+

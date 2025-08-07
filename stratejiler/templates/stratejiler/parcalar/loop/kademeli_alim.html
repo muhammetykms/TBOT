@@ -1,0 +1,44 @@
+<div class="loop-adim border p-3 mb-3"
+     data-adim-no="{{ adim_no }}"
+     data-blok-id="{{ blok_id }}"
+     data-parent-id="{{ parent_id }}">
+
+    <h6 class="mb-2">🔹 Kademe {{ adim_no }}</h6>
+
+    <div class="d-flex justify-content-end mb-2">
+
+        <a href="#"
+            class="btn btn-outline-info if_ekle_btn"
+            data-blok-id="{{ blok_id }}"
+            data-strateji-id="{{ strateji_id }}"
+            hx-get="/stratejiler/if-blogu-ekle/"
+            hx-target="#iceri-adim-{{ blok_id }}-{{ adim_no }}"
+            hx-vals='{ 
+                    "blok_id": "{{ blok_id }}", 
+                    "strateji_id": "{{ strateji_id }}",
+                    "surec":"{{surec}}",
+                    "caller":"ve_if"
+            }'
+            hx-swap="beforeend">
+             ➕ İf Ekle
+        </a>
+        <button type="button" class="btn btn-sm btn-outline-success aksiyon_ekle_btn ml-2"
+                data-blok-id="{{ blok_id }}_adim{{ adim_no }}"
+                hx-post="/stratejiler/aksiyon-ekle/"
+                hx-vals='{
+                    "caller": "loop_adim",
+                    "blok_id": "{{ blok_id }}_adim{{ adim_no }}",
+                    "parent_id": "{{ blok_id }}",
+                    "surec": "{{ surec }}",
+                    "strateji_id": "{{ strateji_id }}"
+                }'
+                hx-target="#iceri-adim-{{ blok_id }}-{{ adim_no }}"
+                hx-swap="beforeend">
+            ➕ Aksiyon Ekle
+        </button>
+    </div>
+
+    <div id="iceri-adim-{{ blok_id }}-{{ adim_no }}">
+        <!-- Buraya if ve aksiyonlar eklenecek -->
+    </div>
+</div>

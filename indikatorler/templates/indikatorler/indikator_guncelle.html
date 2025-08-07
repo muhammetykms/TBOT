@@ -1,0 +1,250 @@
+{% extends "tepe.html" %}
+
+{% block title %}
+T-ERP İndikatörler
+{% endblock %}
+
+{% load static %}
+
+
+
+{% block sayfabasligi %}
+
+{% endblock %}
+
+{% block sagustmap %}
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">İndikatörler</a></li>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    <h1><b>İNDİKATÖRLER!</b></h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="card card-success">
+        <div class="card-header">
+        <h3 class="card-title"><b>İndikatörler</b></h3>
+        </div>
+    <!-- /.card-header -->
+        <div class="card-body">
+        idnikator bilgileri
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="indikator-adi">İndikatör Adı</label>
+                    <input type="text" class="form-control" id="indikator-adi" name="indikator-adi" value="{{ indikator.adi }}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="indikator-grubu">İndikatör Grubu</label>
+                    <input type="text" class="form-control" id="indikator-grubu" name="indikator-grubu" value="{{ indikator.indikator_grubu }}">
+                </div>
+               <div class="form-group col-md-3">
+                    <label for="kutuphane">Kütüphanesi</label>
+                    <input type="text" class="form-control" id="kutuphane" name="kutuphane" value="{{ indikator.kutuphane }}">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="indikator-aciklama">İndikatör Açıklaması</label>
+                    <textarea class="form-control" id="indikator-aciklama" name="indikator-aciklama">{{ indikator.aciklama }}</textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="kullanim-aciklamasi">Kullanım Açıklaması</label>
+                    <textarea class="form-control" id="kullanim-aciklamasi" name="kullanim-aciklamasi">{{ indikator.aciklama }}</textarea>
+                </div>
+            </div>
+                <div class="form-group col-md-6">
+                    <label for="indikator_ciftleri">İndikatör Çiftleri</label>
+                    <input type="text" class="form-control" id="indikator_ciftleri" name="indikator_ciftleri" value="{{ indikator.indikator_ciftleri }}">
+                </div>
+
+            <div class="row mt-3">
+                <div class="col-md-7">
+
+                <div class="card card-warning">
+                <div class="card-header">
+                <h3 class="card-title"><b>Parametreler</b></h3>
+                </div>
+                <div class="card-body">
+
+                <table class="table" id="parametre_table">
+                    <thead>
+                    <tr>
+                        <th>Parametre Adı</th>
+                        <th>Varsayılan Değer</th>
+                        <th>Açıklama</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for x in parametreler %}
+                    <tr>
+                        <td><input type="text" name="parametreler[{{ forloop.counter0 }}][parametre_adi]-id{{x.id}}" class="form-control" value="{{ x.parametre_adi }}">
+                        </td>
+                        <td><input type="text" name="parametreler[{{ forloop.counter0 }}][varsayilan_deger]" class="form-control" value="{{ x.varsayilan_deger }}">
+                        </td>
+                        <td><textarea name="parametreler[{{ forloop.counter0 }}][aciklama]" class="form-control" rows="2">{{ x.aciklama }}</textarea>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                    <!-- Yeni satırlar buraya eklenecek -->
+                    </tbody>
+                </table>
+
+                </div>
+                <div class="card-footer">
+                    <button id="parametre_ekle" class="btn btn-warning"><b>Parametre İçin Satır Ekle</b></button>
+                </div>
+                </div>
+
+                </div>
+                <div class="col-md-5">
+
+                <div class="card card-info">
+                <div class="card-header">
+                <h3 class="card-title"><b>Parametreler</b></h3>
+                </div>
+                <div class="card-body">
+
+                <table class="table" id="cikti_table">
+                    <thead>
+                    <tr>
+                        <th>Çıktı Adı</th>
+                        <th>Açıklama</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for y in ciktilar %}
+                    <tr>
+                        <td><input type="text" name="cikti[{{ forloop.counter0 }}][cikti_adi]-id{{y.id}}" class="form-control" value="{{ y.cikti_adi }}"></td>
+                        <td><textarea name="cikti[{{ forloop.counter0 }}][aciklama]" class="form-control" rows="2">{{ y.aciklama }}</textarea></td>
+                    </tr>
+                    {% endfor %}
+
+                    <!-- Yeni satırlar buraya eklenecek -->
+                    </tbody>
+                </table>
+
+                </div>
+                <div class="card-footer">
+                    <button id="cikti_ekle" class="btn btn-info"><b>Çıktılar İçin Satır Ekle</b></button>
+                </div>
+                </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success">Güncelle</button>
+        </div>  
+    </div>
+</form>
+
+{% endblock %}
+
+
+{% block footer %}
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+
+
+<script>
+// Parametre ekleme scripti mevcut
+const parametreTableBody = document.querySelector("#parametre_table tbody");
+const parametreEkleButton = document.querySelector("#parametre_ekle");
+
+// Sayfa yüklendiğinde mevcut parametre sayısını almak
+let parametreCounter = document.querySelectorAll("#parametre_table tbody tr").length; // Mevcut parametre satır sayısı
+
+parametreEkleButton.addEventListener("click", (event) => {
+  event.preventDefault(); // Form submitini engelle
+
+  const newRow = document.createElement("tr");
+
+  const parametreAdiCell = document.createElement("td");
+  parametreAdiCell.innerHTML = `<input type="text" name="parametreler[${parametreCounter}][parametre_adi]-[id][new]" class="form-control" placeholder="Parametre Adı">`;
+
+  const varsayilanDegerCell = document.createElement("td");
+  varsayilanDegerCell.innerHTML = `<input type="text" name="parametreler[${parametreCounter}][varsayilan_deger]-[id][new]" class="form-control" placeholder="Varsayılan Değer">`;
+
+  const aciklamaCell = document.createElement("td");
+  aciklamaCell.innerHTML = `<textarea name="parametreler[${parametreCounter}][aciklama]-[id][new]" class="form-control" placeholder="Açıklama" rows="2"></textarea>`;
+
+  newRow.appendChild(parametreAdiCell);
+  newRow.appendChild(varsayilanDegerCell);
+  newRow.appendChild(aciklamaCell);
+
+  parametreTableBody.appendChild(newRow);
+
+  parametreCounter++; // Sayaç artır
+});
+
+// Çıktı ekleme scripti
+const ciktiTableBody = document.querySelector("#cikti_table tbody");
+const ciktiEkleButton = document.querySelector("#cikti_ekle");
+
+// Sayfa yüklendiğinde mevcut çıktı sayısını almak
+let ciktiCounter = document.querySelectorAll("#cikti_table tbody tr").length; // Mevcut çıktı satır sayısı
+
+ciktiEkleButton.addEventListener("click", (event) => {
+  event.preventDefault(); // Form submitini engelle
+
+  const newRow = document.createElement("tr");
+
+  const ciktiAdiCell = document.createElement("td");
+  ciktiAdiCell.innerHTML = `<input type="text" name="cikti[${ciktiCounter}][cikti_adi]-[id][new]" class="form-control" placeholder="Çıktı Adı">`;
+
+  const ciktiAciklamaCell = document.createElement("td");
+  ciktiAciklamaCell.innerHTML = `<textarea name="cikti[${ciktiCounter}][aciklama]-[id][new]" class="form-control" placeholder="Açıklama" rows="2"></textarea>`;
+
+  newRow.appendChild(ciktiAdiCell);
+  newRow.appendChild(ciktiAciklamaCell);
+
+  ciktiTableBody.appendChild(newRow);
+
+  ciktiCounter++; // Sayaç artır
+});
+
+</script>
+
+
+
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "pageLength": 50,
+      "order": [
+      [1, "asc"]],
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+[
+    {
+        "model": "coinler.coinler",
+        "fields": {
+            "name": "Bitcoin",
+            "sembol": "BTC",
+            "fiyat": "50000.12345678",
+            "toplam_piyasa_degeri": 900000000000,
+            "volume_1h": 350000000,
+            "volume_24h": 35000000000,
+            "dolasimdaki_arz": 19000000,
+            "toplam_arz": 21000000,
+            "max_arz": 21000000,
+            "yuzde_deg_son_1h": 0.5,
+            "yuzde_deg_son_24h": -2.3,
+            "yuzde_deg_son_7d": 5.4,
+            "son_guncelleme": "2024-06-15T12:00:00Z"
+        }
+    },
+    {
+        "model": "coinler.coinler",
+        "fields": {
+            "name": "Ethereum",
+            "sembol": "ETH",
+            "fiyat": "3500.56789012",
+            "toplam_piyasa_degeri": 400000000000,
+            "volume_1h": 150000000,
+            "volume_24h": 25000000000,
+            "dolasimdaki_arz": 120000000,
+            "toplam_arz": 120000000,
+            "max_arz": null,
+            "yuzde_deg_son_1h": 1.2,
+            "yuzde_deg_son_24h": -1.5,
+            "yuzde_deg_son_7d": 3.8,
+            "son_guncelleme": "2024-06-15T12:00:00Z"
+        }
+    },
+    {
+        "model": "coinler.coinler",
+        "fields": {
+            "name": "Cardano",
+            "sembol": "ADA",
+            "fiyat": "1.23456789",
+            "toplam_piyasa_degeri": 40000000000,
+            "volume_1h": 50000000,
+            "volume_24h": 1000000000,
+            "dolasimdaki_arz": 32000000000,
+            "toplam_arz": 45000000000,
+            "max_arz": 45000000000,
+            "yuzde_deg_son_1h": -0.2,
+            "yuzde_deg_son_24h": -3.0,
+            "yuzde_deg_son_7d": 6.1,
+            "son_guncelleme": "2024-06-15T12:00:00Z"
+        }
+    }
+]

@@ -1,0 +1,30 @@
+Rule is Live
+Exchange: Demo
+Start: Today at 7:08 PM
+Rule Triggered: 0/100 times
+Exchange Fees Paid: Not yet provided
+Open Trades: 0/10
+Max Allocation: $300
+Volume Traded: $0.00
+
+
+Sequences
+
+    if any coin has RSI (14) lower than 30 using 5 minutes candles
+    and if that coin has MACD lower than zero line at 5 minutes candles
+    and if that coin has MFI lower than 20 using 5 minutes candles
+        BUY $30 of that coin with USDT wallet as limit order
+            BUT do not  BUY same coin twice until sold, stable coins, fiat currencies, BTTC
+        And at ANY TIME 
+            if coin from Action 1 has RSI (14) greater than 70 using 5 minutes candles
+            And if coin from Action 1 has MACD greater than zero line at 5 minutes candles
+            And if coin from Action 1 has MFI greater than 60 using 5 minutes candles
+            And if coin from Action 1 has price increase by +1% from price at which you bought
+                SELL 100% of amount bought of that coin to USDT wallet as limit order
+    Execute on 11/04/25 19:08, execute 1 time
+    FUNDS Starting allocation 300 USDT
+
+
+All Rule Details in One Place
+Easily check the status of the rule, the profit graph and each single activity the rule performs.
+button(close)

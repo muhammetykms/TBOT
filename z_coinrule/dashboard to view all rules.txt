@@ -1,0 +1,7 @@
+Dashboard to View All Rules
+You can easily check the status and manage your rules in the dashboard
+
+
+DASHBOARD altında  (button) create rule
+Create More Rules
+Build new strategies and explore the templates library

@@ -1,0 +1,11 @@
+/* buton_stil.css */
+
+/* Varsayılan buton stili (sönük) */
+.button-inactive {
+  opacity: 0.4; /* Sönük görünüm için opaklık ayarı */
+}
+
+/* Aktif buton stili (canlı) */
+.button-active {
+  opacity: 1; /* Canlı görünüm için tam opaklık */
+}

@@ -1,0 +1,52 @@
+<div class="form-row">
+    <!-- Parite Seçimi -->
+    <div class="form-group col-md-2">
+        <label for="coin">İlgili Parite</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Beklenen Sinyal Adı -->
+    <div class="form-group col-md-4">
+        <label for="sinyal_adi">Beklenecek Sinyal</label>
+        <input type="text" name="sinyal_adi" class="form-control" placeholder="Örn: EMA_CROSS, RSI_BREAK, vb.">
+    </div>
+
+    <!-- Maksimum Bekleme Süresi (opsiyonel) -->
+    <div class="form-group col-md-2">
+        <label for="maksimum_bekleme">Zaman Sınırı (saniye)</label>
+        <input type="number" name="maksimum_bekleme" min="0" class="form-control" placeholder="Opsiyonel">
+    </div>
+
+    <!-- Zaman Aşımı Durumunda Ne Yapılsın -->
+    <div class="form-group col-md-2">
+        <label for="timeout_aksiyonu">Zaman Aşımı</label>
+        <select name="timeout_aksiyonu" class="form-control">
+            <option value="devam_et">Devam Et</option>
+            <option value="iptal_et">Adımı Atla</option>
+            <option value="hata_ver">Hata Ver</option>
+        </select>
+    </div>
+
+<div class="row">
+
+📌 Amaç:
+<br>
+    “Şu sinyal oluşana kadar bekle, sonra işlemi sürdür.”<br>
+    Bu aksiyon emir göndermez, sadece koşul oluşana kadar diğer adımları askıya alır.
+
+</div>
+
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="wait_for_signal">
+</div>

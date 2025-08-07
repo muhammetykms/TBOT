@@ -1,0 +1,11 @@
+<!-- stratejiler/parcalar/karsilastirma_operatorleri.html -->
+
+<select class="form-select form-control kar_op"
+        name="karsilastirma_operatoru_{{ blok_id }}"
+        data-blok-id="{{ blok_id }}"
+        data-parent-id="{{ parent_id }}">
+  <option value="">Operatör</option>
+  {% for x in operatorler %}
+  <option value="{{x.op_sembol}}">{{x.sembol}}&emsp;{{x.operator_adi}}</option>
+  {% endfor %}
+</select>

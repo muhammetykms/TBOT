@@ -1,0 +1,62 @@
+tolal3 dominance'ı günlükte ema ribbon pozitif oluşursa, artış geliyordur. 
+
+1. Genel Piyasa Değeri Grafikleri (TOTAL Serisi)
+
+Bu grafikler, tüm veya belirli kategorilerdeki kripto paraların toplam piyasa değerini gösterir.
+
+    TOTAL → Tüm kripto piyasasının toplam piyasa değeri (Bitcoin + altcoinler)
+        🔹 Örneğin: Eğer TOTAL grafiği 2 Trilyon USD gösteriyorsa, bu kripto piyasasının toplam değeridir.
+
+    TOTAL2 → Bitcoin hariç tüm kripto paraların toplam piyasa değeri (Altcoin Piyasası)
+        🔹 Bitcoin (BTC) piyasa değerini hariç tutarak, altcoin piyasasının toplam büyüklüğünü gösterir.
+
+    TOTAL3 → Bitcoin ve Ethereum hariç tüm kripto paraların toplam piyasa değeri
+        🔹 BTC ve ETH gibi büyük oyuncuların piyasa üzerindeki etkisini çıkararak, geri kalan altcoin’lerin piyasa değerini görmemizi sağlar.
+
+    TOTALDEFI → DeFi projelerinin toplam piyasa değeri
+        🔹 Merkeziyetsiz finans (DeFi) projelerinin piyasa değerini takip etmek için kullanılır.
+
+    TOTALSTABLE → Stablecoin'lerin toplam piyasa değeri
+        🔹 USDT, USDC, BUSD gibi stablecoin'lerin piyasadaki toplam büyüklüğünü gösterir.
+
+
+2. Dominans (Hakimiyet) Grafikleri (MARKETCAP DOMINANCE Serisi)
+
+Bu grafikler, belirli bir varlığın toplam kripto piyasası içindeki yüzde oranını gösterir.
+
+    BTC.D (Bitcoin Dominance) → Bitcoin'in kripto piyasasındaki yüzdesi
+        🔹 Örneğin, BTC.D = %50 ise, toplam piyasa değerinin %50’si Bitcoin’e aittir.
+        🔹 BTC.D yükselirse: Bitcoin piyasada daha fazla hakimiyet kazanıyordur (altcoin’ler zayıflayabilir).
+        🔹 BTC.D düşerse: Altcoin’ler daha fazla değer kazanıyordur (Bitcoin’in etkisi azalıyor olabilir).
+
+    ETH.D (Ethereum Dominance) → Ethereum’un piyasa dominansı
+        🔹 ETH'nin kripto piyasasındaki yüzde ağırlığını gösterir.
+
+    OTHERS.D (Altcoin Dominance) → İlk 10 kripto hariç, diğer altcoin'lerin toplam piyasa içindeki yüzdesi
+        🔹 Büyük coinler (BTC, ETH vb.) hariç tutulduğunda altcoin’lerin genel gücünü gösterir.
+
+    DEFI.D (DeFi Dominance) → DeFi token’larının toplam piyasa içindeki yüzdesi
+        🔹 DeFi projelerinin piyasa içindeki hakimiyet oranını gösterir.
+
+    STABLECOIN.D (Stablecoin Dominance) → Stablecoin’lerin toplam kripto piyasası içindeki yüzdesi
+        🔹 Stabil paraların (USDT, USDC vb.) kripto piyasasına göre ne kadar büyük olduğunu anlamak için kullanılır.
+
+
+TOTAL	Tüm kripto piyasasının toplam değeri (BTC + Altcoin)
+TOTAL2	Bitcoin hariç, Altcoin'lerin toplam piyasa değeri
+TOTAL3	Bitcoin ve Ethereum hariç tüm altcoinlerin piyasa değeri
+TOTALDEFI	DeFi projelerinin toplam piyasa değeri
+TOTALSTABLE	Stablecoin'lerin toplam piyasa değeri
+BTC.D	Bitcoin’in piyasa hakimiyeti (dominansı)
+ETH.D	Ethereum’un piyasa hakimiyeti (dominansı)
+OTHERS.D	İlk 10 kripto hariç diğer altcoin’lerin dominansı
+DEFI.D	DeFi token’larının toplam piyasadaki dominansı
+STABLECOIN.D	Stablecoin’lerin toplam kripto piyasasındaki dominansı
+
+Genel Çıkarımlar:
+
+1️⃣ BTC.D yükseliyorsa, genellikle TOTAL2 ve TOTAL3 düşer → Bitcoin piyasayı domine ediyor.
+2️⃣ ETH.D yükseliyorsa, altcoin piyasası toparlanabilir.
+3️⃣ STABLECOIN.D yükseliyorsa, yatırımcılar riskten kaçıyor olabilir.
+4️⃣ TOTAL2 yükselirken BTC.D düşüyorsa, altcoin sezonu başlıyor olabilir.
+5️⃣ TOTAL düşerken BTC.D yükseliyorsa, yatırımcılar Bitcoin’de kalıyor ama altcoin piyasası küçülüyor olabilir.

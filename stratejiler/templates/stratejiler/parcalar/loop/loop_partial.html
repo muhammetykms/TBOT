@@ -1,0 +1,88 @@
+
+
+
+
+
+
+
+
+
+<div class="loop-blok border rounded p-3 mb-3 position-relative"
+     data-blok-id="{{ blok_id }}"
+     data-parent-id="{{ parent_id }}"
+     data-surec="{{ surec }}"
+     data-strateji-id="{{ strateji_id }}"
+     data-loop-tipi="{{ loop_tipi }}">
+
+    <span class="badge badge-info ve-label mt-3"
+        style="
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 15px;
+            padding: 7px 16px;
+            font-weight: bold;">
+        Loop" Çerçevesi<br>Blok ID:&nbsp;{{blok_id}} <br> Parent ID:&nbsp;{{parent_id}} 
+
+    </span>
+
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">🔁 Loop Blok ({{ blok_id }})</h5>
+        <button type="button" class="btn btn-sm btn-danger"
+                onclick="this.closest('.loop-blok').remove()">×</button>
+    </div>
+
+
+    <div class="form-row align-items-end">
+        <label for="loop_tipi_{{ blok_id }}" class="mt-2">Loop Tipi</label>
+        <select name="loop_tipi" class="form-control">
+            {% for deger, aciklama in loop_tipleri %}
+                <option value="{{ deger }}">{{ aciklama }}</option>
+            {% endfor %}
+        </select>
+
+
+
+            <label class="mt-2">Döngü Miktarı</label>
+            <select name="dongu_miktari" class="form-control loop-donme-miktari" onchange="toggleDonmeSayisi(this, '{{ blok_id }}')">
+                <option value="sonsuz">🔂 Sonsuz</option>
+                <option value="n_kez">⛭ Belirli Sayıda</option>
+            </select>
+
+
+
+        <div class="form-group col-md-2" id="donme-sayisi-container-{{ blok_id }}" style="display: none;">
+            <label>Tekrar Sayısı</label>
+            <input type="number" class="form-control" name="dongu_sayisi" value="1" min="1" max="10">
+        </div>
+
+        <div class="form-group col-md-3">
+            <label>&nbsp;</label>
+            <button type="button" class="btn btn-outline-success btn-block" 
+                    hx-post="/stratejiler/loop_adim_ekle/"
+                    hx-include="closest .loop-blok"
+                    hx-target="#loop_adimlari_container_{{ blok_id }}"
+                    hx-swap="beforeend">
+                + Adım Ekle
+            </button>
+        </div>
+    </div>
+
+    <div id="loop_adimlari_container_{{ blok_id }}">
+        <!-- Buraya HTMX ile adımlar eklenecek -->
+    </div>
+</div>
+
+<script>
+    function toggleDonmeSayisi(select, blokId) {
+        const container = document.getElementById(`donme-sayisi-container-${blokId}`);
+        if (select.value === "n_kez") {
+            container.style.display = "block";
+        } else {
+            container.style.display = "none";
+        }
+    }
+</script>

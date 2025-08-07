@@ -1,0 +1,10 @@
+| Parametre                          | Türü                | Ne İşe Yarar?                             | Örnek        |
+| ---------------------------------- | ------------------- | ----------------------------------------- | ------------ |
+| **State İsmi**                     | String              | Bu state’e verilecek ad                   | RSI\_KIRILDI |
+| **Başlangıç Değeri**               | Boolean             | İlk oluştuğunda aktif mi, değil mi        | True         |
+| **Geçerlilik Süresi (mum sayısı)** | Integer             | Kaç mum sonra otomatik kapansın           | 5            |
+| **Kapanma Şartı (opsiyonel)**      | IF Bloğu / Şart     | Hangi koşul sağlanınca state kapansın     | RSI > 50     |
+| **Oluşturan Blok ID**              | Otomatik            | Hangi IF bloğu bu state’i oluşturdu       | 1298         |
+| **Tekrar Etme İzni**               | Boolean             | Aynı state tekrar tekrar açılabilir mi?   | False        |
+| **Oluştuğunda Ne Yapılsın?**       | Aksiyon (opsiyonel) | State aktif olunca bir işlem yapılsın mı? | Notify       |
+| **Kapanınca Ne Yapılsın?**         | Aksiyon (opsiyonel) | State kapanınca bir işlem yapılsın mı?    | Stop         |

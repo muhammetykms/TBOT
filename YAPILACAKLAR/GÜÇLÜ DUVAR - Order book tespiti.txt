@@ -1,0 +1,71 @@
+peki orderbook'ta güçlü bir duvar olduğunu nasıl tespit edeceğiz, 
+"güçlü" tanımlamasına nasıl karar verebiliriz ?
+
+ChatGPT:
+
+Çok yerinde ve pratik bir soru! 🔍
+"Orderbook'ta güçlü bir duvar var" demek aslında öznel bir tanımdır ama biz bunu sayısal kriterlerle tanımlayarak algoritmamıza öğretebiliriz.
+📌 “Güçlü Duvar” Ne Demek?
+💬 Basit tanımı:
+
+    Fiyat seviyesinde ortalamanın çok üstünde bir hacim varsa, orada büyük bir alıcı/satıcı var demektir. Bu da fiyatı geçici olarak frenleyebilir.
+
+📐 “Güçlü Duvar”ı Tanımlamak İçin 4 Yöntem
+1. Toplam Derinlik İçinde Yüzdeye Bakmak
+
+buy_orders = orderbook['bids'][:10]  # ilk 10 seviye
+total_buy_qty = sum(float(qty) for price, qty in buy_orders)
+en_buyuk_duvar = max(float(qty) for price, qty in buy_orders)
+
+oran = en_buyuk_duvar / total_buy_qty
+
+if oran > 0.25:
+    print("Güçlü alış duvarı var")
+
+👉 Bu örnekte en büyük alım emri, toplam derinliğin %25’inden fazlaysa bu bir duvardır diyebiliriz.
+2. Mutlak Miktar Eşiği
+
+Örneğin:
+
+if en_buyuk_duvar > 500_000:
+    print("Güçlü alış duvarı")
+
+Bu durumda sen kendi piyasanın likiditesine göre bir eşik tanımlarsın. Örn: BTC/USDT için belki 1 milyon USDT gibi.
+3. Son 1 dakikalık ortalama order miktarından sapma
+
+duvar_miktari = float(orderbook['bids'][0][1])  # en üst seviye
+gecmis_ortalama = hesaplanan_ortalama  # önceki 1-5 dakikanın ortalaması
+
+if duvar_miktari > gecmis_ortalama * 2:
+    print("Ani duvar oluştu – short squeeze olabilir")
+
+Bu, özellikle ani oluşan duvarlar için etkili olur.
+4. Fiyatın yakınındaki duvarlara odaklanma (örneğin ±0.2%)
+
+yakindaki_duvarlar = [
+    qty for price, qty in orderbook['bids']
+    if abs(float(price) - current_price) / current_price < 0.002
+]
+
+if max(yakindaki_duvarlar) > eşik_değer:
+    print("Fiyata yakın güçlü duvar")
+
+🎯 Önerilen Kriter
+
+En esnek yöntem şu olur:
+
+def guclu_duvar_var_mi(orderlar, toplam_oran=0.25, min_duvar=50000):
+    toplam = sum(float(qty) for price, qty in orderlar)
+    en_buyuk = max(float(qty) for price, qty in orderlar)
+    oran = en_buyuk / toplam
+    return oran > toplam_oran and en_buyuk > min_duvar
+
+Bu şekilde iki faktörü birleştiriyorsun:
+
+    Mutlak değer (çok küçük duvarları eleyip)
+
+    Toplam oran (o duvarın piyasadaki baskınlığını ölçüp)
+
+İstersen bu fonksiyonu senin VitesBase sınıfına entegre edelim. Hangi veriyi kullandığını (örneğin Binance orderbook JSON) söylersen, onun üzerinden gerçek bir örnek de yazabilirim.
+
+Hazırsan, kodlayarak devam edelim mi?

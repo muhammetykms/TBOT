@@ -1,0 +1,54 @@
+<div class="proses-blok position-relative my-3 p-3 border rounded"
+     data-blok-id="{{ blok_id }}"
+     data-parent-id="{{ parent_id }}"
+     data-surec="{{ surec }}"
+     data-blok-tipi="proses"
+     data-takip-state-id='[]'
+     style="background-color: rgba(0, 128, 0, 0.05);">
+
+
+    <!-- Başlık -->
+    <div class="mb-2">
+        <strong>Proses Bloku:</strong>
+        <span class="proses-state-ismi">Follow <span class="state-name-text">{{ state_name }}</span></span><br>
+        <small class="text-muted">Blok ID: {{ blok_id }}, Parent ID: {{ parent_id }}</small>
+    </div>
+
+    <!-- Çarpı butonu -->
+    <button type="button"
+            class="btn btn-sm btn-danger"
+            style="position: absolute; top: -10px; right: -10px; border-radius: 50%; width: 30px; height: 30px; font-size: 16px;"
+            onclick="removeProsesBlok(this, '{{ blok_id }}')">
+        ×
+    </button>
+
+    <!-- State Seçimi -->
+    <div class="form-group">
+        <label>Başlangıç State:</label>
+        <select name="start_state_{{ blok_id }}" class="form-control state-dropdown" style="width: 100%;" multiple></select>
+    </div>
+
+    <!-- Alt Prosesleri Listeleme Alanı -->
+    <div class="alt-prosesler-container" id="alt_prosesler_container_{{ blok_id }}">
+        <!-- Alt prosesler buraya eklenecek -->
+    </div>
+
+    <!-- if blok buton  -->
+    <a href="#"
+        class="btn btn-info if_ekle_btn mt-3"
+        data-blok-id="{{ blok_id }}"
+        data-strateji-id="{{ strateji_id }}"
+        hx-get="/stratejiler/if-blogu-ekle/"
+        hx-target="#alt_prosesler_container_{{ blok_id }}"
+        hx-vals='{ 
+                "blok_id": "{{ blok_id }}", 
+                "strateji_id": "{{ strateji_id }}",
+                "surec":"{{surec}}",
+                "caller":"proses_if"
+        }'
+        hx-swap="beforeend">
+        İf Ekle
+    </a>
+
+
+</div>

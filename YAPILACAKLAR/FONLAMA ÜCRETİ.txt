@@ -1,0 +1,41 @@
+https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT
+
+Binance Futures Fonlama Ücreti Nedir ve Nasıl Hesaplanır?
+
+1. Fonlama Ücreti Nedir?
+Binance Futures’ta fonlama ücreti, sürekli vadeli işlemlerde spot piyasadaki fiyat ile vadeli piyasalardaki fiyatın birbirine yakın olmasını sağlamak için kullanılan bir mekanizmadır.
+Fonlama oranı long ve short pozisyon sahipleri arasında belirli aralıklarla ödenir veya alınır.
+
+2. Fonlama Ücreti Hesaplama Formülü:
+Fonlama ücreti, aşağıdaki formüle göre hesaplanır:
+Fonlama U¨creti=PozisyonBu¨yu¨klu¨g˘u¨×FonlamaOranı
+Fonlama U¨creti=PozisyonBu¨yu¨klu¨g˘​u¨×FonlamaOranı
+
+    Pozisyon Büyüklüğü = Açık pozisyonun büyüklüğü (USDT cinsinden)
+    Fonlama Oranı = Binance tarafından belirlenen ve her 8 saatte bir güncellenen oran
+
+3. Fonlama Oranı Nasıl Belirlenir?
+Fonlama oranı, faiz oranı ve prim oranına bağlıdır:
+Fonlama Oranı=(Faiz Oranı−Prim Oranı)
+Fonlama Oranı=(Faiz Oranı−Prim Oranı)
+
+    Faiz Oranı: Sabit bir değer olup genellikle %0.03/8 saat olarak belirlenir.
+    Prim Oranı: Vadeli ve spot piyasadaki fiyat farkına bağlı olarak değişir.
+
+4. Ödeme ve Alma:
+
+    Eğer fonlama oranı pozitif ise, long pozisyon sahipleri short pozisyon sahiplerine ödeme yapar.
+    Eğer fonlama oranı negatif ise, short pozisyon sahipleri long pozisyon sahiplerine ödeme yapar.
+    Fonlama ödemeleri her 8 saatte bir gerçekleşir (00:00, 08:00 ve 16:00 UTC).
+
+5. Binance’da Güncel Fonlama Oranı Nasıl Kontrol Edilir?
+Binance’in API’si veya web arayüzünden güncel fonlama oranını takip edebilirsin:
+
+    Binance Futures arayüzüne git ve bilgi sekmesinden fonlama oranlarını kontrol et.
+    API kullanarak /fapi/v1/premiumIndex endpoint’ini sorgulayabilirsin.
+
+
+Sonuç olarak, fonlama ücreti almak veya ödemek, açtığın pozisyona, 
+fonlama oranına ve pozisyon büyüklüğüne bağlıdır. 
+Pozisyonlarını bu ücrete göre ayarlamak için 
+periyodik olarak güncellenen fonlama oranlarını takip etmelisin.

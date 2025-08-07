@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Strateji Editör</h2>
+
+<!-- Bu div sayfa yüklenince market_select view'ını çağıracak -->
+<div 
+    hx-get="{% url 'stratejiler:market_select' %}" 
+    hx-target="#market-kumesi-container"
+    hx-trigger="load">
+</div>
+
+<!-- Burada HTMX ile yüklenecek HTML render edilecek -->
+<div id="market-kumesi-container">
+  <!-- Başlangıçta boş, sayfa yüklenince doldurulacak -->
+</div>
+
+<div id="coin-kumesi-container"></div>
+
+{% endblock %}

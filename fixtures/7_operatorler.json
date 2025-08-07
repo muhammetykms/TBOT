@@ -1,0 +1,357 @@
+[
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Toplama",
+            "op_sembol": "ADD",
+            "sembol": "+",
+            "op_grubu": "aritmetik"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Çıkarma",
+            "op_sembol": "SUB",
+            "sembol": "-",
+            "op_grubu": "aritmetik"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Çarpma",
+            "op_sembol": "MUL",
+            "sembol": "*",
+            "op_grubu": "aritmetik"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Bölme",
+            "op_sembol": "DIV",
+            "sembol": "/",
+            "op_grubu": "aritmetik"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Mod Alma",
+            "op_sembol": "MOD",
+            "sembol": "%",
+            "op_grubu": "aritmetik"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Üs Alma",
+            "op_sembol": "POW",
+            "sembol": "**",
+            "op_grubu": "aritmetik"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Ve",
+            "op_sembol": "AND",
+            "sembol": "&&",
+            "op_grubu": "mantiksal"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Veya",
+            "op_sembol": "OR",
+            "sembol": "||",
+            "op_grubu": "mantiksal"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Eşittir",
+            "op_sembol": "EQ",
+            "sembol":"==",
+            "op_grubu": "karsilastirma"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Eşit Değildir",
+            "op_sembol": "NEQ",
+            "sembol":"!=",
+            "op_grubu": "karsilastirma"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Küçüktür",
+            "op_sembol": "LT",
+            "sembol":"<",
+            "op_grubu": "karsilastirma"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Büyüktür",
+            "op_sembol": "GT",
+            "sembol":">",
+            "op_grubu": "karsilastirma"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Küçük veya Eşittir",
+            "op_sembol": "LTE",
+            "sembol":"<=",
+            "op_grubu": "karsilastirma"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Büyük veya Eşittir",
+            "op_sembol": "GTE",
+            "sembol":">=",
+            "op_grubu": "karsilastirma"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Crosses Above",
+            "op_sembol": "CA",
+            "sembol":"(↑)",
+            "op_grubu": "karsilastirma"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Crosses Below ",
+            "op_sembol": "CB",
+            "sembol":"(↓)",
+            "op_grubu": "karsilastirma"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Spot",
+            "op_sembol": "spot",
+            "sembol":"spot",
+            "op_grubu": "market_tipi"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Futures",
+            "op_sembol": "futures",
+            "sembol":"Futures",
+            "op_grubu": "market_tipi"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Binance",
+            "op_sembol": "binance",
+            "sembol":"binance",
+            "op_grubu": "borsa"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Al Market (Mar-BUY)",
+            "op_sembol": "MBuy",
+            "sembol":"MBUY",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Al Limit (Lim-BUY)",
+            "op_sembol": "LBuy",
+            "sembol":"LBUY",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Al Fill Or Kill (Fok-BUY)",
+            "op_sembol": "FBuy",
+            "sembol":"FBUY",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Sat Market (Mar-SELL)",
+            "op_sembol": "SELL",
+            "sembol":"SELL",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Sat Limit (Lim-SELL)",
+            "op_sembol": "SELL",
+            "sembol":"SELL",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Sat Fill or Kill (Fok-SELL)",
+            "op_sembol": "SELL",
+            "sembol":"SELL",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {        
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Stop Loss (Market)",
+            "op_sembol": "SL_SPOT_MARKET",
+            "sembol": "SL_SPOT_MARKET",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {        
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Stop Loss (Limit)",
+            "op_sembol": "SL_SPOT_LIMIT",
+            "sembol": "SL_SPOT_LIMIT",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {        
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Take Profit (Market)",
+            "op_sembol": "TP_SPOT_MARKET",
+            "sembol": "TP_SPOT_MARKET",
+            "op_grubu": "islem_spot"
+    }
+    },
+    {        
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Take Profit (Limit)",
+            "op_sembol": "TP_SPOT_LIMIT",
+            "sembol": "TP_SPOT_LIMIT",
+            "op_grubu": "islem_spot"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Bekle Hook After Buy (HAB)",
+            "op_sembol": "HAB",
+            "sembol":"HAB",
+            "op_grubu": "islem_spot"
+        }
+    },
+
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Bekle Hook After Sell (HAS)",
+            "op_sembol": "HAS",
+            "sembol":"HAS",
+            "op_grubu": "islem_spot"
+        }
+    },
+
+
+
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Long işlem Aç (LONG)",
+            "op_sembol": "OPEN_LONG",
+            "sembol":"OPEN_LONG",
+            "op_grubu": "islem_futures"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Short işlem Aç (SHORT)",
+            "op_sembol": "OPEN_SHORT",
+            "sembol":"OPEN_SHORT",
+            "op_grubu": "islem_futures"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Long Pozisyon Kapat (CLOSELONG)",
+            "op_sembol": "CLOSE_LONG",
+            "sembol":"CLOSE_LONG",
+            "op_grubu": "islem_futures"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Short Pozisyon Kapat (CLOSESHORT)",
+            "op_sembol": "CLOSE_SHORT",
+            "sembol":"CLOSE_SHORT",
+            "op_grubu": "islem_futures"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Take Profit Market (TP-Market)",
+            "op_sembol": "TP_Market",
+            "sembol":"TP-Market",
+            "op_grubu": "islem_futures"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Take Profit Limit (TP-Limit)",
+            "op_sembol": "TP_Limit",
+            "sembol":"TP_Limit",
+            "op_grubu": "islem_futures"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Stop Loss Market (SL-Market)",
+            "op_sembol": "SL_Market",
+            "sembol":"SL_Market",
+            "op_grubu": "islem_futures"
+        }
+    },
+    {
+        "model": "destek.operatorler",
+        "fields": {
+            "operator_adi": "Stop Loss Limit (SL-Limit)",
+            "op_sembol": "SL_Limit",
+            "sembol":"SL_Limit",
+            "op_grubu": "islem_futures"
+        }
+    }
+]

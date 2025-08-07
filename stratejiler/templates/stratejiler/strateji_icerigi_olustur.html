@@ -1,0 +1,443 @@
+{% extends "tepe.html" %}
+
+{% block title %}
+T-ERP Stratejiler
+{% endblock %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/dist/custom.css' %}">
+{% block sayfabasligi %}
+
+{% endblock %}
+
+{% block sagustmap %}
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">İŞLEM AÇ</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="card card-success">
+    <div class="card-header">
+        <h3 class="card-title"><b>Strateji Parametreleri Tanımlayın</b></h3> 
+    </div>
+    <div class="card-body genisleyebilen-card">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title"><b>Strateji Bilgileri</b></h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="" class="fw-bold">Strateji adı</label>
+                            <input type="text" name="" class="form-control" value="{{strateji.adi}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="fw-bold">Strateji Açıklaması</label>
+                            <input type="text" name="" class="form-control" value="{{strateji.aciklama}}" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="" method="POST" id="genel_form">
+            <input type="hidden" id="strateji_id" name="strateji_id" value="{{ strateji.id }}">
+            {% csrf_token %}
+
+            <div class="hata-goster">hata göster kısmı : <span>strateji.id: {{ strateji.id }}</span> </div>
+            <br>
+
+            <div class="pre-buy-bolumu mb-4">
+                <h4 class="text-warning">🟡 
+                    <b>Pre-Buy Süreci  &emsp; Blok ID:&nbsp;100</b>
+                </h4>
+                
+                <div    id="pre_buy_container" 
+                        data-block-id="100"
+                        class="if-blok-children align-items-center">
+                </div>
+
+                <button class="btn btn-success if_ve_btn"
+                    data-blok-id="100"
+                    hx-get="/stratejiler/ic_ve_grubu_ekle/"
+                    hx-target="#pre_buy_container"
+                    hx-swap="beforeend"
+                    hx-vals='{
+                        "blok_id": "100", 
+                        "strateji_id": "{{ strateji.id }}", 
+                        "surec": "pre_buy", 
+                        "poz":"2"
+                    }'
+                    hx-on="htmx:afterRequest: this.classList.add('d-none')">
+                    + VE Çerçevesi
+                </button>
+                <button 
+                    class="btn btn-warning if_veya_btn"
+                    data-blok-id="100"
+                    hx-get="/stratejiler/veya_grubu_ekle/"
+                    hx-target="#pre_buy_container"
+                    hx-swap="beforeend"
+                    hx-vals='{
+                        "blok_id": "100", 
+                        "strateji_id": "{{ strateji.id }}", 
+                        "surec": "pre_buy"
+                    }'
+                    hx-on="htmx:afterRequest: this.classList.add('d-none')">
+                    + VEYA Çerçevesi Ekle
+                </button>
+            </div>
+            
+        </form>
+    </div>
+    <div class="card-footer d-flex align-items-center">
+        <a type="button" class="btn btn-success" id="gonder-buton">Gönder</a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<p>My custom footer for this page.</p>
+
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+<script src="{% static 'dist/js/myLib.js' %}"></script>
+<script src="{% static 'dist/js/kucuk_seyler.js' %}"></script>
+<script src="{% static 'dist/js/state.js' %}"></script>
+<script src="{% static 'dist/js/proses.js' %}"></script>
+
+
+
+
+<!-- post  genel kodu -->
+<script>
+function stratejiVerisiniTopla() {
+    const kokBloklar = [
+        { blok_id: "100", blok_tipi: "pre_buy", children: [] }
+    ];
+
+    const tumBloklar = [];
+
+    // VE, IC_VE, VEYA blokları
+    document.querySelectorAll(".ve-blok, .ic-ve-blok, .veya-blok, .inside-buy").forEach(blok => {
+        let blokTipi = "";
+        if (blok.classList.contains("ve-blok")) blokTipi = "ve";
+        else if (blok.classList.contains("ic-ve-blok")) blokTipi = "ic_ve";
+        else if (blok.classList.contains("veya-blok")) blokTipi = "veya";
+        else if (blok.classList.contains("inside-buy")) blokTipi = "inside_buy";
+        
+        tumBloklar.push({
+            blok_id: blok.dataset.blokId,
+            parent_id: blok.dataset.parentId,
+            blok_tipi: blokTipi,
+            children: []
+        });
+    });
+
+    document.querySelectorAll(".state-blok").forEach(blok => {
+        const blok_id = blok.dataset.blokId;
+        const parent_id = blok.dataset.parentId;
+        const strateji_id = blok.dataset.stratejiId;
+        const surec = blok.dataset.surec;
+
+        const state_adi = blok.querySelector("#state_adi_" + blok_id)?.value || "";
+        const mum_sayisi = blok.querySelector("#mum_sayisi_" + blok_id)?.value || "1";
+        const tekrar_edebilir = blok.querySelector("#tekrar_edebilir_" + blok_id)?.value || "true";
+
+        tumBloklar.push({
+            blok_id,
+            parent_id,
+            blok_tipi: "state",
+            surec,
+            state_adi,
+            mum_sayisi,
+            tekrar_edebilir,
+            children: []
+        });
+    });
+
+    document.querySelectorAll(".state-kapanma-blok").forEach(blok => {
+        const blok_id = blok.dataset.blokId;
+        const parent_id = blok.dataset.parentId;
+        const strateji_id = blok.dataset.stratejiId;
+        const surec = blok.dataset.surec;
+
+
+        const sol_indikator = blok.querySelector("select[name^='indikator_sol_']")?.value;
+        const sag_indikator = blok.querySelector("select[name^='indikator_sag_']")?.value;
+
+        const sol_parametreler = {};
+        blok.querySelectorAll(".sol-parametreler input").forEach(inp => {
+            sol_parametreler[inp.name] = inp.value;
+        });
+
+        const sag_parametreler = {};
+        blok.querySelectorAll(".sag-parametreler input").forEach(inp => {
+            sag_parametreler[inp.name] = inp.value;
+        });
+
+        const operator = blok.querySelector(".kar_op")?.value;
+        const cikti_sol = blok.querySelector("select[name^='cikti_sol_']")?.value;
+        const cikti_sag = blok.querySelector("select[name^='cikti_sag_']")?.value;
+
+        tumBloklar.push({
+            blok_id,
+            parent_id,
+            blok_tipi: "state_kapanma",
+            strateji_id,
+            surec,
+
+            sol_indikator,
+            sol_parametreler,
+            cikti_sol,
+            operator,
+            sag_indikator,
+            sag_parametreler,
+            cikti_sag,
+
+            children: []
+        });
+    });
+
+    document.querySelectorAll(".proses-blok").forEach(blok => {
+        try {
+            const blok_id = blok.dataset.blokId;
+            const parent_id = blok.dataset.parentId;
+
+            // Proses'e özel alan
+            const selectEl = blok.querySelector(".state-dropdown");
+            const takip_edilen_state = selectEl
+                ? Array.from(selectEl.selectedOptions).map(opt => opt.value)
+                : [];
+
+            // Proses objesi
+            const prosesObj = {
+                blok_id,
+                parent_id,
+                blok_tipi: "proses",
+                takip_edilen_state,
+                children: []  // alt if blokları buraya eklenecek
+            };
+
+            // Prosesin altındaki if bloklarını tara
+            blok.querySelectorAll(".if-blok").forEach(ifBlok => {
+                const if_blok_id = ifBlok.dataset.blokId;
+                const pim_select = ifBlok.querySelector("select.parite-select");
+                const pim_degerleri = Array.from(pim_select?.selectedOptions || []).map(opt => opt.value);
+
+                const sol_indikator = ifBlok.querySelector("select[name^='indikator_sol_']")?.value || null;
+                const sag_indikator = ifBlok.querySelector("select[name^='indikator_sag_']")?.value || null;
+
+                const sol_parametreler = {};
+                ifBlok.querySelectorAll(".sol-parametreler input").forEach(inp => {
+                    if (inp.name) sol_parametreler[inp.name] = inp.value;
+                });
+
+                const sag_parametreler = {};
+                ifBlok.querySelectorAll(".sag-parametreler input").forEach(inp => {
+                    if (inp.name) sag_parametreler[inp.name] = inp.value;
+                });
+
+                const operator = ifBlok.querySelector(".kar_op")?.value || null;
+                const cikti_sol = ifBlok.querySelector("select[name^='cikti_sol_']")?.value || null;
+                const cikti_sag = ifBlok.querySelector("select[name^='cikti_sag_']")?.value || null;
+
+                prosesObj.children.push({
+                    blok_id: if_blok_id,
+                    parent_id: blok_id,
+                    blok_tipi: "if",
+                    pim: pim_degerleri,
+                    sol_indikator,
+                    sol_parametreler,
+                    cikti_sol,
+                    operator,
+                    sag_indikator,
+                    sag_parametreler,
+                    cikti_sag,
+                    children: []
+                });
+            });
+
+            // Proses objesini tumBloklar listesine ekle
+            tumBloklar.push(prosesObj);
+
+        } catch (err) {
+            console.error("❌ Proses blokunda hata:", err, blok);
+        }
+    });
+
+    document.querySelectorAll(".if-blok.position-relative").forEach(blok => {
+        if (blok.closest(".proses-blok")) return;
+
+        const blok_id = blok.dataset.blokId;
+        const parent_id = blok.dataset.parentId;
+        const pim_select = blok.querySelector("select.parite-select");
+        const pim_degerleri = Array.from(pim_select?.selectedOptions || []).map(opt => opt.value);
+        const sol_indikator = blok.querySelector("select[name^='indikator_sol_']")?.value;
+        const sag_indikator = blok.querySelector("select[name^='indikator_sag_']")?.value;
+
+        const sol_parametreler = {};
+        blok.querySelectorAll(".sol-parametreler input").forEach(inp => {
+            if (inp.name?.includes(`param_sol_${blok_id}__`)) {
+                sol_parametreler[inp.name] = inp.value;
+            }
+        });
+
+        const sag_parametreler = {};
+        blok.querySelectorAll(".sag-parametreler input").forEach(inp => {
+            if (inp.name?.includes(`param_sag_${blok_id}__`)) {
+                sag_parametreler[inp.name] = inp.value;
+            }
+        });
+
+        const operator = blok.querySelector(".kar_op")?.value;
+        const cikti_sol = blok.querySelector("select[name^='cikti_sol_']")?.value;
+        const cikti_sag = blok.querySelector("select[name^='cikti_sag_']")?.value;
+
+        tumBloklar.push({
+            blok_id,
+            parent_id,
+            blok_tipi: "if",
+            pim: pim_degerleri,
+            sol_indikator,
+            sol_parametreler,
+            cikti_sol,
+            operator,
+            sag_indikator,
+            sag_parametreler,
+            cikti_sag,
+            children: []
+        });
+    });
+
+    document.querySelectorAll(".aksiyon-blok").forEach(blok => {
+        const blok_id = blok.dataset.blokId;
+        const parent_id = blok.dataset.parentId;
+        const pim_select = blok.querySelector("select.parite-select");
+        const pim_degerleri = Array.from(pim_select?.selectedOptions || []).map(opt => opt.value);
+
+        // Aksiyon tipi inputtan geliyor
+        const aksiyon_tipi = blok.querySelector("input[name='aksiyon_tipi']")?.value;
+
+        // Tüm input ve select alanlarını tek tek al
+        const aksiyon_parametreler = {};
+        blok.querySelectorAll("input, select").forEach(inp => {
+            if (!inp.classList.contains('parite-select') && inp.name && inp.name.trim() !== "") {
+                aksiyon_parametreler[inp.name] = inp.value;
+            }
+        });
+
+        // coin'i ayrıca ata
+        aksiyon_parametreler["coin"] = pim_degerleri;
+
+        tumBloklar.push({
+            blok_id,
+            parent_id,
+            blok_tipi: "aksiyon",
+            aksiyon_tipi,
+            aksiyon_parametreler,
+            children: []
+        });
+    });
+
+    // loop bloklarını gez
+    document.querySelectorAll(".loop-blok").forEach(loop => {
+        const loop_id = loop.dataset.blokId;
+        const loop_type = loop.dataset.loopTipi;
+
+        const adimlar = [];
+        loop.querySelectorAll(".loop-adim").forEach(adim => {
+            const adim_id = adim.dataset.blokId;
+            const children = [];
+
+            // adım içindeki if ve aksiyonları ekle
+            adim.querySelectorAll(".if-blok, .aksiyon-blok").forEach(blok => {
+                // ... daha önceki gibi blokları oku
+                // children.push({...});
+            });
+
+            adimlar.push({
+                blok_id: adim_id,
+                parent_id: loop_id,
+                blok_tipi: "loop_adim",
+                children
+            });
+        });
+
+        tumBloklar.push({
+            blok_id: loop_id,
+            parent_id: loop.dataset.parentId,
+            blok_tipi: "loop",
+            loop_tipi: loop_type,
+            children: adimlar
+        });
+    });
+
+
+    // Ağaç yapısına dönüştürme
+    const harita = {};
+    tumBloklar.forEach(blok => {
+        harita[blok.blok_id] = blok;
+    });
+
+    // Tüm parent ilişkilendirmeyi yap
+    tumBloklar.forEach(blok => {
+        const parentId = blok.parent_id;
+        if (!parentId) return;
+
+        // 1. Önce tumBloklar'da parent var mı?
+        if (harita[parentId]) {
+            harita[parentId].children.push(blok);
+        } 
+        // 2. Yoksa kokBloklar'da parent olabilir mi?
+        else {
+            const kok = kokBloklar.find(kok => kok.blok_id === parentId);
+            if (kok) {
+                kok.children.push(blok);
+            } else {
+                console.warn("❌ Eşleşmeyen parent_id bulundu:", blok);
+            }
+        }
+    });
+
+    return { kokBloklar }; //tumBloklar 'da döndürülebilir ama şu an sadece kök bloklar yeterli gibi görünüyor'
+}
+
+</script>
+    
+<script>
+document.getElementById("gonder-buton").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const jsonYapi = stratejiVerisiniTopla();
+
+    console.log("GÖNDERİLECEK JSON:", JSON.stringify(jsonYapi, null, 2));
+
+
+
+    // // fetch ile backend'e gönder
+    // fetch("/stratejiler/kaydet_strateji_json/", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "X-CSRFToken": getCookie("csrftoken")
+    //     },
+    //     body: JSON.stringify({ strateji_agaci: jsonYapi })
+    // }).then(res => res.json()).then(data => {
+    //     console.log("Backend cevabı:", data);
+    // });
+});
+</script>
+        
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

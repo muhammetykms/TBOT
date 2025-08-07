@@ -1,0 +1,138 @@
+<div class="ic-ve-blok py-3 my-3 ml-3 position-relative" 
+    data-btn-class="if_ve_btn"
+    id="ic-ve-blok_{{ blok_id }}"
+    data-blok-id="{{ blok_id }}"
+    data-parent-id="{{ parent_id }}"
+    data-surec="{{ surec }}"
+    data-strateji_id="{{strateji_id}}"
+    data-blok-tipi="ic-ve"
+    style="border: 2px solid #40bf40; border-radius: 8px; padding: 24px 16px; background-color: rgba(64, 191, 64, 0.1);">
+
+    <!-- Çerçevenin üst ortasında floating label -->
+    <span class="badge badge-success ve-label"
+        style="
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 15px;
+            padding: 7px 16px;
+            font-weight: bold;">
+        "VE" Çerçevesi<br>Blok ID:&nbsp;{{blok_id}} <br> Parent ID:&nbsp;{{parent_id}} 
+
+    </span>
+    <button type="button" 
+        class="btn btn-sm btn-danger"
+        data-parent-id="{{parent_id}}"
+        style="position: absolute; 
+        top: -14px; 
+        right: -14px; 
+        border-radius: 50%; 
+        width: 30px; 
+        height: 30px; 
+        font-size: 18px; 
+        z-index: 5;"
+        onclick="removeBlock(this,'{{ parent_id }}')">
+        ×
+    </button>
+
+    <div class="ic-ve-if-bloklar-container mt-3" 
+    id="ic-ve-if-bloklar-container_{{ blok_id }}" 
+    data-target-container-id="ic-ve-if-bloklar-container_{{ blok_id }}"
+    data-blok-id="{{ blok_id }}"></div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end mt-2">
+                <a href="#"
+                    class="btn btn-info if_ekle_btn"
+                    data-blok-id="{{ blok_id }}"
+                    data-strateji-id="{{ strateji_id }}"
+                    hx-get="/stratejiler/if-blogu-ekle/"
+                    hx-target="#ic-ve-if-bloklar-container_{{ blok_id }}"
+                    hx-vals='{ 
+                            "blok_id": "{{ blok_id }}", 
+                            "strateji_id": "{{ strateji_id }}",
+                            "surec":"{{surec}}",
+                            "caller":"ve_if"
+                    }'
+                    hx-swap="beforeend">
+                    İf Ekle
+                </a>
+            </div>
+            <div class="d-flex justify-content-end mt-2">
+                <a href="#"
+                    class="btn btn-dark proses_ekle_btn d-none"
+                    data-blok-id="{{ blok_id }}"
+                    data-strateji-id="{{ strateji_id }}"
+                    hx-get="/stratejiler/proses_ekle/"
+                    hx-target="#ic-ve-if-bloklar-container_{{ blok_id }}"
+                    hx-vals='{ 
+                            "blok_id": "{{ blok_id }}", 
+                            "strateji_id": "{{ strateji_id }}",
+                            "surec":"{{surec}}"
+                    }'
+                    hx-swap="beforeend">
+                    Proses Ekle
+                </a>
+            </div>
+            <div class="d-flex justify-content-end mt-2">
+                <a href="#"
+                    class="btn btn-dark loop_ekle_btn"
+                    data-blok-id="{{ blok_id }}"
+                    data-strateji-id="{{ strateji_id }}"
+                    hx-get="/stratejiler/loop_blok_ekle/"
+                    hx-target="#ic-ve-if-bloklar-container_{{ blok_id }}"
+                    hx-vals='{ 
+                            "blok_id": "{{ blok_id }}", 
+                            "strateji_id": "{{ strateji_id }}",
+                            "surec":"{{surec}}"
+                    }'
+                    hx-swap="beforeend">
+                    Loop Ekle
+                </a>
+            </div>
+
+
+            <div class="d-flex justify-content-end mt-2">
+                <a href="#"
+                    class="btn btn-danger aksiyon_ekle_btn"
+                    data-blok-id="{{ blok_id }}"
+                    data-strateji-id="{{ strateji_id }}"
+                    hx-get="/stratejiler/aksiyon_ekle/"
+                    hx-target="#ic-ve-if-bloklar-container_{{ blok_id }}"
+                    hx-vals='{
+                        "blok_id": "{{ blok_id }}",
+                        "strateji_id": "{{ strateji_id }}",
+                        "surec":"{{surec}}"
+                    }'
+                    hx-swap="beforeend">
+                    Aksiyon Ekle <br>Blok ID:&nbsp;{{blok_id}}
+                </a>
+            </div>
+            {% if poz == "2" %}
+            {% elif poz == "3" %}
+            <div class="d-flex justify-content-end mt-2">
+                <a href="#"
+                    class="btn btn-warning ic_veya_ekle_btn"
+                    data-blok-id="{{ blok_id }}"
+                    data-strateji-id="{{ strateji_id }}"
+                    hx-get="/stratejiler/veya_grubu_ekle/"
+                    hx-target="#ic-ve-if-bloklar-container_{{ blok_id }}"
+                    hx-vals='{
+                        "blok_id": "{{ blok_id }}", 
+                        "strateji_id": "{{ strateji_id }}",
+                        "surec":"{{ surec }}" 
+                    }'
+                    hx-swap="beforeend">
+                    İç Veya Grubu eklee
+                    <br>Blok ID:&nbsp;{{blok_id}}
+                </a>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>

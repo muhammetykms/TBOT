@@ -1,0 +1,61 @@
+
+-   eğer hacim düşüyorsa, eğer dominans düşüyorsa gibi şeyleri karşılaştıracak değişim indikatörü yazılacak.!!
+
+-   inside(YUTAN MUM) bar fonksiyonu yazılacak ve indikatör olarak eklenecek. trende göre renk olayı önemli.
+        https://www.youtube.com/watch?v=wnLvefhGDaA
+        long inside bar  ilki kırmızı yutan ikincisi yeşil yutulan şeklinde olacak.
+        ikincinin en yükseği ve en düşüğü birinincinin en yükseği ve en düşüğü arasında olacak.
+        3. mum, 1. mum'un en yükseğini kırınca long işlem açılır. atr ile stop tanımlanır.
+
+        Düşen trend için
+        ilk bar yeşil, ikinci bar kırmızı.  1. bar yutan 2. bar yutulan olduğunda,
+        3. bar birincinin en düşüğünü kırdığında short işlem açılır.
+        not: bazen 4.5.6. mumda kırılılım gelir ama önemli olan bu ara mumlar 1. mumun üstünde ve altında kapatmayacak. kapattığında zaten insidebar o yönde kırılmış oluyor.
+
+-   Order block Mumu tespit fonksiyonu yazılacak:
+        https://www.youtube.com/watch?v=WoEyTZZyj1E
+        Bu da zaten 2 li mum tipidir. 
+        yükselen trend için, geri çekilişin, 
+
+-   trend çizgisi indikatörü eklenecek,
+-   ikili tepe ikili dip indikatörünü yaz.  
+
+--------------------    -----------------   ---------------------   ------------
+
+aynı koin ve o koinin dominansı için dominans indikatörünü üret.
+not: aşağıdakilerin haricinde dominance ve hacim ilişkisi de kurabilirsin.
+
+🔗 Sonuç: AVAX Dominance - Fiyat Matrisi
+Dominance	Fiyat	        Anlamı
+↑	        ↑	        Güçlü yükseliş, ilgi var
+↑	        ↓	        Diğerlerinden daha az düşüş, görece güçlü
+↓	        ↑	        Piyasa genel ralli, AVAX zayıf kalıyor
+↓	        ↓	        Zayıflık, ilgi azalıyor
+→	        ↑/↓	        Piyasa ile birlikte hareket, nötr
+
+🎯 Uygulama: Ne Yapabilirim?
+
+    AVAX dominance + fiyat ilişkisi = AVAX’ın sektördeki gücünü ölçmek için bir araç.
+    Dominance artışı ve fiyat artışı birlikte geliyorsa, bu trend takibi için alım fırsatıdır.
+    Dominance artışı ama fiyat düşüyorsa → altcoin düşüşü genelse, sığınma limanı gibi kullanılabilir.
+    Dominance düşüşü ama fiyat artışı → kısa vadeli pump olabilir ama diğer coinlerle rekabette geri kalıyor olabilir.
+
+🎯 Hangi Sınıfa Girer?
+Sınıf	                                                        Uygunluk	Açıklama
+Trend	                                                        ✅ Yüksek       Dominance artışı + fiyat artışı → yukarı yönlü trend işareti.
+Momentum	                                                ⚠️ Orta	        Eğer fiyat değişim hızını da hesaba katıyorsak momentum olabilir ama salt dominance değişimi momentum sayılmaz.
+Hacim	                                                        ❌ Hayır	        Dominance hacimle değil, piyasa değeri oranıyla ilgilidir. Dolayısıyla doğrudan hacim kategorisine girmez.
+Göreli Güç / Karşılaştırmalı Performans (Relative Strength)	✅	        Fiyat performansı + dominance birlikte değerlendirildiğinde "bu coin piyasaya göre daha mı güçlü?" sorusunu yanıtlar.
+
+Sentiment (Duyarlılık)	                                        ⚠️ Dolaylı	Dominance artışı bazen piyasa duyarlılığının (BTC’ye kaçış gibi) dolaylı bir yansıması olabilir. Ama doğrudan bir sentiment indikatörü değildir.
+
+🧠 Sonuç: Bu indikatör en iyi şekilde şöyle tanımlanır:
+    📌 Trend + Göreli Güç (Relative Strength) temelli bir yapısal analiz göstergesi.
+
+Alternatif isimlendirme (eğer sen geliştiriyorsan):
+
+    Dominance-Adjusted Price Strength (DAPS)
+    Dominance Divergence Index (DDI)
+    Relative Market Influence (RMI)
+    AVAX Trend Power Ratio
+İstersen bu indikatörü formüle edip, 0-100 aralığında yorumlanabilen bir gösterge haline getirebiliriz (örneğin RSI gibi).

@@ -1,0 +1,624 @@
+{% extends "tepe.html" %}
+
+{% block title %}
+T-ERP Stratejiler
+{% endblock %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/dist/custom.css' %}">
+{% block sayfabasligi %}
+
+{% endblock %}
+
+{% block sagustmap %}
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">İŞLEM AÇ</a></li>
+{% endblock %}
+
+{% block content %}
+
+    <h1><b>STRATEJİLER!</b></h1>
+
+<div class="card card-success">
+    <div class="card-header">
+        <h3 class="card-title"><b>Strateji Parametreleri Tanımlayın</b></h3> 
+    </div>
+    <div class="card-body">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title"><b>Strateji Bilgileri</b></h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="" class="fw-bold">Strateji adı</label>
+                            <input type="text" name="" class="form-control" value="{{strateji.adi}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="fw-bold">Strateji Açıklaması</label>
+                            <input type="text" name="" class="form-control" value="{{strateji.aciklama}}" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="" method="POST" id="genel_form">
+            <input type="hidden" id="strateji_id" name="strateji_id" value="{{ strateji.id }}">
+            {% csrf_token %}
+
+            <div class="hata-goster">hata göster kısmı</div>
+            <br>
+
+            <div class="pre-buy-bolumu mb-4">
+            <h4 class="text-warning">🟡 <b>Pre-Buy Süreci</b></h4>
+            <div id="pre_buy_container">
+                <div class="row if-blok" data-blok-id="1" style="border: 1px solid #ccc; border-radius: 8px; padding: 10px;">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <!-- <label style="color: #ffffff;">Parite-İnterval-Market</label> -->
+                            <div class="select2-purple" id="urun_grubu_div">
+                                <select 
+                                class="select2 parite-select" 
+                                multiple="multiple" 
+                                data-placeholder="Parite-İnterval-Market Seçiniz"
+                                data-dropdown-css-class="select2-purple"
+                                style="width: 100%;" name="pim_0">
+                                {% for x in parite_interval_market %}
+                                    <option value="{{x.id}}">{{x.parite}}&nbsp;-&nbsp;{{x.interval}}{% if x.market == None %} {% else %}&nbsp;-&nbsp;{{x.market}} {% endif %}
+                                    </option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <!-- <label for="indikator">İndikatör Seç</label> -->
+                                <select class="form-control indikator-select" name="ind_0">
+                                    <option id="" value="">İndikatör Seç</option>
+                                    {% for x in indikator_listesi %}
+                                        <option value="{{ x.indikator.id }}">{{ x.indikator.adi }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="hidden" id="indikator_trigger" />
+                                <div class="parametre-alani"
+                                    hx-trigger="change from:#indikator_trigger"
+                                    hx-target="#parametre_input_alani"
+                                    hx-swap="innerHTML"
+                                    hx-get="/stratejiler/indikator_parametre_partial/0/">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-1 karsilastirma-operatoru">
+                        <div id="karsilastirma-operatoru-alani"
+                            hx-get="{% url 'stratejiler:karsilastirma_operatorleri' %}" 
+                            hx-trigger="load" 
+                            hx-swap="innerHTML"
+                            hx-on::afterSwap="guncelleOperatorDegerleri()">
+                        <!-- HTMX burada çalışacak ve içerik buraya gelecek -->
+                        <div class="text-muted">Yükleniyor...</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <!-- <label for="indikator">İndikatör Seç</label> -->
+                                <select class="form-control indikator-select" name="ind_1">
+                                    <option id="" value="">İndikatör Seç</option>
+                                    {% for x in indikator_listesi %}
+                                        <option value="{{ x.indikator.id }}">{{ x.indikator.adi }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <input type="hidden" id="indikator_trigger2" />
+                                <div class="parametre-alani"
+                                    hx-trigger="change from:#indikator_trigger2"
+                                    hx-target="#parametre_input_alani2"
+                                    hx-swap="innerHTML"
+                                    hx-get="/stratejiler/indikator_parametre_partial/0/">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <div class="row">
+                            <button type="button" class="btn btn-info denk-blok-ekle mb-2" >+ Ve Grubu</button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-warning alt-blok-ekle mb-2" >+ Veya Grubu</button>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-danger mb-2"" >+ Aksiyon Blok</button>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <div class="if-blok-children" data-parent-id="1" style="margin-left: 32px; border-left: 2px dashed #e0e0e0; padding-left: 8px;">
+                                <!-- Alt gruplar buraya dinamik olarak eklenecek -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="inside-buy-bolumu mb-4">
+            <h4 class="text-success">🟢 Inside-Buy Süreci</h4>
+            <div id="inside_buy_container"></div>
+            </div>
+
+            <div class="after-sell-bolumu mb-4">
+            <h4 class="text-primary">🔵 After-Sell Süreci</h4>
+            <div id="after_sell_container"></div>
+            </div>
+        </form>
+    </div>
+
+    <div class="card-footer d-flex align-items-center">
+        <a href="#" class="btn btn-success" id="gonder-buton">Gönder</a>
+        <div class="ml-auto">
+            <select id="aksiyon_grubu_sec" class="form-control d-inline-block w-auto mr-3">
+                <option value="pre-buy">Pre-Buy</option>
+                <option value="inside-buy">Inside-Buy</option>
+                <option value="after-sell">After-Sell</option>
+            </select>
+
+            <a href="#"
+            class="btn btn-primary ml-2"
+            id="if_blogu_ekle">
+            İf Ekle
+            </a>
+
+            <a href="#" class="btn btn-warning ml-2" id="operatör_ekle">Then Ekle</a>
+
+            <a href="#"
+            class="btn btn-danger ml-2"
+            id="aksiyon_ekle">
+            Aksiyon Ekle
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<p>My custom footer for this page.</p>
+
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+
+<!-- csrf -->
+<script>
+  document.body.addEventListener('htmx:configRequest', (event) => {
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    event.detail.headers['X-CSRFToken'] = token;
+  });
+</script>
+
+<!-- select2 ile pim seçimi -->
+<script>
+  function yenidenSelect2Baslat() {
+    $('.parite-select').each(function(index) {
+      var yeniId = 'pim_' + index;
+      $(this).attr('id', yeniId);
+      $(this).attr('name', yeniId);
+
+      // Eğer select2 zaten varsa destroy edip yeniden kur
+      if ($(this).hasClass("select2-hidden-accessible")) {
+        $(this).select2('destroy');
+      }
+
+      $(this).select2();
+
+      // Sadece bir seçim için önceki davranışı uygula
+      $(this).on('select2:select', function (e) {
+        var selectedValues = $(this).val();
+        if (selectedValues && selectedValues.length > 1) {
+          var newSelection = e.params.data.id;
+          $(this).val([newSelection]).trigger('change');
+        }
+      });
+    });
+  }
+
+  // Sayfa yüklendiğinde başlat
+  $(function () {
+    yenidenSelect2Baslat();
+  });
+
+  // HTMX ile yeni blok geldiğinde de başlat
+  document.body.addEventListener('htmx:afterSwap', function(evt) {
+    if (evt.target.id === "if_bloglari_alani") {
+      yenidenSelect2Baslat();
+    }
+  });
+</script>
+
+<!-- sayfa yüklendiğinde gelen if için parametre ekleme alanı -->
+<script>
+    function setupIndikatorSelect(select) {
+        select.addEventListener("change", function () {
+            const selectedId = this.value;
+            const indikatorName = this.getAttribute("name"); // örnek: ind_0
+    
+            const container = this.closest(".form-group")?.parentElement?.parentElement;
+    
+            const parametreDiv = container.querySelector(".parametre-alani");
+            const sonucSecimiDiv = container.querySelector(".sonuc-secimi");  // 👈 düzeltildi
+    
+            if (selectedId && parametreDiv) {
+                const url = `/stratejiler/indikator_parametre_partial/${selectedId}/`;
+    
+                htmx.ajax('GET', url, {
+                    target: parametreDiv,
+                    swap: 'innerHTML',
+                    headers: { 'HX-Trigger': 'parametre_geldi' }
+                });
+    
+                // Çıktı select alanı da varsa name ayarla
+                if (sonucSecimiDiv) {
+                    const selectCikti = sonucSecimiDiv.querySelector("select");
+                    if (selectCikti) {
+                        selectCikti.setAttribute("name", `${indikatorName}__cikti`);
+                    }
+                }
+            }
+    
+            // HTMX içerik geldikten sonra parametreleri yeniden adlandırmak için event dinle
+            document.body.addEventListener("htmx:afterSwap", function (e) {
+                if (e.detail.elt === parametreDiv && indikatorName) {
+                    const inputs = parametreDiv.querySelectorAll("input");
+                    inputs.forEach((input, index) => {
+                    let paramLabel = "param";
+                    
+                    // input'a karşılık gelen label'ı bul
+                    const label = parametreDiv.querySelector(`label[for="${input.name}"]`);
+                    if (label) {
+                        const temizAd = label.innerText.trim().toLowerCase().replace(/\s+/g, "_");
+                        paramLabel = `param_${index}_${temizAd}`;
+                    } else {
+                        paramLabel = `param_${index}`;
+                    }
+
+                    input.name = `${indikatorName}__${paramLabel}`;
+                });
+
+    
+                    // Eğer çıktı select HTMX ile geliyorsa, onu da burada adlandır
+                    const ciktiSelect = container.querySelector(".sonuc-secimi");
+                    if (ciktiSelect) {
+                        ciktiSelect.setAttribute("name", `${indikatorName}__cikti`);
+                    }
+                }
+            });
+        });
+    }
+    
+    function initTümIndikatorSelectler() {
+        document.querySelectorAll(".indikator-select").forEach(function (select) {
+            if (!select.dataset.bound) {
+                setupIndikatorSelect(select);
+                select.dataset.bound = "true";
+            }
+        });
+    }
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        initTümIndikatorSelectler();
+    });
+    
+    document.body.addEventListener("htmx:afterSwap", function () {
+        initTümIndikatorSelectler();
+    });
+</script>
+
+<!-- if bloğu ekleme -->
+<script>
+function ifBloguEkleButonunuBagla() {
+    const ifBtn = document.getElementById("if_blogu_ekle");
+    if (ifBtn && !ifBtn.dataset.listenerEkli) {
+        ifBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const secilenGrup = document.getElementById("aksiyon_grubu_sec")?.value || "pre-buy";
+            const hedefSelector = {
+                "pre-buy": "#pre_buy_container",
+                "inside-buy": "#inside_buy_container",
+                "after-sell": "#after_sell_container"
+            }[secilenGrup];
+
+            const hedefEl = document.querySelector(hedefSelector);
+            if (!hedefEl) {
+                console.warn("Hedef DOM'da bulunamadı:", hedefSelector);
+                return;
+            }
+
+            const url = `/stratejiler/if-blogu-ekle/{{ strateji.id }}`;  // veya `this.dataset.url` ile al
+
+            htmx.ajax('GET', url, {
+                target: hedefEl,
+                swap: 'beforeend'
+            });
+        });
+
+        ifBtn.dataset.listenerEkli = "true";
+    }
+}
+</script>
+
+<!-- aksiyon ekeleme -->
+<script>
+function aksiyonSelectBagla() {
+    document.querySelectorAll(".aksiyon-select").forEach(function(select) {
+        if (!select.dataset.listenerEkli) {
+            select.addEventListener("change", function() {
+                const value = this.value;
+                const detayDiv = this.closest(".aksiyon-blok")?.querySelector(".aksiyon-detay-alani");
+
+                const stratejiId = document.querySelector("input[name='strateji_id']")?.value;
+
+                if (value && detayDiv) {
+                    let url = `/stratejiler/aksiyon_form/${value}/`;
+                    if (stratejiId) {
+                        url += `?strateji_id=${stratejiId}`;
+                    }
+
+                    htmx.ajax('GET', url, {
+                        target: detayDiv,
+                        swap: 'innerHTML'
+                    });
+                } else if (detayDiv) {
+                    detayDiv.innerHTML = "";
+                }
+            });
+
+            select.dataset.listenerEkli = "true";
+        }
+    });
+}
+
+function yenidenSelect2Baslat() {
+    $('.parite-select').each(function(index) {
+        const yeniId = 'pim_' + index;
+        $(this).attr('id', yeniId);
+        $(this).attr('name', yeniId);
+
+        if ($(this).hasClass("select2-hidden-accessible")) {
+            $(this).select2('destroy');
+        }
+
+        $(this).select2();
+
+        $(this).off('select2:select').on('select2:select', function (e) {
+            const selectedValues = $(this).val();
+            if (selectedValues && selectedValues.length > 1) {
+                const newSelection = e.params.data.id;
+                $(this).val([newSelection]).trigger('change');
+            }
+        });
+    });
+}
+
+
+function aksiyonEklemeButonunuBagla() {
+    const aksiyonEkleBtn = document.getElementById("aksiyon_ekle");
+    if (aksiyonEkleBtn && !aksiyonEkleBtn.dataset.listenerEkli) {
+        aksiyonEkleBtn.addEventListener("click", function (e) {
+            e.preventDefault(); // <a> tıklamasını iptal et
+
+            const secilenGrup = document.getElementById("aksiyon_grubu_sec")?.value || "pre-buy";
+            const hedefSelector = {
+                "pre-buy": "#pre_buy_container",
+                "inside-buy": "#inside_buy_container",
+                "after-sell": "#after_sell_container"
+            }[secilenGrup];
+
+            const hedefEl = document.querySelector(hedefSelector);
+            if (!hedefEl) return;
+
+            const url = `/stratejiler/aksiyon_ekle/{{ strateji.id }}`; // bu sunucu tarafından derlenmeli
+
+            htmx.ajax('GET', url, {
+                target: hedefEl,
+                swap: 'beforeend'
+            });
+        });
+
+        aksiyonEkleBtn.dataset.listenerEkli = "true";
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    aksiyonSelectBagla();
+    yenidenSelect2Baslat();
+    aksiyonEklemeButonunuBagla();
+    ifBloguEkleButonunuBagla();
+});
+
+document.body.addEventListener("htmx:afterSwap", function () {
+    aksiyonSelectBagla();
+    yenidenSelect2Baslat();
+    aksiyonEklemeButonunuBagla();
+    ifBloguEkleButonunuBagla();
+});
+</script>
+
+<script>
+    // Benzersiz blok numarası için global sayaç
+    let globalBlokCounter = 1;
+
+    // Recursive id güncelleme fonksiyonu
+    function guncelleIfBlokIdleri(parentSelector = "#pre_buy_container") {
+        $(parentSelector).children('.if-blok').each(function() {
+            // Benzersiz id ata
+            let currentId = globalBlokCounter++;
+            $(this).attr('data-blok-id', currentId);
+
+            // Alt çocuklar varsa, onların data-parent-id'sini ata
+            let childrenDiv = $(this).find('.if-blok-children').first();
+            if (childrenDiv.length) {
+                childrenDiv.attr('data-parent-id', currentId);
+                // Alt çocuklara recursive uygula
+                guncelleIfBlokIdleri(childrenDiv);
+            }
+        });
+    }
+
+    // Alt blok ekle butonu (HTMX ile yeni blok partial çek)
+    $(document).on('click', '.alt-blok-ekle', function() {
+        let parentBlok = $(this).closest('.if-blok');
+        let childrenContainer = parentBlok.find('.if-blok-children').first();
+
+        htmx.ajax('GET', `/stratejiler/if-blogu-ekle/{{ strateji.id }}`, {
+            target: childrenContainer[0],
+            swap: 'beforeend'
+        });
+        // Id güncelleme, partial geldikten sonra htmx:afterSwap ile yapılacak!
+    });
+
+    // Blok silme (herhangi bir sil-blok butonuna tıklanınca)
+    $(document).on('click', '.sil-blok', function() {
+        $(this).closest('.if-blok').remove();
+        // Id güncelleme
+        globalBlokCounter = 1;
+        guncelleIfBlokIdleri("#pre_buy_container");
+    });
+
+    // HTMX ile yeni blok eklendiğinde id güncelle (ve her ekleme sonrası)
+    document.body.addEventListener("htmx:afterSwap", function () {
+        globalBlokCounter = 1;
+        guncelleIfBlokIdleri("#pre_buy_container");
+    });
+
+    // Sayfa ilk yüklendiğinde bir kez çalışsın (varsa bloklar için)
+    $(document).ready(function() {
+        globalBlokCounter = 1;
+        guncelleIfBlokIdleri("#pre_buy_container");
+    });
+</script>
+
+
+
+
+
+<!-- indikatörlerin name verilerini güncelle -->
+<script>
+    function tumIfBloklarindakiNameAlanlariniGuncelle() {
+        // İndikatörleri sırayla adlandır
+        const pimSelectler = document.querySelectorAll(".parite-select");
+        pimSelectler.forEach((select, index) => {
+            const yeniName = `pim_${index}`;
+            select.setAttribute("name", yeniName);
+            console.log(`Set name for pim: ${yeniName}`);
+        });
+        // İndikatörleri sırayla adlandır
+        const indikatorSelectler = document.querySelectorAll(".indikator-select");
+        indikatorSelectler.forEach((select, index) => {
+            const yeniName = `ind_${index}`;
+            select.setAttribute("name", yeniName);
+            console.log(`Set name for indikatör: ${yeniName}`);
+        });
+    
+        // Karar operatörlerini sırayla adlandır
+        const kararOperatorleri = document.querySelectorAll(".kar_op");
+        kararOperatorleri.forEach((select, index) => {
+            const yeniName = `karop_${index}`;
+            select.setAttribute("name", yeniName);
+            console.log(`Set name for karar operatörü: ${yeniName}`);
+        });
+         // Karar operatörlerini sırayla adlandır
+         const baglacOperatorleri = document.querySelectorAll(".baglac-select");
+         baglacOperatorleri.forEach((select, index) => {
+            const yeniName = `bagop_${index}`;
+            select.setAttribute("name", yeniName);
+            console.log(`Set name for baglac operatörü: ${yeniName}`);
+        });
+
+    }
+    document.body.addEventListener("htmx:afterSwap", function(evt) {
+    tumIfBloklarindakiNameAlanlariniGuncelle();
+    });
+</script>
+
+<!-- aksiyon name -->
+<script>
+    function guncelleAksiyonSelectName() {
+        // Tüm aksiyon bloklarını sırayla ele al
+        document.querySelectorAll(".aksiyon-blok").forEach(function(aksiyonBlok) {
+            // Bu aksiyon bloktan önceki en yakın indikatör select'i bul
+            const oncekiIndikatorler = Array.from(document.querySelectorAll(".indikator-select"))
+                .filter(ind => ind.compareDocumentPosition(aksiyonBlok) & Node.DOCUMENT_POSITION_FOLLOWING);
+    
+            // En son eklenen indikatörün name'ini bul (örnek: ind_3)
+            let enYakinIndikatorName = "ind_0";  // default
+            if (oncekiIndikatorler.length > 0) {
+                const enYakin = oncekiIndikatorler[0];
+                enYakinIndikatorName = enYakin.getAttribute("name");
+            }
+    
+            // Aynı indikatöre ait daha önce kaç aksiyon olduğunu say
+            const oncekiAksiyonlar = document.querySelectorAll(`select[name^='${enYakinIndikatorName}__aksiyon_']`);
+            const aksiyonIndex = oncekiAksiyonlar.length;
+    
+            // Şu anki select'i bul ve name değerini ayarla
+            const select = aksiyonBlok.querySelector("select.aksiyon-select");
+            if (select) {
+                const yeniName = `${enYakinIndikatorName}__aksiyon_${aksiyonIndex}`;
+                select.setAttribute("name", yeniName);
+                console.log("Aksiyon adı ayarlandı:", yeniName);
+            }
+        });
+    }
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        guncelleAksiyonSelectName();
+    });
+    
+    document.body.addEventListener("htmx:afterSwap", function (evt) {
+        guncelleAksiyonSelectName();
+    });
+</script>
+    
+
+<!-- butonla gönderme -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("gonder-buton").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const form = document.getElementById("genel_form");
+        const formData = new FormData(form);
+
+        fetch("{% url 'stratejiler:data_save' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]").value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Gelen yanıt:", data);
+            alert("İşlem tamamlandı!");
+        })
+        .catch(error => {
+            console.error("Hata:", error);
+        });
+    });
+});
+</script>
+
+
+{% endblock %}

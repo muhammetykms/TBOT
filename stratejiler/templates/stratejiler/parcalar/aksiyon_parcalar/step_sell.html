@@ -1,0 +1,72 @@
+<div class="form-row">
+    <!-- Parite Seçimi (Spot ve Futures) -->
+    <div class="form-group col-md-2">
+        <label for="coin">İşlem Paritesi</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Başlangıç Miktarı -->
+    <div class="form-group col-md-2">
+        <label for="miktar">İlk Satış Miktarı</label>
+        <input type="number" name="miktar" step="0.0001" class="form-control" placeholder="Örn: 100">
+    </div>
+
+    <!-- Miktar Tipi -->
+    <div class="form-group col-md-1">
+        <label for="miktar_tipi">Tip</label>
+        <select name="miktar_tipi" class="form-control">
+            <option value="yuzde">%</option>
+            <option value="sabit">Sabit</option>
+        </select>
+    </div>
+
+    <!-- Adım Sayısı -->
+    <div class="form-group col-md-1">
+        <label for="step_sayisi">Adım</label>
+        <input type="number" name="step_sayisi" min="1" class="form-control" placeholder="Örn: 3">
+    </div>
+
+    <!-- Her Adımda Artış (%) -->
+    <div class="form-group col-md-2">
+        <label for="step_artis_orani">Her Adımda Artış (%)</label>
+        <input type="number" name="step_artis_orani" step="0.1" class="form-control" placeholder="Örn: 25">
+    </div>
+
+    <!-- Emir Tipi -->
+    <div class="form-group col-md-2">
+        <label for="emir_tipi">Emir Tipi</label>
+        <select name="emir_tipi" class="form-control">
+            <option value="market">Market</option>
+            <option value="limit">Limit</option>
+            <option value="fok">Fill or Kill</option>
+        </select>
+    </div>
+
+    <!-- Limit Fiyat (Opsiyonel) -->
+    <div class="form-group col-md-2">
+        <label for="limit_fiyat">Limit Fiyat</label>
+        <input type="number" name="limit_fiyat" step="0.0001" class="form-control" placeholder="Opsiyonel">
+    </div>
+
+<div class="row">
+    📌Amaç:
+<br>
+    “Her %x fiyat artışında belirli miktarda satış yap”<br>
+    veyabr<br>
+    “Pozisyonu 3 adımda %25-%35-%40 şeklinde sat.”
+</div>
+
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="step_sell">
+</div>

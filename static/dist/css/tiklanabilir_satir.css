@@ -1,0 +1,8 @@
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:hover {
+    background-color: #444444; /* Hover'da satırı vurgula (açık mavi) */
+    transition: background-color 0.2s;
+}

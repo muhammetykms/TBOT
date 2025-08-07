@@ -1,0 +1,63 @@
+<div class="veya-blok py-2 my-2 mt-3 mr-3 ml-3 position-relative"
+    data-btn-class="if_veya_btn"
+     id="veya-blok_{{ blok_id }}"
+     data-blok-id="{{ blok_id }}"
+     data-parent-id="{{ parent_id }}"
+     data-surec="{{ surec }}"
+     data-blok-tipi="veya"
+     style="border: 2px solid #b98a00; border-radius: 8px; padding: 24px 16px;">
+
+    <!-- Floating Label -->
+    <span class="badge badge-warning floating-label mb-2"
+          style="position: absolute; 
+          top: -14px; 
+          left: 50%; 
+          transform: translateX(-50%);
+          z-index: 2; 
+          font-size: 15px; 
+          padding: 7px 16px; 
+          font-weight: bold;">
+        VEYA Çerçevesi  <br>Blok ID:&nbsp;{{blok_id}} <br> Parent ID:&nbsp;{{parent_id}}
+    </span>
+    <button type="button" 
+            data-parent-id="{{parent_id}}"
+            class="btn btn-sm btn-danger"
+            style="position: absolute; 
+            top: -14px; 
+            right: -14px; 
+            border-radius: 50%; 
+            width: 30px; 
+            height: 30px; 
+            font-size: 18px; 
+            z-index: 5;"
+            onclick="removeBlock(this,'{{ parent_id }}')">
+            ×
+    </button>
+
+    <div class="row mt-3 d-flex">
+        <div class="col-md-12 text-start">                    
+            <button 
+                class="btn btn-warning if_ve_btn w-100 mt-4"
+                hx-get="/stratejiler/ic_ve_grubu_ekle/"
+                hx-target="#veya-ve-cerceveler-container_{{ blok_id }}"
+                data-blok-id="{{ blok_id }}"
+                hx-swap="beforeend"
+                hx-vals='{
+                    "blok_id": "{{ blok_id }}", 
+                    "strateji_id": "{{ strateji_id }}", 
+                    "surec":"{{ surec }}",
+                    "poz":"3"
+                }'>
+                + VEYa içine Ve Çerçevesi ekle butonu
+            </button>
+        </div>
+        <div class="col-md-12 d-flex">
+            <div class="veya-ve-cerceveler-container mt-3 d-flex gap-3 w-100"
+                 id="veya-ve-cerceveler-container_{{ blok_id }}"
+                 data-blok-id="{{ blok_id }}"
+                 hx-on:afterSwap="guncelleVeCerceveGenislikleri('veya-ve-cerceveler-container_{{ blok_id }}')">
+                <!-- VE çerçeveleri buraya gelecek -->
+            </div>
+        </div>
+    </div>
+</div>

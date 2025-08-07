@@ -1,0 +1,412 @@
+[
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 1,
+            "indikator_adi": "RSI",
+            "parametre_adi": "window",
+            "varsayilan_deger": 14,
+            "aciklama": "RSI hesaplama penceresi uzunluğu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 2,
+            "indikator_adi": "CMO",
+            "parametre_adi": "window",
+            "varsayilan_deger": 14,
+            "aciklama": "CMO hesaplama penceresi uzunluğu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 3,
+            "indikator_adi": "STOKASTIK",
+            "parametre_adi": "k_period",
+            "varsayilan_deger": 14,
+            "aciklama": "%K periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 3,
+            "indikator_adi": "STOKASTIK",
+            "parametre_adi": "d_period",
+            "varsayilan_deger": 3,
+            "aciklama": "%D periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 4,
+            "indikator_adi": "WILLIAMS_R",
+            "parametre_adi": "period",
+            "varsayilan_deger": 14,
+            "aciklama": "Williams %R hesaplama penceresi uzunluğu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 5,
+            "indikator_adi": "AWESOME_OSCILLATOR_WITH_SIGNAL",
+            "parametre_adi": "fastperiod",
+            "varsayilan_deger": 5,
+            "aciklama": "Hızlı periyot"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 5,
+            "indikator_adi": "AWESOME_OSCILLATOR_WITH_SIGNAL",
+            "parametre_adi": "slowperiod",
+            "varsayilan_deger": 34,
+            "aciklama": "Yavaş periyot"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 5,
+            "indikator_adi": "AWESOME_OSCILLATOR_WITH_SIGNAL",
+            "parametre_adi": "signalperiod",
+            "varsayilan_deger": 7,
+            "aciklama": "Sinyal periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 6,
+            "indikator_adi": "TSI",
+            "parametre_adi": "long_period",
+            "varsayilan_deger": 25,
+            "aciklama": "Kısa EMA periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 6,
+            "indikator_adi": "TSI",
+            "parametre_adi": "short_period",
+            "varsayilan_deger": 13,
+            "aciklama": "Uzun EMA periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 6,
+            "indikator_adi": "TSI",
+            "parametre_adi": "signal_period",
+            "varsayilan_deger": 7,
+            "aciklama": "Uzun EMA periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 7,
+            "indikator_adi": "PPO",
+            "parametre_adi": "window_fast",
+            "varsayilan_deger": 12,
+            "aciklama": "Hızlı EMA periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 7,
+            "indikator_adi": "PPO",
+            "parametre_adi": "window_slow",
+            "varsayilan_deger": 26,
+            "aciklama": "Yavaş EMA periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 7,
+            "indikator_adi": "PPO",
+            "parametre_adi": "window_sign",
+            "varsayilan_deger": 9,
+            "aciklama": "Sinyal periyodu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 8,
+            "indikator_adi": "ROC",
+            "parametre_adi": "period",
+            "varsayilan_deger": 14,
+            "aciklama": "ROC hesaplama penceresi uzunluğu"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 9,
+            "indikator_adi": "Momentum",
+            "parametre_adi": "short_period",
+            "varsayilan_deger": 5,
+            "aciklama": "Kısa dönem momentum hesaplama süresi"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 9,
+            "indikator_adi": "Momentum",
+            "parametre_adi": "long_period",
+            "varsayilan_deger": 10,
+            "aciklama": "Uzun dönem momentum hesaplama süresi"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 9,
+            "indikator_adi": "Momentum",
+            "parametre_adi": "avg_period",
+            "varsayilan_deger": 14,
+            "aciklama": "Momentum ortalama çizgisi için kullanılan periyot"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator": 10, 
+            "indikator_adi": "DeMarker",
+            "parametre_adi": "window",
+            "varsayilan_deger": 14,
+            "aciklama": "DeMarker indikatörü için hesaplama süresi"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "CMF",
+            "indikator": 13,
+            "parametre_adi": "window",
+            "varsayilan_deger": 20,
+            "aciklama": "CMF göstergesi için zaman periyodu (örneğin 20)."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "EMA",
+            "indikator": 14,
+            "parametre_adi": "window",
+            "varsayilan_deger": 20,
+            "aciklama": "EMA hesaplamasında kullanılan zaman periyodu. Varsayılan değer: 20"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "ADX_DI",
+            "indikator": 15,
+            "parametre_adi": "window",
+            "varsayilan_deger": 14,
+            "aciklama": "ADX ve DI hesaplamaları için kullanılan zaman periyodu. Varsayılan değer: 14"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "SAR",
+            "indikator": 16,
+            "parametre_adi": "adim",
+            "varsayilan_deger": 0.02,
+            "aciklama": "SAR hesaplaması için kullanılan adım büyüklüğü. Varsayılan: 0.02"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "SAR",
+            "indikator": 16,
+            "parametre_adi": "max_adim",
+            "varsayilan_deger": 0.2,
+            "aciklama": "SAR hesaplaması için kullanılan maksimum adım büyüklüğü. Varsayılan: 0.2"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "MACD",
+            "indikator": 17,
+            "parametre_adi": "window_slow",
+            "varsayilan_deger": 26,
+            "aciklama": "MACD göstergesi için kullanılan yavaş periyot. Varsayılan: 26"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "MACD",
+            "indikator": 17,
+            "parametre_adi": "window_fast",
+            "varsayilan_deger": 12,
+            "aciklama": "MACD göstergesi için kullanılan hızlı periyot. Varsayılan: 12"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "MACD",
+            "indikator": 17,
+            "parametre_adi": "window_sign",
+            "varsayilan_deger": 9,
+            "aciklama": "MACD göstergesi için kullanılan sinyal periyodu. Varsayılan: 9"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "VIDYA",
+            "indikator": 18,
+            "parametre_adi": "window",
+            "varsayilan_deger": 14,
+            "aciklama": "VIDYA göstergesi için kullanılan periyot uzunluğu. Varsayılan: 14"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "VIDYA",
+            "indikator": 18,
+            "parametre_adi": "alpha",
+            "varsayilan_deger": 0.2,
+            "aciklama": "VIDYA göstergesi için kullanılan ağırlık faktörü. Varsayılan: 0.2"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "BOLLINGER",
+            "indikator": 19,
+            "parametre_adi": "period",
+            "varsayilan_deger": 20,
+            "aciklama": "Bollinger göstergesi için kullanılan periyot uzunluğu. Varsayılan: 20"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "BOLLINGER",
+            "indikator": 19,
+            "parametre_adi": "window_dev",
+            "varsayilan_deger": 3,
+            "aciklama": "Bollinger göstergesi için kullanılan Standart sapma değeri. Varsayılan: 3"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "ATR_RMA",
+            "indikator": 20,
+            "parametre_adi": "length",
+            "varsayilan_deger": 14,
+            "aciklama": "ATR hesaplamasında kullanılan periyot uzunluğu. Varsayılan: 14"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "ATR_RMA",
+            "indikator": 20,
+            "parametre_adi": "carpan",
+            "varsayilan_deger": 1,
+            "aciklama": "ATR Değerini çarpan oranıdna büyütür ya da küçültür."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "ULCER_INDEX",
+            "indikator": 21,
+            "parametre_adi": "period",
+            "varsayilan_deger": 14,
+            "aciklama": "Ulcer Index hesaplama periyodu. Varsayılan: 14"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "DONCHIAN_CHANNEL",
+            "indikator": 22,
+            "parametre_adi": "period",
+            "varsayilan_deger": 20,
+            "aciklama": "Donchian Kanal hesaplamasında kullanılan periyot uzunluğu. Varsayılan: 20"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "CHOPPINESS_INDEX",
+            "indikator": 23,
+            "parametre_adi": "period",
+            "varsayilan_deger": 14,
+            "aciklama": "Choppiness Index hesaplamasında kullanılan periyot uzunluğu. Varsayılan: 14"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "Ortalama Alış Fiyatı",
+            "indikator": 25,
+            "parametre_adi": "Çarpan",
+            "varsayilan_deger": 1,
+            "aciklama": "Anlık Fiyat değerini çarpan oranında büyütür ya da küçültür."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "Son Alış Fiyatı",
+            "indikator": 26,
+            "parametre_adi": "Çarpan",
+            "varsayilan_deger": 1,
+            "aciklama": "Anlık Fiyat değerini çarpan oranında büyütür ya da küçültür."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "Önceki Mum Kapanışı",
+            "indikator": 27,
+            "parametre_adi": "Çarpan",
+            "varsayilan_deger": 1,
+            "aciklama": "Anlık Fiyat değerini çarpan oranında büyütür ya da küçültür."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "Önceki Mum Kapanışı",
+            "indikator": 27,
+            "parametre_adi": "Önceki Mum",
+            "varsayilan_deger": 1,
+            "aciklama": "Şuan içinde bulunduğumuz mum'un değeri 0'dır. Bir önceki için '1', '2' önceki mum kapanışı için '2'... şeklinde değer girilerek işlem yapılmak istenen önceki mum kapanış değeri alınabilir."
+        }
+    },
+    {
+        "model": "indikatorler.indikatorparametreleri",
+        "fields": {
+            "indikator_adi": "Sabit Değer",
+            "indikator": 28,
+            "parametre_adi": "Değer",
+            "varsayilan_deger": 0,
+            "aciklama": "Karşılaştırmada kullanılacak belirlediğiniz herhangi bir sabit değer."
+        }
+    }
+]

@@ -1,0 +1,59 @@
+<div    class="aksiyon-blok border border-secondary rounded p-3 mb-4 mt-4" 
+        style="position: relative; border: 2px solid #40bf40; border-radius: 8px; padding: 24px 16px; background-color: rgba(255, 0, 0, 0.1);"
+        data-blok-id="{{ blok_id}}"
+        data-parent-id="{{ parent_id }}"
+        data-surec="{{ surec }}"
+        data-strateji_id="{{ strateji_id }}"
+        data-blok-tipi="aksiyon">
+
+    <span class="badge badge-danger ve-label"
+        style="
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 15px;
+            padding: 7px 16px;
+            font-weight: bold;">
+        "Aksiyon" Blok  &emsp; Blok ID:&nbsp;{{blok_id}} &emsp; Parent ID:&nbsp;{{parent_id}}
+    </span>
+    <!-- Sil butonu -->
+    <button type="button" class="btn btn-sm btn-danger aksiyon_iptal"
+        style="position: absolute; top: -10px; right: -10px; border-radius: 50%; width: 30px; height: 30px;"
+        onclick="this.closest('.aksiyon-blok').remove()">×
+    </button>
+
+    
+    <div class="row">
+        <!-- Aksiyon seçimi -->
+        <div class="col-md-2 mb-2">
+            <label class="form-label fw-bold">Aksiyon Seç</label>
+            <form 
+                hx-post="/stratejiler/aksiyon_form/"
+                hx-target="#aksiyon-detay-alani_{{ blok_id }}"
+                hx-swap="innerHTML"
+                hx-trigger="change from:.aksiyon-select"
+                hx-vals='{
+                    "blok_id": "{{ blok_id }}",
+                    "parent_id":"{{ parent_id }}",
+                    "strateji_id": "{{ strateji_id }}",
+                    "surec":"{{ surec }}"
+                }'>
+                <input type="hidden" name="strateji_id" value="{{ strateji_id }}">
+                <select class="form-control aksiyon-select" name="aksiyon_turu">
+                    <option value="">Seçiniz</option>
+                    {% for value, label in uygun_aksiyonlar %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        
+        <!-- Detay alanı -->
+        <div class="col-md-8 mb-3">
+            <div class="aksiyon-detay-alani" id="aksiyon-detay-alani_{{ blok_id }}"></div>
+        </div>
+    </div>
+
+</div>

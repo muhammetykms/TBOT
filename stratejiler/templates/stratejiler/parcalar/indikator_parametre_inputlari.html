@@ -1,0 +1,39 @@
+<div id="degerler" class="parametre-alani"
+     data-blok-id="{{ blok_id }}" 
+     data-parent-id="{{ parent_id }}" 
+     data-konum="{{ konum }}">
+     
+    {% for p in parametreler %}
+        <div class="form-group col-12">
+            <label for="{{ p.adi }}" style="color: #fff;">{{ p.adi }}</label>
+            <input type="text" 
+                   class="form-control"
+                   name="param_{{ konum }}_{{ blok_id }}__{{ p.adi }}"
+                   value="{{ p.default_deger }}"
+                   placeholder="{{ p.aciklama }}"
+                   data-blok-id="{{ blok_id }}"
+                   data-parent-id="{{ parent_id }}"
+                   data-konum="{{ konum }}">
+        </div>
+    {% endfor %}
+</div>
+
+
+
+<div    class="form-row" id="sonuc_secimi"
+        data-blok-id="{{ blok_id }}"
+        data-parent-id="{{ parent_id }}"
+        data-konum="{{ konum }}">
+    <div class="form-group">
+        <label for="secili_cikti_ilk">Çıktı</label>
+        <select class="form-control sonuc-secimi"
+                name="cikti_{{ konum }}_{{ blok_id }}"
+                data-blok-id="{{ blok_id }}"
+                data-parent-id="{{ parent_id }}"
+                data-konum="{{ konum }}">
+            {% for c in ciktilar %}
+                <option value="{{ c.adi }}">{{ c.adi }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>

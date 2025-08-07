@@ -1,0 +1,16 @@
+[
+    {
+        "model": "mumlar.markettype",
+        "pk": 1,
+        "fields": {
+            "market_type": "spot"
+        }
+    },
+    {
+        "model": "mumlar.markettype",
+        "pk": 2,
+        "fields": {
+            "market_type": "futures"
+        }
+    }
+]

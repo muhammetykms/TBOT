@@ -1,0 +1,8 @@
+
+
+/* Hata olmayan ve değer girilmiş alanlar için stil */
+.form-control:not(.is-invalid):valid {
+  border-color: green;
+  /* İsteğe bağlı olarak arka plan rengi de ekleyebilirsiniz */
+  background-color: #e6ffe6;
+}

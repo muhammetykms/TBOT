@@ -1,0 +1,12 @@
+-kullanıcı  spottan al, futures'den sat yaparsa hata ver. uyumsuzluk bildir spot mu futures mi?
+- log kayıtları tut, hata mesajı ver, kullanıcıya bildirim gönder (mail, discord, sms), history tut.
+limit order fallback sistemi,
+
+şimdi iptal edildiğiinde gibi bu gibi durumlarda bot ne yapacak ? kullanıcı bir strateji kurdu ve satış emri girdi marketten ama satış iptal edilince bot ne yapacak ?
+
+4 Temel Seçenek Var:
+Seçenek	Açıklama
+1. Tekrar Dene	Bot, birkaç saniye sonra yeniden market emri denemesi yapar (retry mekanizması).
+2. Fiyatı Ayarla	Bot, izin verilen limit fiyatı ile limit order verir (örneğin market yerine limit 5% toleranslı bir satış emri).
+3. Stratejiyi Beklet	Bot işlemi yapamadıysa, stratejiyi "beklemede" moda alır ve bir sonraki mumu/şartı bekler.
+4. Hata Logla + Alarm Ver	Bot kullanıcıya log kaydeder ve/veya alarm bildirimi (mail, discord, sms) gönderir: "Satış yapılamadı, müdahale gerekli."

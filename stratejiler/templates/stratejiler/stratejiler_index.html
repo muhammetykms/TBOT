@@ -1,0 +1,235 @@
+{% extends "tepe.html" %}
+
+{% block title %}
+FS-BOT Stratejiler
+{% endblock %}
+
+{% load static %}
+{% load custom_filters %}
+
+
+
+{% block sayfabasligi %}
+
+{% endblock %}
+
+{% block sagustmap %}
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">İŞLEM AÇ</a></li>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    <h1><b>STRATEJİLER!</b></h1>
+
+<div class="card card-success">
+  <div class="card-header" style="background-color: rgba(87, 87, 87, 0.409);">
+    <form action="" method="POST" id="strateji_olustur_form">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="">Çalışacağı Borsa</label>
+                <select name="borsa" id="borsa" class="form-control">
+                    {% for x in operatorler %}
+                        {% if x.op_grubu == "borsa" %}
+                            <option value="{{x.op_sembol}}">{{x.operator_adi}}</option>
+                        {% else %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="">Market Tipi</label>
+                <select name="market_tipi" id="market_tipi" class="form-control">
+                    {% for x in operatorler %}
+                        {% if x.op_grubu == "market_tipi" %}
+                            <option value="{{x.op_sembol}}">{{x.operator_adi}}</option>
+                        {% else %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>        
+        </div>
+        <div class="form-group col-md-2">
+            <label for="strateji-adi">Strateji Adı</label>
+            <input type="text" class="form-control" id="strateji-adi" name="strateji-adi" placeholder="Strateji Adı">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="strateji-aciklama">Strateji Açıklaması</label>
+            <input type="text" class="form-control" id="strateji-aciklama" name="strateji-aciklama" placeholder="Strateji Açıklaması">
+        </div>
+      </div>
+      <input type="hidden" name="form_tipi" value="yeni_strateji">
+      <button type="submit" class="btn btn-success" id="yeni_strateji_olustur_buton" style="float: right;"> <b>Yeni Strateji Oluştur</b> </button>
+    </form>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <table id="example1" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: auto; white-space: nowrap;">Sıra</th>
+          <th scope="col"style="text-align: center;"><b>Strateji</b></th>
+          <th scope="col"style="text-align: center;"><b>Durumu</b></th>
+          <th scope="col"style="text-align: center;"><b>Buy Şartı/ PIM</b></th>
+          <th scope="col"style="text-align: center;"><b>Sell Şartı /PIM</b></th>
+          <th scope="col" style="text-align: center;"><b>Düzenle</b></th>
+        </tr>
+      </thead>
+      <tbody>
+
+    {% if not stratejiler %}
+        <tr>
+            <td colspan="1">Henüz ürün eklenmemiş.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        
+        </tr>
+    {% else %}
+      {% for strateji in stratejiler %}
+      <tr>          
+          <td scope="row" style="width: auto; white-space: nowrap;">{{forloop.counter}}</td>
+          <td>Strateji&nbsp;:&emsp;{{ strateji.adi }}
+            <br>Açıklaması&nbsp;:<br>{{ strateji.aciklama }}
+            <br>Çalıştığı Borsalar&nbsp;:&nbsp;{{ strateji.borsa }}
+            <br>Market Tipi&nbsp;:&nbsp; {{ strateji.market_tipi }}
+          </td>
+          <td style="text-align: center;">
+            {% if strateji.aktif_mi %}
+              <span class="badge bg-success">Aktif</span>
+            {% else %}
+              <span class="badge bg-danger">Pasif</span>
+            {% endif %}
+          </td>
+          <td>  <b style="color: rgb(0, 173, 0);"> Buy Şartları: </b>
+            {% for kosul in al_kosullari %}
+              {% if kosul.strateji_id == strateji.id %}
+              <br>
+                {% for indikator_kosulu in kosul.kosul_indikatorleri.all %}
+                    {{ indikator_kosulu.parite_interval_market.parite }} - 
+                    {{ indikator_kosulu.parite_interval_market.interval }} - 
+                    {{ indikator_kosulu.parite_interval_market.market }}&emsp;
+                    {% if not forloop.last %} |&emsp; {% endif %}
+                {% endfor %}
+              <br> {{ kosul.ifade|replace_gt_with_symbol }} <br> 
+              {% endif %}
+            {% endfor %}
+          </td>
+          <td> <b style="color: rgb(245, 0, 0);"> Sell Şartları: </b>
+            {% for kosul in sat_kosullari %}
+              {% if kosul.strateji_id == strateji.id %} 
+                <br>{{ kosul.ifade|replace_gt_with_symbol }}
+              {% endif %} 
+            {% endfor %}
+          </td>
+          <td style="text-align: right; display: inline-block;">
+            <a href="{% url 'stratejiler:strateji_detay' strateji.id %}" class="btn btn-primary"><b>Ayrıntılar</b></a>
+            <a href="{% url 'stratejiler:strateji_icerigi_olustur' strateji.id %}" class="btn btn-warning">
+              <b>
+                <img src="{% static 'dist/img/short-position.png' %}" alt="mumlar" height="25" width="25" class="ml-1 mr-1">
+                Strateji İçeriği Oluştur
+                <img src="{% static 'dist/img/long-position.png' %}" alt="mumlar" height="25" width="25" class="ml-1 mr-1">
+              </b>
+            </a>
+            <a href="{% url 'stratejiler:strateji_sil' strateji.id %}" class="btn btn-danger"><b>Sil</b></a>
+          </td>
+      </tr>
+      {% endfor %}
+    {% endif %}
+
+
+
+
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block footer %}
+<p>My custom footer for this page.</p>
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+
+
+<script>
+  $(document).ready(function() {
+    $('#strateji_olustur_form').on('submit', function(e) {
+      e.preventDefault();  // Submit işlemini iptal et
+
+      var formData = $(this).serialize();  // Form verilerini hazırla
+      var csrftoken = $("input[name=csrfmiddlewaretoken]").val();  // CSRF token'ı al
+
+      // CSRF token'ı form verilerine ekleyelim
+      formData += "&csrfmiddlewaretoken=" + csrftoken;
+
+      $.ajax({
+        url: $(this).attr('action'),  // Formun action attribute'ü
+        type: "POST",
+        data: formData,
+        dataType: "json",
+        success: function(response) {
+          if (response.success) {
+            window.location.href = "{% url 'stratejiler:stratejiler_index' %}";
+            $('#strateji_olustur_form')[0].reset(); // Formu temizle
+          } else {
+            alert("Hata: " + (response.error || "Bilinmeyen hata."));
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error("AJAX Hatası:", status, error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}

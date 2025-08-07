@@ -1,0 +1,64 @@
+<div class="form-row">
+    <!-- Parite Seçimi -->
+    <div class="form-group col-md-2">
+        <label for="coin">İşlem Paritesi</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Pozisyon Yönü -->
+    <div class="form-group col-md-2">
+        <label for="pozisyon_yonu">Pozisyon Yönü</label>
+        <select name="pozisyon_yonu" class="form-control">
+            <option value="long">Long</option>
+            <option value="short">Short</option>
+        </select>
+    </div>
+
+    <!-- İz Süren Mesafe (%) -->
+    <div class="form-group col-md-2">
+        <label for="iz_suren">İz Süren Mesafe (%)</label>
+        <input type="number" name="iz_suren" step="0.1" class="form-control" placeholder="Örn: 1.5">
+    </div>
+
+    <!-- Tetik Fiyatı (Opsiyonel) -->
+    <div class="form-group col-md-2">
+        <label for="tetik_fiyati">Tetik Fiyatı</label>
+        <input type="number" name="tetik_fiyati" step="0.0001" class="form-control" placeholder="Opsiyonel">
+    </div>
+
+    <!-- Reduce Only -->
+    <div class="form-group col-md-2">
+        <label for="reduce_only">Reduce Only</label>
+        <select name="reduce_only" class="form-control">
+            <option value="True">Evet</option>
+            <option value="False">Hayır</option>
+        </select>
+    </div>
+
+<div class="row">
+
+📌 Amaç:
+<br>
+    “Fiyat yükseldikçe stop-loss seviyem de yükselsin, ama geri dönerse belirli bir yüzdede pozisyonu kapat.”<br>
+    Yani sabit stop yerine dinamik olarak takip eden stop emir sistemidir.<br>
+    NOT: iz süreni atr vb şekilde dinamikleştirmeyi planlıyorum. Şu an için manuel girilecek.
+
+</div>
+
+    <!-- Emir Tipi -->
+    <input type="hidden" name="emir_tipi" value="trailing_stop">
+
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="trailing_stop">
+</div>

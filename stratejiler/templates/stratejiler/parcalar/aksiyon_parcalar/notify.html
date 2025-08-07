@@ -1,0 +1,46 @@
+<div class="form-row">
+    <!-- Parite Seçimi (isteğe bağlı, tek coin için geçerliyse filtreleme yapılabilir) -->
+    <div class="form-group col-md-3">
+        <label for="coin">İlgili Parite</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Bildirim Mesajı -->
+    <div class="form-group col-md-6">
+        <label for="mesaj">Bildirim Mesajı</label>
+        <input type="text" name="mesaj" class="form-control" maxlength="250" placeholder="Gösterilecek mesajı yazınız">
+    </div>
+
+    <!-- Bildirim Türü -->
+    <div class="form-group col-md-2">
+        <label for="bildirim_turu">Bildirim Türü</label>
+        <select name="bildirim_turu" class="form-control">
+            <option value="mail">E-posta</option>
+            <option value="webhook">Webhook</option>
+            <option value="telegram">Telegram</option>
+        </select>
+    </div>
+
+<div class="row">
+ Amaç:
+
+    “Bu seviyeye gelindi, bilgin olsun.”
+    “İşlem açılmadı, çünkü koşullar oluşmadı.”
+    “Kâr hedefi aşıldı, kontrol et.”
+    gibi kullanıcıya bilgi vermek isteyen stratejik noktalar için kullanılır.
+</div>
+
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="notify">
+</div>

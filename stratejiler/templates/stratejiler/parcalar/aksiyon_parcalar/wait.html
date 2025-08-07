@@ -1,0 +1,51 @@
+<div class="form-row">
+    <!-- Parite Seçimi -->
+    <div class="form-group col-md-2">
+        <label for="coin">İlgili Parite</label>
+        <div class="select2-purple">
+            <select name="coin" class="select2 parite-select form-control"
+                    multiple="multiple"
+                    data-placeholder="Parite Seçiniz"
+                    data-dropdown-css-class="select2-purple"
+                    style="width: 100%;">
+                {% for item in pariteler %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Süre Tipi -->
+    <div class="form-group col-md-2">
+        <label for="sure_tipi">Süre Tipi</label>
+        <select name="sure_tipi" class="form-control">
+            <option value="saniye">Saniye</option>
+            <option value="dakika">Dakika</option>
+            <option value="saat">Saat</option>
+        </select>
+    </div>
+
+    <!-- Süre Değeri -->
+    <div class="form-group col-md-2">
+        <label for="sure_degeri">Bekleme Süresi</label>
+        <input type="number" name="sure_degeri" min="1" class="form-control" placeholder="Örn: 15">
+    </div>
+
+    <!-- Açıklama (Opsiyonel) -->
+    <div class="form-group col-md-4">
+        <label for="aciklama">Açıklama (isteğe bağlı)</label>
+        <input type="text" name="aciklama" class="form-control" placeholder="Bu beklemenin amacı nedir?">
+    </div>
+
+    <div class="row">
+
+    📌 Amaç:
+    <br>
+    “İşlem yaptıktan sonra 15 saniye bekle”,<br>
+    “Kademeli işlemler arasında 2 dakika dur.”
+
+    </div>
+    <!-- Sıra ve Aksiyon Tipi -->
+    <input type="hidden" class="sira-verisi" value="{{ sira }}">
+    <input type="hidden" name="aksiyon_tipi" value="wait">
+</div>

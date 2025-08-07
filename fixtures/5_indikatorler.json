@@ -1,0 +1,339 @@
+[
+    {
+        "model": "indikatorler.indikatorler",
+        "fields": {
+        "adi": "RSI",
+        "kutuphane": "ta",
+        
+        "aktif_mi": false,
+        "aciklama": "Relative Strength Index (RSI), aşırı alım ve aşırı satım koşullarını gösterir.",
+        "kullanim_aciklamasi": "RSI değeri genellikle 70'in üzerinde aşırı alım ve 30'un altında aşırı satım olarak değerlendirilir.",
+        "indikator_ciftleri": "RSI + MACD"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorler",
+        "fields": {
+        "adi": "CMO",
+        "kutuphane": "ta",
+        
+        "aktif_mi": false,
+        "aciklama": "Chande Momentum Oscillator (CMO), fiyat hareketlerinin hızını ölçer.",
+        "kullanim_aciklamasi": "CMO değeri 50'nin üzerinde ise aşırı alım, -50'nin altında ise aşırı satım olarak değerlendirilir.",
+        "indikator_ciftleri": "CMO + Stochastic"
+        }
+    },
+    {
+        "model": "indikatorler.indikatorler",
+        "fields": {
+        "adi": "Stokastik",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Stochastic Oscillator, fiyatın kapanışını belirli bir periyottaki fiyat aralığına göre ölçer.",
+        "kullanim_aciklamasi": "%K çizgisi %D çizgisini yukarıdan aşağıya keserse satış, aşağıdan yukarıya keserse alış sinyali verir.",
+        "indikator_ciftleri": "Stochastic + RSI"
+        }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Williams %R",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Williams %R göstergesi, fiyatın aşırı alım ve aşırı satım seviyelerini belirler.",
+        "kullanim_aciklamasi": "Williams %R değeri -20'nin altındaysa aşırı alım, -80'in altındaysa aşırı satım olarak değerlendirilir.",
+        "indikator_ciftleri": "Williams %R + RSI"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Awesome Oscillator With Signal",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Awesome Oscillator (AO), iki farklı periyottaki basit hareketli ortalamalar arasındaki farkı ölçerek fiyat momentumunu belirler. Sinyal çizgisiyle birlikte kullanılarak daha detaylı analiz yapılabilir.",
+        "kullanim_aciklamasi": "AO, sıfır çizgisini yukarı keserse alış, aşağı keserse satış sinyali oluşturur. Sinyal çizgisi kesişimlerinde momentumun değişimi gözlemlenir.",
+        "indikator_ciftleri": "Awesome Oscillator + MACD"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "TSI",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "TSI (True Strength Index), fiyat momentumunu ölçen ve uzun vadeli trendin gücünü belirlemek için kullanılan bir indikatördür.",
+        "kullanim_aciklamasi": "TSI, sinyal hattını yukarıdan aşağı keserse satış, aşağıdan yukarı keserse alış sinyali verir. Sıfır çizgisi kesişimleri trend gücünü belirlemek için kullanılır.",
+        "indikator_ciftleri": "TSI + RSI"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "PPO",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "PPO (Percentage Price Oscillator), iki farklı periyottaki üstel hareketli ortalamalar (EMA) arasındaki yüzdesel farkı gösteren bir momentum indikatörüdür.",
+        "kullanim_aciklamasi": "PPO sinyal hattını aşağıdan yukarı keserse alış, yukarıdan aşağı keserse satış sinyali verir. Histogram, momentum gücünü değerlendirmek için kullanılır.",
+        "indikator_ciftleri": "PPO + MACD"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "ROC",
+        "kutuphane": "ta",
+        
+        "aktif_mi": false,
+        "aciklama": "ROC (Rate of Change), fiyat değişim oranını yüzdesel olarak hesaplayan bir momentum göstergesidir. Belirli bir dönemdeki fiyat değişimini ölçerek trend gücünü değerlendirmeye yardımcı olur.",
+        "kullanim_aciklamasi": "ROC pozitif olduğunda yükseliş trendini, negatif olduğunda ise düşüş trendini gösterir. Fiyat yükselirken ROC düşerse trend zayıflıyor olabilir.",
+        "indikator_ciftleri": "ROC + Momentum"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Momentum",
+        "kutuphane": "ta",
+        
+        "aktif_mi": false,
+        "aciklama": "Momentum göstergesi, fiyatın belirli bir dönemdeki değişim hızını ölçerek piyasanın yönü ve gücünü anlamaya yardımcı olur.",
+        "kullanim_aciklamasi": "Momentum pozitif olduğunda yükseliş eğilimini, negatif olduğunda ise düşüş eğilimini işaret eder. Momentum değerindeki artış trendin gücünü gösterirken, azalış trend zayıflığını ifade edebilir.",
+        "indikator_ciftleri": "Momentum + Volume"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "De Marker",
+        "kutuphane": "ta",
+        
+        "aktif_mi": false,
+        "aciklama": "De Marker göstergesi, fiyat hareketlerinin yüksek ve düşük seviyelerini analiz ederek piyasanın yönü ve gücü hakkında bilgi sağlar.",
+        "kullanim_aciklamasi": "De Marker değeri 0.7’nin üzerinde olduğunda aşırı alım bölgesini, 0.3’ün altında olduğunda aşırı satım bölgesini gösterir. Değerler bu bölgelerdeyken trend dönüşü ihtimali artabilir.",
+        "indikator_ciftleri": "De Marker + ADX"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "OBV",
+        "kutuphane": "ta",
+        
+        "aktif_mi": false,
+        "aciklama": "On-Balance Volume (OBV), işlem hacmini fiyat hareketleriyle birleştirerek momentum ve trend değişimlerini analiz eder.",
+        "kullanim_aciklamasi": "OBV, fiyat yukarı hareket ettiğinde işlem hacmini toplar, aşağı hareket ettiğinde çıkarır. OBV yükselirken fiyat da yükseliyorsa trend güçlüdür.",
+        "indikator_ciftleri": "OBV + RSI"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "VWAP",
+        "kutuphane": "ta",
+        
+        "aktif_mi": false,
+        "aciklama": "Volume Weighted Average Price (VWAP), fiyatın işlem hacmi ağırlıklı ortalamasını gösterir ve özellikle günlük fiyat hareketlerini anlamak için kullanılır.",
+        "kullanim_aciklamasi": "VWAP, fiyatın üzerinde olduğunda düşüş, altında olduğunda yükseliş baskısının olduğunu gösterebilir. Gün içi ticarette önemli bir destek ve direnç seviyesi olarak kullanılır.",
+        "indikator_ciftleri": "VWAP + Bollinger Bands"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "CMF",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Chaikin Money Flow (CMF), fiyat ve hacim arasındaki ilişkiyi ölçerek bir varlığın alım veya satım baskısını analiz eder.",
+        "kullanim_aciklamasi": "CMF değeri pozitifse piyasada alım baskısı, negatifse satış baskısı olduğunu gösterir. +0.1’in üzeri alım, -0.1’in altı satış sinyali olarak yorumlanabilir.",
+        "indikator_ciftleri": "CMF + ADX"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "EMA",
+        "kutuphane": "ta",
+
+        "aktif_mi": true,
+        "aciklama": "Exponential Moving Average (EMA), fiyatın belirli bir süre içerisindeki ağırlıklı ortalamasını hesaplar ve yakın zaman verilerine daha fazla ağırlık verir.",
+        "kullanim_aciklamasi": "EMA, trend yönünü belirlemek ve alım-satım kararlarını desteklemek için kullanılır. Fiyat EMA'nın üzerindeyse yükseliş trendi, altındaysa düşüş trendi olabilir.",
+        "indikator_ciftleri": "EMA + MACD"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "ADX & DI",
+        "kutuphane": "ta",
+        
+        "aktif_mi": false,
+        "aciklama": "Average Directional Index (ADX), bir trendin gücünü ölçer. Pozitif ve negatif yönlü hareketleri belirlemek için +DI ve -DI değerlerini kullanır.",
+        "kullanim_aciklamasi": "ADX 25'in üzerindeyse trend güçlüdür. +DI, -DI'yi yukarı keserse alım, tam tersi durumda satış sinyali oluşabilir.",
+        "indikator_ciftleri": "ADX + RSI"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "SAR",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Parabolic SAR  (Parabolic Stop and Reverse), trendin yönünü ve olası dönüş noktalarını belirlemek için kullanılan bir göstergedir.",
+        "kullanim_aciklamasi": "SAR değeri fiyatın altında olduğunda yükseliş, fiyatın üzerinde olduğunda düşüş trendi sinyali verir.",
+        "indikator_ciftleri": "SAR + EMA"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "MACD",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Moving Average Convergence Divergence (MACD), iki üstel hareketli ortalama arasındaki farkı ve bu farkın bir sinyal hattıyla ilişkisini ölçer.",
+        "kullanim_aciklamasi": "MACD çizgisi sinyal hattını yukarı keserse alım, aşağı keserse satış sinyali oluşur. Histogramın pozitiften negatife geçişi momentum kaybını işaret eder.",
+        "indikator_ciftleri": "MACD + RSI"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Vidya",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "VIDYA (Variable Index Dynamic Average), hareketli ortalama hesaplamalarında volatiliteyi dikkate alan dinamik bir göstergedir.",
+        "kullanim_aciklamasi": "VIDYA, piyasanın volatilitesine göre adapte olur. Yüksek volatilitede daha hızlı, düşük volatilitede daha yavaş tepki verir.",
+        "indikator_ciftleri": "VIDYA + Bollinger Bands"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Bollinger Bands",
+        "kutuphane": "ta",
+
+        "aktif_mi": true,
+        "aciklama": "Bollinger Bands, fiyatın hareketli ortalamasına göre yukarı ve aşağı bantlar oluşturur. Bu bantlar volatiliteyi ölçer.",
+        "kullanim_aciklamasi": "Fiyat üst banda dokunduğunda aşırı alım, alt banda dokunduğunda aşırı satım olabilir.",
+        "indikator_ciftleri": "Bollinger Bands + RSI"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "ATR RMA",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Average True Range (ATR), fiyatın volatilitesini ölçmek için kullanılan bir göstergedir.",
+        "kullanim_aciklamasi": "ATR, volatilitenin yüksek olduğu dönemlerde daha yüksek değerler gösterir. Stop-loss ve hedef seviyeleri belirlemek için kullanılabilir.",
+        "indikator_ciftleri": "ATR + SAR"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Ulcer Index",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Ulcer Index, fiyatların geri çekilme oranını ölçer ve risk yönetimi için kullanılır.",
+        "kullanim_aciklamasi": "Daha düşük Ulcer Index, daha az riskli bir piyasa anlamına gelir.",
+        "indikator_ciftleri": "Ulcer Index + ATR"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Donchian Channel",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Donchian Channel, belirli bir dönem boyunca fiyatın en yüksek ve en düşük seviyelerini gösterir.",
+        "kullanim_aciklamasi": "Fiyat üst bandı geçtiğinde alım, alt bandı geçtiğinde satış sinyali oluşabilir.",
+        "indikator_ciftleri": "Donchian Channel + RSI"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Choppiness Index",
+        "kutuphane": "ta",
+
+        "aktif_mi": false,
+        "aciklama": "Choppiness Index, piyasadaki trendin gücünü ölçer. Düşük değerler trendin güçlü olduğunu, yüksek değerler ise yatay hareketi gösterir.",
+        "kullanim_aciklamasi": "Değer 38'in altında ise trend güçlüdür, 61'in üzerindeyse piyasa yataydır.",
+        "indikator_ciftleri": "Choppiness Index + ADX"
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Anlık Fiyat",
+        "kutuphane": "custom",
+
+        "aktif_mi": true,
+        "aciklama": "Anlık Fiyat Değeri",
+        "kullanim_aciklamasi": "anlık fiyat ya da tanımlanan mum'un kapanış değeri.",
+        "indikator_ciftleri": ""
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Ortalama Alış Fiyatı",
+        "kutuphane": "custom",
+
+        "aktif_mi": true,
+        "aciklama": "Alışların Ortalaması",
+        "kullanim_aciklamasi": "anlık fiyat ya da tanımlanan mum'un kapanış değeri.",
+        "indikator_ciftleri": ""
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Son Alış Fiyatı",
+        "kutuphane": "custom",
+
+        "aktif_mi": true,
+        "aciklama": "Sadece Son Alış Fiyatı.",
+        "kullanim_aciklamasi": "anlık fiyat ya da tanımlanan mum'un kapanış değeri.",
+        "indikator_ciftleri": ""
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Önceki Mum Kapanışı",
+        "kutuphane": "custom",
+
+        "aktif_mi": true,
+        "aciklama": "Anlık kapanış ya da 'n' parametresiyle belirtildiği kadar önceki mum'un kapanış değeri.",
+        "kullanim_aciklamasi": "anlık fiyat ya da tanımlanan mum'un kapanış değeri.",
+        "indikator_ciftleri": ""
+    }
+    },
+    {
+    "model": "indikatorler.indikatorler",
+    "fields": {
+        "adi": "Sabit Değer",
+        "kutuphane": "custom",
+
+        "aktif_mi": true,
+        "aciklama": "Belirlenen herhangi bir sabit değer.",
+        "kullanim_aciklamasi": " Karşılaştırmalarda taraf olması için tanımlanır.",
+        "indikator_ciftleri": ""
+    }
+    }
+
+]
